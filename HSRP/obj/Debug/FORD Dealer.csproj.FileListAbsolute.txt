@@ -1,0 +1,12 @@
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\bin\HSRP.XmlSerializers.dll
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\HSRP.dll.config
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\HSRP.dll
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\HSRP.pdb
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\BarcodeLib.Barcode.ASP.NET.dll
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\DataProvider.dll
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\RestSharp.dll
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\bin\DataProvider.pdb
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\obj\Debug\FORD Dealer.csprojResolveAssemblyReference.cache
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\obj\Debug\HSRP.dll.licenses
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\obj\Debug\HSRP.dll
+E:\Amit\Data_Code\PROJECT OEM\Ford Dealer - Final\HSRP\obj\Debug\HSRP.pdb

@@ -1,0 +1,273 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MainNew.Master.cs" Inherits="HSRP.MainNew" EnableViewState="true" %>
+<%@ Register Assembly="ComponentArt.Web.UI" Namespace="ComponentArt.Web.UI" TagPrefix="ComponentArt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="Scripts/Dashboard/publish.min.css" rel="stylesheet" />
+    <link href="css/gridStyle.css" rel="stylesheet" type="text/css" />
+    <link href="css/calendarStyle.css" rel="stylesheet" type="text/css" />
+    <%--<link href="windowfiles/dhtmlwindow.css" rel="stylesheet" type="text/css" />
+    <script src="windowfiles/dhtmlwindow.js" type="text/javascript"></script>--%>
+    <%--<link href="css/button.css" rel="stylesheet" />--%>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" />
+    <link href="netdna-bootstrapcdn-com/font-awesome/3-2-1/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,700" rel="stylesheet" />
+    <style>
+        /*.container{
+            z-index:999;
+            position:relative;
+        }*/
+        #breadcrumbs {
+            display: none;
+        }
+
+        th {
+            text-align: center;
+        }
+        .alert{
+            color:red;
+        }
+
+         .header-bluebg{
+            height:60px;
+        }
+        .top-header marquee{
+            margin-top:6px !important;
+        }
+
+    </style>
+    <%--<asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>--%>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <div class="iparys_inherited">
+            <div class="section">
+                <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+                <div class="utilityContainer1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="top-header">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="header-bluebg" >
+
+                                                     <asp:Label runat="server" ID="Label1" Text="Dealer Support Numbers: 9205180518<span> | </span>9205580558" ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;  float:right;position:relative;right:11px;"  Visible="true"  ></asp:Label> 
+                                             
+                                                     <asp:Label runat="server" ID="msg" Text="Name of the company has changed from Utsav Safety Systems Pvt. Ltd. to Rosmerta Safety Systems Pvt. Ltd." ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
+                                 <a style="color:White" href="../Data/ROC_ NAME_ CHANE_CERTIFCATE.pdf" >Download</a> 
+
+                                             
+
+                                               <br />
+  <marquee behavior="alternate" direction="left" onmouseover="this.stop();" onmouseout="this.start();"><asp:Label runat="server" ID="Label2" Text="For vahan related issues please check Tab Vahan Status. For update of Regno/ChassisNo/Engine is avilable in tab Vahan Status" ForeColor="White" style="color: White;font-size: 18px;font-weight: bold;" Visible="true" ></asp:Label></marquee>
+                                            <%--    <asp:Label runat="server" ID="Label2" Text="For vahan related issues please check Tab Vahan Status. For update of Regno/ChassisNo/Engine is avilable in tab Vahan Status" ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
+                                                <asp:Label runat="server" ID="Label1" Text="Dealer Support Numbers: 9205180518<span> | </span>9205580558" ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;  float:right;position:relative;right:11px;"  Visible="true"  ></asp:Label> 
+                                           
+                                                 <br />
+                                             <asp:Label runat="server" ID="msg" Text="Your OTP Emailid is " ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
+                                                <asp:Label runat="server" ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ID="lblEmail"></asp:Label>
+                                                   <asp:Label runat="server" ID="Label3" Text=" and Mobile no is " ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
+                                                <asp:Label runat="server" ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ID="lblmobile"  ></asp:Label>
+                                                
+                                                <asp:Label runat="server" ID="Label4" Text=" If you want to update  " ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
+                                                <a id="UpdateL" style="color: White;font-size: 14px;font-weight: bold;" Visible="true"  runat="server"    href="/Transaction/UpdateGSTIN.aspx" >click Here</a>--%>
+
+                                             
+  
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end of class col-md-12-->
+                                            <div class="col-md-4">
+                                                <figure class="logo">
+                                                    <a href="../LiveReports/LiveTracking.aspx">
+                                                        <img class="" src="../content/dam/doitassets/eesl/images/logo-en-main.png" alt="logo" width="250">
+                                                    </a>
+                                                     <span id="spkubota" runat="server"><a href="../LiveReports/LiveTracking.aspx">
+                                                        <img src="../content/dam/doitassets/eesl/images/KubotaLogo.png" width="200" alt="logo" />
+                                                    </a></span>
+                                                </figure>
+                                                   
+                                            </div>
+                                     <div class="col-md-4">
+                                          <h4> <a href="../Transaction/ViewSearchHR_Engingno.aspx">
+                                                         <div style="display: inline-block;font-weight:bold; transform: rotateZ(-30deg);">&#9906;</div>
+                                                         Search </a></h4>  
+                                         </div> 
+                                           
+                                            <div class="col-md-6" style="margin-top: 20px;">
+                                                <span class="whiteh">Welcome </span>
+                                                <asp:Label ID="lblUser" runat="server" /><br/>
+                                                  <asp:Label ID="lbldatetime" runat="server"></asp:Label> 
+                                               
+                                                 
+                                                &nbsp;  &nbsp;  &nbsp;  <asp:LinkButton Style="background-color: transparent; float: right;" runat="server" CausesValidation="false" CssClass="button_logout" ID="buttonDealerProfile" Text="Dealer Profile" OnClick="buttonDealerProfile_Click" />
+                                         
+                                                 </div>
+                                            <div class="col-md-10" style="margin-top: 23px;">
+                                                 <asp:LinkButton Style="background-color: transparent; float: right;" runat="server" CausesValidation="false" CssClass="button_logout" ID="buttonLogout" Text="Logout" OnClick="buttonLogout_Click" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <div class="iparys_inherited">
+            <div class="section">
+                <div class="footer-outer" style="bottom: 0; position: fixed">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <footer id="footer">
+                                    <div class="footerRow">
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                           <%-- <ul class='linklist'>
+                                                <li><a href="#" target="_self">USS Policies</a></li>
+                                                <li><a href="#" target="_self">Feedback</a></li>
+                                                <li><a href="#" target="_self">Sitemap</a></li>
+                                                <li><a href="#" target="_self">Help</a></li>
+                                            </ul>--%>
+                                            <%--<span class="main-hdg1">Related Links:</span><br>
+                                            <ul id="extlink">
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        var url = "/bin/nexteon/eesl/menuData";
+                                                        $.ajax({
+                                                            url: url, type: "POST", datatype: "application/json", data: { "menuId": "10" }, success: function (result) {
+                                                                if (jQuery.isEmptyObject(result)) {
+                                                                    $(".menuData").html("<h2 style='text-align:center;color: red;'>UNDER MODIFICATION</h2>");
+                                                                } else {
+                                                                    var html = "";
+                                                                    for (var key in result) {
+                                                                        var record = result[key];
+                                                                        var sno = parseInt(key) + 1;
+                                                                        html += "<li>" +
+                                                                            "<a href='" + record.linkUrl + "' target='_blank' rel='noopener noreferrer'>" + record.subject + "</a>" +
+                                                                            "</li>";
+                                                                    }
+                                                                    $("#extlink").append(html);
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+                                            </ul>--%>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-right">
+                                            <%--<ul class="socialLink">
+                                                <ul class='socialLink'>
+                                                    <li>
+                                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                    </li>
+                                                    <li>
+                                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                    </li>
+                                                    <li>
+                                                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                                                    </li>
+                                                    <li>
+                                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                                    </li>
+                                                </ul>
+                                            </ul>
+                                            <div class="pull-right1">
+                                                <span class="counter" id="counter">
+                                                    <span>
+                                                        <a href="#" target="_blank" rel="noopener noreferrer">
+                                                            <!--  <em>Visitor No.</em> <img src="http://www.cutercounter.com/hit.php?id=gaoxac&nd=8&style=64" border="0" alt="hit counter"> -->
+                                                        </a>
+                                                    </span>
+                                                </span>
+                                            </div>--%>
+                                        </div>
+                                       <%-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                            <div class="footerLink">
+                                                <ul>
+                                                    <li>
+                                                        <div class="baseRichText">
+                                                            <p>ROSMERTA SAFETY SYSTEMS PVT. LTD.</p>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>--%>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .gandhi1 {
+                        position: absolute;
+                        bottom: 0;
+                        z-index: 999;
+                        width: 140px;
+                        right: 300px;
+                </style>
+                <%--<div class="contactus_button">
+                    <a href="javascript:;" data-toggle="modal" data-target="#helpdesk-model" title="Helpdesk (Working days from 10 AM to 6 PM)">
+                        <img src="content/dam/doitassets/eesl/images/landline.png" alt="">
+                        <div class="contactus_button_text">HELPDESK</div>
+                    </a>
+                </div>
+                <!-- Modal -->
+                <div id="helpdesk-model" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">EESL Helpdesk</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><img src="content/dam/doitassets/eesl/images/phone-icon.jpg" alt=""> <span>EESL Corporate Office: 011- 45801260</span></p>
+                                <p><img src="content/dam/doitassets/eesl/images/phone-icon.jpg" alt=""> <span>Toll- Free no. for complaints:  1800 180 3580</span></p>
+                                <p><img src="content/dam/doitassets/eesl/images/email-icon.jpg" alt=""> <span>helpline@eesl.co.in</span></p>
+                                <p><img src="content/dam/doitassets/eesl/images/logde-comp-icon.jpg" alt=""> <span>Lodge a Complaint</span>  <span class="anclink_2"><a href="raj.support_subdomain/index.html" target="_blank">Rajasthan</a></span>  <span class="anclink_2"><a href="support_subdomain/index.html" target="_blank">Other States</a></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>--%>
+            </div>
+        </div>
+        <script src="../Scripts/Dashboard/plugins/jquery-1.12.1.js"></script>
+        <script src="../Scripts/Dashboard/plugins/bootstrap.js"></script>
+        <script src="../Scripts/Dashboard/plugins/jquery.dataTables.min.js"></script>
+        <script src="../Scripts/Dashboard/plugins/dataTables.bootstrap.min.js"></script>
+        <script src="../Scripts/Dashboard/plugins/jquery.easings.js"></script>
+        <script src="../Scripts/Dashboard/plugins/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../Scripts/Dashboard/plugins/owl.carousel.js"></script>
+        <script src="../Scripts/Dashboard/plugins/waypoints.js"></script>
+        <script src="../Scripts/Dashboard/plugins/counterup.js"></script>
+        <script src="../Scripts/Dashboard/screen-reader/fontselector.js"></script>
+        <script src="../Scripts/Dashboard/screen-reader/colorChanger.js"></script>
+        <script src="../Scripts/Dashboard/screen-reader/color-selection.js"></script>
+        <script src="../Scripts/Dashboard/readyscripts.js"></script>
+        <script src="../Scripts/Dashboard/nav.js"></script>
+        <script src="../Scripts/Dashboard/steller.js"></script>
+        <script src="../Scripts/Dashboard/jquery.vticker-min.js"></script>
+        <script src="../Scripts/Dashboard/main.js"></script>
+        <script src="../Scripts/Dashboard/herobanner.js"></script>
+        <script src="../Scripts/Dashboard/plugins/highcharts.js"></script>
+        <script src="../Scripts/Dashboard/allTransactionsCharts.js"></script>
+        <script src="../Scripts/Dashboard/jquery.picEyes.js"></script>
+    </form>
+</body>
+</html>

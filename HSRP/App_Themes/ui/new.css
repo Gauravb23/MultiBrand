@@ -1,0 +1,544 @@
+@charset "utf-8";
+/* CSS Document */
+
+ .desc {
+	padding:20px 10px 10px 10px;
+	height:70px
+}
+.desc img {
+	margin-right:20px;
+	margin-top:-10px;
+	border:1px solid #CCC;
+	padding:2px;
+}
+.graph {
+	text-align:center;
+	padding:15px;
+	width:400px;
+	background:#fff;
+	margin:15px auto 15px auto;
+	border:1px solid #CCC
+}
+#dock {
+	display: block;
+	margin: 0px auto;
+	top: 0px;
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	margin-top:200px;
+}
+#dock ul {
+	margin: 0px -30px;
+	padding: 0px;
+	list-style: none;
+	height: 310px;
+	line-height: 310px;
+	text-align: center;
+	white-space: nowrap;
+	display: inline-block;
+	background: url("../../App_Themes/Images/dock-middle.png") bottom left repeat-x;
+}
+#dock ul:before,  #dock ul:after {
+	content: "";
+	color: transparent;
+	display: inline-block;
+	width: 0px;
+	padding-top: 90px;
+	margin-top: -90px;
+	vertical-align: bottom;
+}
+#dock ul:before {
+	padding-left: 22px;
+	margin-left: -22px;
+	background: url("../../App_Themes/Images/dock-left.png") bottom left repeat-x;
+}
+#dock ul:after {
+	padding-right: 22px;
+	margin-right: -22px;
+	background: url("../../App_Themes/Images/dock-right.png") bottom right repeat-x;
+}
+/* Dock Icons */
+	#dock li {
+	display: inline-block;
+	vertical-align: bottom;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	overflow: visible;
+}
+#dock li.seperator {
+	background: url("../../App_Themes/Images/dock-seperator.png") bottom left no-repeat;
+	width: 20px;
+	height: 132px;
+	position: relative;
+	vertical-align: bottom;
+	margin-bottom:20px;
+}
+#dock li a {
+	height: 140px;
+	width: 80px;
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	vertical-align: bottom;
+	text-decoration: none;
+	color: black;
+	white-space: normal;
+	letter-spacing: normal;
+	line-height: 1.3em;
+	text-align: center;
+	font-family: Arial;
+	padding-top: 20px;
+	margin-bottom: 5px;
+	overflow: visible;
+}
+body.no_js #dock li a:hover {
+	width: 80px !important;
+}
+#dock li a span {
+	position: relative;
+	line-height: 1.3em;
+	display: none;
+	text-align: center;
+	font-weight: bold;
+	font-size: 80%;
+	padding: 4px 5px;
+	background-color: #EEE;
+	opacity: 0.4;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+	margin: 0px auto;
+	top: -40px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+#dock li a:hover span {
+	display: inline-block;
+}
+#dock li a:hover span:after {
+	display: block;
+	height: 9px;
+	color: transparent;
+	background: transparent url("img/span.png") center top no-repeat;
+	position: absolute;
+	content: "";
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	margin-left: -16px;
+}
+#dock li a img {
+	height: auto;
+	width: 100%;
+	position: absolute;
+	left: 0px;
+	bottom: 10px;
+	text-align: center;
+	border: 0px none;
+	margin-bottom: 15px;
+	box-reflect: below 1px gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255, 255, 255, 0.1)));
+	-webkit-box-reflect: below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255, 255, 255, 0.1)));
+	-moz-box-reflect: below 1px -moz-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255, 255, 255, 0.1)));
+}
+/* 
+	Required Styles
+*/
+#aToolTip {
+	position: absolute;
+	display: none;
+	z-index: 50000;
+}
+#aToolTip .aToolTipContent {
+	position:relative;
+	margin:0;
+	padding:0;
+}
+/* 
+	END: Required Styles
+*/
+/**
+	Default Theme
+*/
+.defaultTheme {
+	border:0px solid #444;
+	background:url(../../images/tooltip.png) no-repeat bottom;
+	width:410px;
+	color:#fff;
+	margin:0;
+	margin-left:-64px;
+	padding:7px 12px;
+	padding-top:20px;
+	padding-bottom:15px;
+}
+.defaultTheme div {
+	border:1px solid #666;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	background:#FFF;
+	color:#666;
+}
+.dddd {
+	display:block;
+	background:#F00;
+	height:15px;
+	width:410px;
+}
+.defaultTheme #aToolTipCloseBtn {
+	display:block;
+	height:25px;
+	width:68px;
+	background:url(../../images/close.png) no-repeat;
+	text-indent:-9999px;
+	outline:none;
+	position:absolute;
+	top:-10px;
+	right:00px;
+	margin:0px;
+	padding:0px;
+}
+/*tabs for ui tabs*/
+.usual {
+	background:#fff;
+	color:#111;
+	padding:0px 00px;
+	width:558px;
+	border:0px solid #222;
+	margin:0px auto;
+}
+.usual li {
+	list-style:none;
+	float:left;
+	width:186px
+}
+.usual ul a {
+	display:block;
+	text-align:center;
+	padding:6px 10px;
+	text-decoration:none!important;
+	margin:1px;
+	margin-left:0;
+	font:16px;
+	color:#FFF;
+	background:#898989;
+}
+.usual ul a:hover {
+	color:#898989;
+	background:#111;
+}
+.usual ul a.selected {
+	margin-bottom:0;
+	color:#000;
+	background:#E6E6E6;
+	border-bottom:1px solid #E6E6E6;
+	cursor:default;
+}
+.usual .maindiv {
+	padding:5px;
+ *padding-top:3px;
+ *margin-top:-15px;
+	clear:left;
+	background:#E6E6E6;
+	font:12pt;
+}
+.usual div a {
+	color:#000;
+	font-weight:bold;
+}
+#usual2 {
+	background:#E6E6E6;
+	border:1px solid #E6E6E6;
+}
+#usual2 a {
+	background:#222;
+}
+#usual2 a:hover {
+	background:#000;
+}
+#usual2 a.selected {
+	background:snow;
+}
+#tabs3 {
+	background:#FF9;
+}
+.nleft {
+	width:50%;
+	float:left
+}
+.nleft .lvl {
+	padding-right:20px;
+	padding-left:20px
+}
+.nright {
+	width:105px;
+	float:right;
+	text-align:right!important
+}
+.smallboxes {
+	background:url(../../images/small_boxes.png) no-repeat center;
+	width:32px;
+	height:24px;
+	text-align:center;
+	font-size:10px;
+	line-height:24px
+}
+.timebutton a {
+	display:block;
+	width:30px;
+	line-height:24px;
+	background:url(../../images/button_bg.png) no-repeat;
+	text-align:center;
+	text-decoration:none;
+	color:#999;
+	float:left;
+	margin-left:5px
+}
+.timebutton a:hover {
+	display:block;
+	width:30px;
+	line-height:24px;
+	background:url(../../images/button_bg_hvr.png) no-repeat;
+	text-align:center;
+	text-decoration:none;
+	color:#fff;
+	float:left;
+	margin-left:5px
+}
+.box_container {
+	padding-top:10px;
+}
+.boxl {
+	width:270px;
+	min-height:150px;
+	margin-right:6px;
+	float:left;
+	background:url(../../images/box_rep_sml.png)
+}
+.boxr {
+	width:270px;
+	min-height:150px;
+	float:left;
+	background:url(../../images/box_rep_sml.png)
+}
+.heading_box {
+	background:url(../../images/heading.png) no-repeat;
+	height:24px;
+	color:#FFF;
+	font-size:12px;
+	padding:15px 15px;
+	font-weight:bold;
+}
+.box_text_desc {
+	padding:15px 15px;
+}
+.centeralligned {
+	text-align:center
+}
+.boxfull {
+	width:545px;
+	background:url(../../images/box_rep_full.png)
+}
+.callanalysis_main {
+	width:334px;
+	margin-right:20px;
+	float:left;
+	border:1px solid #CCC;
+}
+.callanalysis_right {
+	width:145px;
+	float:right;
+	border:1px solid #CCC;
+}
+.callanalysis_right .Excellent {
+	display:block;
+	line-height:36px;
+	background:url(../../images/temp1.png) no-repeat;
+	padding-left:50px;
+	margin-top:5px
+}
+.callanalysis_right .MildTension {
+	display:block;
+	line-height:36px;
+	background:url(../../images/temp2.png) no-repeat;
+	padding-left:50px;
+	margin-top:5px
+}
+.callanalysis_right .Outburst {
+	display:block;
+	line-height:36px;
+	background:url(../../images/temp3.png) no-repeat;
+	padding-left:50px;
+	margin-top:5px
+}
+.right_control {
+	width:300px;
+	float:right;
+}
+.right_control_before {
+	width:200px;
+	float:left;
+	height:24px
+}
+.right_control .selectbox_n {
+	background:url(../../images/select_n.png) center no-repeat;
+	margin-left:30px;
+	width:157px;
+	padding:0px;
+	height:26px
+}
+.right_control .selectbox_n .newselect {
+	border:1px solid #fff;
+	height:26px;
+	width:157px;
+	background:none;
+	padding:5px 2px
+}
+.float_left {
+	float:left
+}
+.float_right {
+	float:right
+}
+.leftpanel_supervisior {
+	background:#E6E6E6;
+	margin-right:10px
+}
+.leftpanel_supervisior .div1 {
+	width:170px;
+	text-align:center;
+	float:left;
+}
+.leftpanel_supervisior .div2 {
+	width:200px;
+	text-align:center;
+	float:left;
+}
+.leftpanel_supervisior .div3 {
+	width:150px;
+	text-align:center;
+	float:left;
+}
+.leftpanel_supervisior .div4 {
+	width:120px;
+	text-align:center;
+	float:left;
+}
+.brdr_rght {
+	border-right:1px solid #999999;
+}
+.td_l {
+	background:url(../../images/td_l.png) right no-repeat;
+}
+.td_rep {
+	background:url(../../images/td_rep.png);
+}
+.td_r {
+	background:url(../../images/td_r.png) left no-repeat;
+}
+.text_back {
+	background:url(../../images/text_bg.png) no-repeat center;
+	text-align:center;
+	font-size:9px;
+	width:40px;
+	height:42px
+}
+.supervisor_main {
+	background:#e6e6e6;
+	padding:5px;
+	margin-right:10px;
+}
+.supervisor_main .agentheader {
+	width:80px;
+	text-align:center;
+	float:left;
+	border-right:1px solid #CCC;
+	min-height:70px
+}
+.supervisor_main .currentcall {
+	width:200px;
+	text-align:center;
+	float:left;
+	border-right:1px solid #ccc;
+	min-height:70px
+}
+.supervisor_main .lasthour {
+	width:160px;
+	text-align:center;
+	float:left;
+	border-right:1px solid #ccc;
+	min-height:70px
+}
+.supervisor_main .last8hours {
+	width:120px;
+	text-align:center;
+	float:left;
+	min-height:70px
+}
+.supervisor_main .last8hours .cols {
+	display:inline;
+	font-size:10px;
+	padding:2px;
+	margin:4px
+}
+.row_div {
+	height:40px;
+	padding-bottom:10px
+}
+.supervisor_main .row_div .agentheader {
+	width:80px;
+	text-align:center;
+	float:left;
+	border-right:1px solid #CCC;
+	min-height:40px;
+	background:url(../../images/td_l.png) no-repeat right;
+	line-height:40px;
+}
+.supervisor_main .row_div .currentcall {
+	width:200px;
+	text-align:center;
+	float:left;
+	border-right:1px solid #ccc;
+	min-height:40px;
+	background:url(../../images/td_rep.png) repeat-x
+}
+.supervisor_main .row_div .lasthour {
+	width:160px;
+	text-align:center;
+	float:left;
+	border-right:1px solid #ccc;
+	min-height:40px;
+	background:url(../../images/td_rep.png) repeat-x
+}
+.supervisor_main .row_div .last8hours {
+	width:120px;
+	text-align:center;
+	float:left;
+	min-height:40px;
+	background:url(../../images/td_r.png) no-repeat left
+}
+.supervisor_main .row_div ul {
+	padding:0;
+	margin:0;
+	list-style:none;
+	text-align:center;
+	display:block;
+	width:100%;
+	padding-top:2px;
+	padding-left:10px
+}
+.supervisor_main .row_div ul li {
+	float:left;
+	list-style:none;
+	margin-right:2px;
+}
+.supervisor_main .row_div ul li span {
+	background:url(../../images/text_bg.png) center no-repeat;
+	width:42px;
+	text-align:center;
+	line-height:32px;
+	padding:3px;
+	font-size:10px;
+	display:block
+}

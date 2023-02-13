@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ecomexpress-objects version="1.0">
+<object pk="1" model="awb">
+<field type="BigIntegerField" name="awb_number">2970371918</field>
+<field type="CharField" name="orderid">UP2223SPDLR00092</field>
+<field type="FloatField" name="actual_weight">1</field>
+<field type="CharField" name="origin">LUCKNOW-LKP</field>
+<field type="CharField" name="destination">HARDOI-HDI</field>
+<field type="CharField" name="current_location_name">HARDOI-HDI</field>
+<field type="CharField" name="current_location_code">HDI</field>
+<field type="CharField" name="customer">ROSMERTA SAFETY SYSTEMS PRIVATE LIMITED - 314846</field>
+<field type="CharField" name="consignee">SANTRAM GUPTA ENTERPRISES </field>
+<field type="CharField" name="pickupdate">06-Jun-2022</field>
+<field type="CharField" name="status">Delivered / Closed</field>
+<field type="CharField" name="tracking_status">Delivered</field>
+<field type="CharField" name="reason_code">999 - Delivered</field>
+<field type="CharField" name="reason_code_description">Delivered</field>
+<field type="CharField" name="reason_code_number">999</field>
+<field type="CharField" name="receiver">SANTRAMGUPTAENTERPRISES: Android</field>
+<field type="CharField" name="lat">27.4081867</field>
+<field type="CharField" name="long">80.1205550</field>
+<field type="CharField" name="expected_date" >08-Jun-2022</field>
+<field type="CharField" name="last_update_date" >08-Jun-2022</field>
+<field type="CharField" name="last_update_datetime" >08-Jun-2022 17:21</field>
+<field type="CharField" name="delivery_date" >2022-06-08 17:21:50</field>
+<field type="CharField" name="ref_awb" >None</field>
+<field type="CharField" name="rts_shipment" >0</field>
+<field type="CharField" name="system_delivery_update" >2022-06-08 17:21:52</field>
+<field type="CharField" name="rts_system_delivery_status" ></field>
+<field type="CharField" name="rts_reason_code_number"></field>
+<field type="CharField" name="rts_last_update"></field>
+<field type="CharField" name="pincode" >241001</field>
+<field type="CharField" name="city" >HARDOI</field>
+<field type="CharField" name="state" >Uttar Pradesh</field>
+<field type="CharField" name="delivery_pod_image" ></field>
+<field type="CharField" name="delivery_pod_signature" >https://api3.ecomexpress.in//static/lastmile//images/2022/Jun/08/2970371918_80084611_signature.png</field>
+<field type="CharField" name="rev_pickup_signature" ></field>
+<field type="CharField" name="rev_pickup_packed_image" ></field>
+<field type="CharField" name="rev_pickup_open_image" ></field>
+<field name="scans">
+<object pk="1" model="scan_stages">
+<field type="DateTimeField" name="updated_on">08 Jun, 2022, 17:21 </field>
+<field type="CharField" name="status">Shipment delivered</field>
+<field type="CharField" name="reason_code">999 - Delivered</field>
+<field type="CharField" name="reason_code_number">999</field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Subodh Verma - 75968</field>
+</object>
+<object pk="2" model="scan_stages">
+<field type="DateTimeField" name="updated_on">08 Jun, 2022, 16:56 </field>
+<field type="CharField" name="status">Comments:Consignee Called To FE : completed Call Disconnected by : Consignee from sathi v2</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">016</field>
+<field type="CharField" name="scan_status">HOLD</field>
+<field type="CharField" name="call_attempted">true</field>
+<field type="CharField" name="call_duration">26</field>
+<field type="CharField" name="call_log_duration">26</field>
+<field type="CharField" name="call_start_time">2022-06-08 16:56:49</field>
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Subodh Verma - 75968</field>
+</object>
+<object pk="3" model="scan_stages">
+<field type="DateTimeField" name="updated_on">08 Jun, 2022, 10:13 </field>
+<field type="CharField" name="status">Shipment out for delivery, assigned to EmployeeLavishTiwari</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">006</field>
+<field type="CharField" name="scan_status">OUT</field>
+
+
+
+
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Lavish Tiwari - 73843</field>
+</object>
+<object pk="4" model="scan_stages">
+<field type="DateTimeField" name="updated_on">08 Jun, 2022, 08:38 </field>
+<field type="CharField" name="status">Shipment in-scan at DC</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">005</field>
+<field type="CharField" name="scan_status">IN</field>
+
+
+
+
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Lavish Tiwari - 73843</field>
+</object>
+<object pk="5" model="scan_stages">
+<field type="DateTimeField" name="updated_on">08 Jun, 2022, 08:38 </field>
+<field type="CharField" name="status">Shipment in-scan at DC</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">005</field>
+<field type="CharField" name="scan_status">IN</field>
+
+
+
+
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Lavish Tiwari - 73843</field>
+</object>
+<object pk="6" model="scan_stages">
+<field type="DateTimeField" name="updated_on">08 Jun, 2022, 08:33 </field>
+<field type="CharField" name="status">In-Transit</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number"></field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Lavish Tiwari - 73843</field>
+</object>
+<object pk="7" model="scan_stages">
+<field type="DateTimeField" name="updated_on">07 Jun, 2022, 18:11 </field>
+<field type="CharField" name="status">Bag scanned at DC</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">003</field>
+<field type="CharField" name="scan_status">IN</field>
+
+
+
+
+<field type="CharField" name="location">HDI</field>
+<field type="CharField" name="location_city">HARDOI</field>
+<field type="CharField" name="location_type">Service Center</field>
+<field type="CharField" name="city_name">HARDOI</field>
+<field type="CharField" name="Employee">Lavish Tiwari - 73843</field>
+</object>
+<object pk="8" model="scan_stages">
+<field type="DateTimeField" name="updated_on">07 Jun, 2022, 13:59 </field>
+<field type="CharField" name="status">In-Transit</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">003</field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">LKH</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Hub</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">Mohd. Salman Ansari - 78602</field>
+</object>
+<object pk="9" model="scan_stages">
+<field type="DateTimeField" name="updated_on">07 Jun, 2022, 13:59 </field>
+<field type="CharField" name="status">In-Transit</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number"></field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">LKH</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Hub</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">Mohd. Salman Ansari - 78602</field>
+</object>
+<object pk="10" model="scan_stages">
+<field type="DateTimeField" name="updated_on">07 Jun, 2022, 13:59 </field>
+<field type="CharField" name="status">Bag connected from HUB</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">003</field>
+<field type="CharField" name="scan_status">OUT</field>
+
+
+
+
+<field type="CharField" name="location">LKH</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Hub</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">Mohd. Salman Ansari - 78602</field>
+</object>
+<object pk="11" model="scan_stages">
+<field type="DateTimeField" name="updated_on">07 Jun, 2022, 02:42 </field>
+<field type="CharField" name="status">Bag scanned at Hub</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">003</field>
+<field type="CharField" name="scan_status">IN</field>
+
+
+
+
+<field type="CharField" name="location">LKH</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Hub</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">SARVAN  KUMAR - 61169</field>
+</object>
+<object pk="12" model="scan_stages">
+<field type="DateTimeField" name="updated_on">07 Jun, 2022, 02:04 </field>
+<field type="CharField" name="status">Shipment connected to HDI (Bag No. PL37171557)</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">003</field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">LKP</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Processing Centre</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">Vijay Kumar - 102077</field>
+</object>
+<object pk="13" model="scan_stages">
+<field type="DateTimeField" name="updated_on">06 Jun, 2022, 20:59 </field>
+<field type="CharField" name="status">Shipment in-scan</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">002</field>
+<field type="CharField" name="scan_status">IN</field>
+
+
+
+
+<field type="CharField" name="location">LKP</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Processing Centre</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">Afzal . - O339403</field>
+</object>
+<object pk="14" model="scan_stages">
+<field type="DateTimeField" name="updated_on">06 Jun, 2022, 18:29 </field>
+<field type="CharField" name="status">Shipment Picked Up</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">0011</field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">LKP</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Processing Centre</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">Dipanshu  Gupta - O335895</field>
+</object>
+<object pk="15" model="scan_stages">
+<field type="DateTimeField" name="updated_on">06 Jun, 2022, 16:46 </field>
+<field type="CharField" name="status">Soft data uploaded</field>
+<field type="CharField" name="reason_code"> - </field>
+<field type="CharField" name="reason_code_number">001</field>
+<field type="CharField" name="scan_status">HOLD</field>
+
+
+
+
+<field type="CharField" name="location">LKP</field>
+<field type="CharField" name="location_city">LUCKNOW</field>
+<field type="CharField" name="location_type">Processing Centre</field>
+<field type="CharField" name="city_name">LUCKNOW</field>
+<field type="CharField" name="Employee">None</field>
+</object>
+</field>
+</object>
+
+</ecomexpress-objects>
+

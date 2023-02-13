@@ -1,0 +1,12 @@
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\bin\HSRP.XmlSerializers.dll
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\HSRP.dll.config
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\HSRP.dll
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\HSRP.pdb
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\BarcodeLib.Barcode.ASP.NET.dll
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\DataProvider.dll
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\RestSharp.dll
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\bin\DataProvider.pdb
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\obj\Release\SONALIKADealer.csprojResolveAssemblyReference.cache
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\obj\Release\HSRP.dll.licenses
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\obj\Release\HSRP.dll
+E:\Amit\Data_Code\PROJECT OEM\Sonalika\HSRP\obj\Release\HSRP.pdb

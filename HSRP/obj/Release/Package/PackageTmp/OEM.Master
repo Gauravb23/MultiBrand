@@ -1,0 +1,149 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="OEM.master.cs" Inherits="HSRP.OEM" %>
+<%@ Register Assembly="ComponentArt.Web.UI" Namespace="ComponentArt.Web.UI" TagPrefix="ComponentArt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="Scripts/Dashboard/publish.min.css" rel="stylesheet" />
+    <link href="css/calendarStyle.css" rel="stylesheet" type="text/css" />
+    <link href="css/gridStyle.css" rel="stylesheet" type="text/css" />
+    <link href="css/calendarStyle.css" rel="stylesheet" type="text/css" />
+    <link href="windowfiles/dhtmlwindow.css" rel="stylesheet" type="text/css" />
+    <script src="windowfiles/dhtmlwindow.js" type="text/javascript"></script>
+    <link href="css/button.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" />
+    <link href="netdna-bootstrapcdn-com/font-awesome/3-2-1/css/font-awesome.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,700" rel="stylesheet" />
+    <style>
+        #breadcrumbs {
+            display: none;
+        }
+
+        th {
+            text-align: center;
+        }
+        .alert{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <div class="iparys_inherited">
+            <div class="section">
+                <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+                <div class="utilityContainer1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="top-header">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="header-bluebg">
+                                                <div class="guideline">
+                                                    <div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end of class col-md-12-->
+                                            <div class="col-md-3">
+                                                <figure class="logo">
+                                                    <a href="../LiveReports/LiveTracking.aspx">
+                                                        <img class="" src="../content/dam/doitassets/eesl/images/logo-en-main.png" width="300" alt="logo" />
+                                                    </a>
+                                                </figure>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <span id="spkubota" runat="server"><a href="../LiveReports/LiveTracking.aspx">
+                                                        <img src="../content/dam/doitassets/eesl/images/KubotaLogo.png" width="200" alt="logo" />
+                                                    </a></span>
+                                                </div>
+                                            <%--<div class="col-md-1"></div>--%>
+                                            <div class="col-md-3" style="margin-top: 23px;">
+                                                <span class="whiteh">Welcome </span>
+                                                <asp:Label ID="lblUser" runat="server" />
+                                            </div>
+                                            <div class="col-md-2" style="margin-top: 23px;">
+                                                <asp:LinkButton Style="background-color: transparent; float: right;" runat="server" CausesValidation="false" CssClass="button_logout" ID="buttonLogout" Text="Logout" OnClick="buttonLogout_Click" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+     <%--   <div class="iparys_inherited">
+            <div class="section">
+                <div class="footer-outer" style="bottom: 0; position: fixed">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <footer id="footer">
+                                    <div class="footerRow">
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text-right">
+                                            
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                            <div class="footerLink">
+                                                <ul>
+                                                    <li>
+                                                        <div class="baseRichText">
+                                                            <p>UTSAV SAFETY SYSTEMS PVT. LTD.</p>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .gandhi1 {
+                        position: absolute;
+                        bottom: 0;
+                        z-index: 999;
+                        width: 140px;
+                        right: 300px;
+                </style>
+            </div>
+        </div>--%>
+        <script src="Scripts/Dashboard/plugins/jquery-1.12.1.js"></script>
+        <script src="Scripts/Dashboard/plugins/bootstrap.js"></script>
+        <script src="Scripts/Dashboard/plugins/jquery.dataTables.min.js"></script>
+        <script src="Scripts/Dashboard/plugins/dataTables.bootstrap.min.js"></script>
+        <script src="Scripts/Dashboard/plugins/jquery.easings.js"></script>
+        <script src="Scripts/Dashboard/plugins/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="Scripts/Dashboard/plugins/owl.carousel.js"></script>
+        <script src="Scripts/Dashboard/plugins/waypoints.js"></script>
+        <script src="Scripts/Dashboard/plugins/counterup.js"></script>
+        <script src="Scripts/Dashboard/screen-reader/fontselector.js"></script>
+        <script src="Scripts/Dashboard/screen-reader/colorChanger.js"></script>
+        <script src="Scripts/Dashboard/screen-reader/color-selection.js"></script>
+        <script src="Scripts/Dashboard/readyscripts.js"></script>
+        <script src="Scripts/Dashboard/nav.js"></script>
+        <script src="Scripts/Dashboard/steller.js"></script>
+        <script src="Scripts/Dashboard/jquery.vticker-min.js"></script>
+        <script src="Scripts/Dashboard/main.js"></script>
+        <script src="Scripts/Dashboard/herobanner.js"></script>
+        <script src="Scripts/Dashboard/plugins/highcharts.js"></script>
+        <script src="Scripts/Dashboard/allTransactionsCharts.js"></script>
+        <script src="Scripts/Dashboard/jquery.picEyes.js"></script>
+    </form>
+</body>
+</html>

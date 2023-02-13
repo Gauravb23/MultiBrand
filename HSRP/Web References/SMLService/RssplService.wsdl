@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="VinEngineNoValidation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VinNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ENGINENO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VinEngineNoValidationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VinEngineNoValidationResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegNoVinEngineNoHSRPOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RegNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VinNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ENGINENO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OrderDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DeliverDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegNoVinEngineNoHSRPOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegNoVinEngineNoHSRPOrderResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="VinEngineNoValidationSoapIn">
+    <wsdl:part name="parameters" element="tns:VinEngineNoValidation" />
+  </wsdl:message>
+  <wsdl:message name="VinEngineNoValidationSoapOut">
+    <wsdl:part name="parameters" element="tns:VinEngineNoValidationResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegNoVinEngineNoHSRPOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:RegNoVinEngineNoHSRPOrder" />
+  </wsdl:message>
+  <wsdl:message name="RegNoVinEngineNoHSRPOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:RegNoVinEngineNoHSRPOrderResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RssplServiceSoap">
+    <wsdl:operation name="VinEngineNoValidation">
+      <wsdl:input message="tns:VinEngineNoValidationSoapIn" />
+      <wsdl:output message="tns:VinEngineNoValidationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegNoVinEngineNoHSRPOrder">
+      <wsdl:input message="tns:RegNoVinEngineNoHSRPOrderSoapIn" />
+      <wsdl:output message="tns:RegNoVinEngineNoHSRPOrderSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RssplServiceSoap" type="tns:RssplServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VinEngineNoValidation">
+      <soap:operation soapAction="http://tempuri.org/VinEngineNoValidation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegNoVinEngineNoHSRPOrder">
+      <soap:operation soapAction="http://tempuri.org/RegNoVinEngineNoHSRPOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RssplServiceSoap12" type="tns:RssplServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="VinEngineNoValidation">
+      <soap12:operation soapAction="http://tempuri.org/VinEngineNoValidation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegNoVinEngineNoHSRPOrder">
+      <soap12:operation soapAction="http://tempuri.org/RegNoVinEngineNoHSRPOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RssplService">
+    <wsdl:port name="RssplServiceSoap" binding="tns:RssplServiceSoap">
+      <soap:address location="http://125.19.77.151/SMLWebServices/RssplService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RssplServiceSoap12" binding="tns:RssplServiceSoap12">
+      <soap12:address location="http://125.19.77.151/SMLWebServices/RssplService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
