@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Text.RegularExpressions;
+
 namespace HSRP.Transaction
 {
     public partial class AffixAddressUpdate : System.Web.UI.Page
@@ -27,7 +29,7 @@ namespace HSRP.Transaction
             {
                 if (Session["UserType"].ToString() == null)
                 {
-                    Response.Redirect("~/Login.aspx");
+                    Response.Redirect("~/error.html",true);
                 }
                 else
                 {
@@ -36,7 +38,7 @@ namespace HSRP.Transaction
             }
             catch
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/error.html",true);
             }
             if (!Page.IsPostBack)
             {
@@ -101,7 +103,8 @@ namespace HSRP.Transaction
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if(ddlstate.SelectedValue == "0")
+            string specialCharCE = @" \|{}%_!'#$%&'()+,./:;<=>?@<>@^£§€";
+            if (ddlstate.SelectedValue == "0")
             {
                 lblerrmsg.Visible = true;
                 lblerrmsg.Text = "Please select state!";
@@ -123,8 +126,30 @@ namespace HSRP.Transaction
                 lblerrmsg.Text = "Please enter city!";
                 lblsucmsg.Visible = false;
                 return;
-            }     
-            
+            }
+            string strCity = txtCity.Text.Trim();
+            if (txtCity.Text.Trim() != "")
+            {
+                foreach (var special in specialCharCE)
+                {
+                    if (strCity.Contains(special))
+                    {
+                        lblerrmsg.Visible = true;
+                        lblsucmsg.Visible = false;
+                        lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in City name!";
+                        return;
+                    }
+                }
+            }
+
+            if (txtLandmark.Text == "")
+            {
+                lblerrmsg.Visible = true;
+                lblerrmsg.Text = "Please enter landmark!";
+                lblsucmsg.Visible = false;
+                return;
+            }
+
             if (txtPincode.Text == "")
             {
                 lblerrmsg.Visible = true;
@@ -132,11 +157,11 @@ namespace HSRP.Transaction
                 lblsucmsg.Visible = false;
                 return;
             }
-
-            if (txtContact.Text == "")
+            string pincode = txtPincode.Text.Trim().ToString();
+            if (pincode.Length < 6)
             {
                 lblerrmsg.Visible = true;
-                lblerrmsg.Text = "Please enter contact person name!";
+                lblerrmsg.Text = "Pincode cannot be less then 6 digits!";
                 lblsucmsg.Visible = false;
                 return;
             }
@@ -148,33 +173,45 @@ namespace HSRP.Transaction
                 lblsucmsg.Visible = false;
                 return;
             }
-
-            string strContact = txtmobile.Text.Trim().ToString();
-            if (strContact.Length < 10)
+            string mobileno = txtmobile.Text.Trim().ToString();
+            if (mobileno.Length < 10)
             {
                 lblerrmsg.Visible = true;
                 lblerrmsg.Text = "Mobile number cannot be less then 10 digits!";
                 lblsucmsg.Visible = false;
                 return;
             }
-
-            string specialCharCE = @" \|{}%_!'#$%&'()+,./:;<=>?@<>@^£§€";
-            
-            if (txtmobile.Text.Trim() != "")
+            if (!isMobileNoValid(txtmobile.Text.ToString()))
             {
-                strContact = txtmobile.Text.Trim();
+                lblsucmsg.Visible = false;
+                lblerrmsg.Visible = true;
+                lblerrmsg.Text = "Please enter valid mobile number.";
+                return;
+            }
+
+            if (txtContact.Text == "")
+            {
+                lblerrmsg.Visible = true;
+                lblerrmsg.Text = "Please enter contact person name!";
+                lblsucmsg.Visible = false;
+                return;
+            }
+            string strContact = txtContact.Text.Trim();
+            if (txtContact.Text.Trim() != "")
+            {               
                 foreach (var special in specialCharCE)
                 {
                     if (strContact.Contains(special))
                     {
                         lblerrmsg.Visible = true;
                         lblsucmsg.Visible = false;
-                        lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in Mobile Number!";
+                        lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in Name!";
                         return;
                     }
                 }
             }
-    
+            
+           
             query = "USP_AddAffixationAddressAllOem '" + lbldealername.Text + "','" + lbloemname.Text.ToString() + "','" + txtAddress.Text.ToString() + "','" + txtCity.Text.ToString() + "','" + ddlstate.SelectedItem.Text.ToString() + "','" + txtContact.Text.ToString() + "','" + txtmobile.Text.ToString() + "','" + txtPincode.Text.ToString() + "','" + txtLandmark.Text + "','" + ddlstate.SelectedValue + "','" + oemid + "','" + dealerid + "'";
             i = Utils.ExecNonQuery(query,ConnectionString);
             
@@ -198,6 +235,21 @@ namespace HSRP.Transaction
         {
             Response.Redirect("../Transaction/NewCashReceiptDataEntry.aspx");
         }
+
+        protected Boolean isMobileNoValid(string mobileNo)
+        {
+            Regex panreg = new Regex(@"(^[1-9]{1}[0-9]{9}$)");
+            if (!(mobileNo.Length == 10))
+            {
+                return false;
+            }
+            if (!panreg.IsMatch(mobileNo))
+            {
+                return false;
+            }
+            return true;
+        }
+
         protected void clearData()
         {
             txtAddress.Text = "";
@@ -208,5 +260,6 @@ namespace HSRP.Transaction
             txtLandmark.Text = "";
             ddlstate.ClearSelection();
         }
+
     }
 }

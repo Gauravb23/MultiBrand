@@ -138,7 +138,7 @@ namespace HSRP.Transaction
                 }
 
                 BindVehicleDropdownlistwithSP(oemid);
-                DropdownAffixation();
+                //DropdownAffixation();
                 bindState();
             }
         }
@@ -307,7 +307,7 @@ namespace HSRP.Transaction
 
         }
 
-        public void DropdownAffixation()
+        public void DropdownAffixation(string stateid)
         {
             try
             {
@@ -317,6 +317,7 @@ namespace HSRP.Transaction
                 cmd.Parameters.AddWithValue("@Userid", USERID);
                 cmd.Parameters.AddWithValue("@Dealerid", dealerid);
                 cmd.Parameters.AddWithValue("@OemId", oemid);
+                cmd.Parameters.AddWithValue("@StateId", stateid);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -324,7 +325,7 @@ namespace HSRP.Transaction
                 ddlLocationAddress.DataTextField = "Name";
                 ddlLocationAddress.DataValueField = "Value";
                 ddlLocationAddress.DataBind();
-                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Affixation Address--", "0"));
+                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
             }
             catch (Exception ex)
             {
@@ -338,8 +339,15 @@ namespace HSRP.Transaction
             {
                 lblHomeAddress.Visible = false;
                 txtHomeAddress.Visible = false;
-                lblstate.Visible = false;
-                ddlstate.Visible = false;
+                lblstate.Visible = true;
+                ddlstate.Visible = true;
+                ddlstate.ClearSelection();
+                ddlLocationAddress.ClearSelection();
+                ddlLocationAddress.Items.Clear();
+                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
+                ddldistrict.ClearSelection();
+                ddldistrict.Items.Clear();
+                ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- Select District -", "0"));
                 lbldistrict.Visible = false;
                 ddldistrict.Visible = false;
                 lblpincode.Visible = false;
@@ -354,6 +362,13 @@ namespace HSRP.Transaction
                 txtHomeAddress.Visible = true;
                 lblstate.Visible = true;
                 ddlstate.Visible = true;
+                ddlstate.ClearSelection();
+                ddlLocationAddress.ClearSelection();
+                ddlLocationAddress.Items.Clear();
+                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
+                ddldistrict.ClearSelection();
+                ddldistrict.Items.Clear();
+                ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- Select District -", "0"));
                 lbldistrict.Visible = true;
                 ddldistrict.Visible = true;
                 lblpincode.Visible = true;
@@ -379,6 +394,7 @@ namespace HSRP.Transaction
             ddldistrict.DataSource = dt;
             ddldistrict.DataBind();
             ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select District --", "0"));
+            DropdownAffixation(ddlstate.SelectedValue.ToString());
         }
 
         protected void btnSave2_Click(object sender, EventArgs e)
@@ -494,16 +510,23 @@ namespace HSRP.Transaction
             if (ddlAffixationType.SelectedValue == "0")
             {
                 lblErrMess.Visible = true;
-                lblErrMess.Text = "Please select delivery type!";
+                lblErrMess.Text = "Please select fitment address!";
                 return;
             }
 
             if (ddlAffixationType.SelectedValue == "1")
             {
+                if (ddlstate.SelectedValue == "0")
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Please select state!";
+                    return;
+                }
+
                 if (ddlLocationAddress.SelectedValue == "0")
                 {
                     lblErrMess.Visible = true;
-                    lblErrMess.Text = "Please select affixation address!";
+                    lblErrMess.Text = "Please select fitment location!";
                     return;
                 }
 
@@ -511,6 +534,7 @@ namespace HSRP.Transaction
 
             if (ddlAffixationType.SelectedValue == "2")
             {
+
                 if (ddlstate.SelectedValue == "0")
                 {
                     lblErrMess.Visible = true;
@@ -538,6 +562,7 @@ namespace HSRP.Transaction
                     lblErrMess.Text = "Please enter pincode!";
                     return;
                 }
+
             }
 
 
@@ -937,7 +962,8 @@ namespace HSRP.Transaction
                 DC = "AA111";
                 cashrc = "ABC11";
 
-                sqlstring = "select (FitmentCharges+HomeDeliveryCharges+convenienceCharges+MRDCharges) as Charges from bmhsrpchargesmaster where typeofdelivery = '" + ddlAffixationType.SelectedValue + "'";
+                //sqlstring = "select (FitmentCharges+HomeDeliveryCharges+convenienceCharges+MRDCharges) as Charges from bmhsrpchargesmaster where typeofdelivery = '" + ddlAffixationType.SelectedValue + "'";
+                sqlstring = "select cast(((FitmentCharges+HomeDeliveryCharges+convenienceCharges+MRDCharges)+(FitmentCharges+HomeDeliveryCharges+convenienceCharges+MRDCharges)*18/100 ) as  decimal(10,2)) as Charges from bmhsrpchargesmaster where typeofdelivery = '" + ddlAffixationType.SelectedValue + "'";
                 DataTable dtCharges = Utils.GetDataTable(sqlstring, ConnectionString);
                 decimal fitmentCharges = Convert.ToDecimal(dtCharges.Rows[0]["Charges"].ToString());
                 string newStateid = "";
@@ -1088,7 +1114,7 @@ namespace HSRP.Transaction
                         Query = "select State_Id from dealeraffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "'";
                         dt = Utils.GetDataTable(Query, ConnectionString);
 
-                        query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where NAVEMBID in (select Navembcode from DealerAffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "')";
+                        query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = "+ ddlLocationAddress.SelectedValue +")";
                         dt1 = Utils.GetDataTable(query1, ConnectionString);
 
                         cmd.Parameters.AddWithValue("@HSRP_StateID", dt.Rows[0]["State_Id"].ToString());
@@ -1154,10 +1180,10 @@ namespace HSRP.Transaction
 
                     if (ddlAffixationType.SelectedValue == "1") 
                     {
-                        cmd.Parameters.AddWithValue("@Affix_Id", ddlLocationAddress.SelectedItem.Value.ToString());
-                        cmd.Parameters.AddWithValue("@Address1", ddlLocationAddress.SelectedItem.Text.ToString());
-                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where NAVEMBID in (select Navembcode from DealerAffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "')";
+                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
                         dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
+                        cmd.Parameters.AddWithValue("@Affix_Id", ddlLocationAddress.SelectedItem.Value.ToString());
+                        cmd.Parameters.AddWithValue("@Address1", ddlLocationAddress.SelectedItem.Text.ToString());                        
                         cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
                     }
                    
@@ -1198,7 +1224,7 @@ namespace HSRP.Transaction
                         Query = "select State_Id from dealeraffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "'";
                         dt = Utils.GetDataTable(Query, ConnectionString);
 
-                        query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where NAVEMBID in (select Navembcode from DealerAffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "')";
+                        query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = "+ ddlLocationAddress.SelectedValue +")";
                         dt1 = Utils.GetDataTable(query1, ConnectionString);
 
                         cmd.Parameters.AddWithValue("@HSRP_StateID", dt.Rows[0]["State_Id"].ToString());
@@ -1279,7 +1305,7 @@ namespace HSRP.Transaction
                     cmd.Parameters.AddWithValue("@oemid", oemid);
                     if(ddlAffixationType.SelectedValue == "1")
                     {
-                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where NAVEMBID in (select Navembcode from DealerAffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "')";
+                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = "+ ddlLocationAddress.SelectedValue +")";
                         dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
                         cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
                     }
@@ -1504,7 +1530,7 @@ namespace HSRP.Transaction
                         }
 
                         OrderDate.SelectedDate = Convert.ToDateTime(_vd.regnDate);
-                        ddlFuelType.SelectedItem.Text = _vd.fuel;
+                        
                         ddlVehicletype.SelectedItem.Text = _vd.vchCatg;
                         ddlVehicleclass.SelectedValue = _vd.vchType;
                                                 
@@ -1532,6 +1558,18 @@ namespace HSRP.Transaction
                             ddlVehicleStateType.SelectedItem.Text = _vd.norms;
                             ddlVehicleStateType.Enabled = false;
                         }
+
+                        if(_vd.fuel == "NOT APPLICABLE")
+                        {
+                            ddlFuelType.SelectedItem.Text = _vd.fuel;
+                            ddlFuelType.Enabled = true;
+                        }
+                        else
+                        {                           
+                            ddlFuelType.SelectedItem.Text = _vd.fuel;
+                            ddlFuelType.Enabled = false;
+                        }
+
                         divvehclass.Visible = true;
                         divvehclassddl.Visible = true;
                         divregdate.Visible = true;
@@ -1600,7 +1638,7 @@ namespace HSRP.Transaction
 
         private void DisableControl()
         {
-            ddlFuelType.Enabled = false;
+            //ddlFuelType.Enabled = false;
             ddlVehicleclass.Enabled = false;
             ddlOrderType.Enabled = false;
             txtmodel.Text = "";

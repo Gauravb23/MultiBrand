@@ -223,6 +223,7 @@
                                 <li></li>
                                   <li><a href="../Transaction/DealerLedger.aspx" style="color: white; font-weight: bold;">Dealer Ledger</a></li>
                                 <li><a href="../Report/ViewInvoices.aspx" style="color: white; font-weight: bold;">Invoices</a></li>
+                                <li><a href="../Transaction/BMHSRPFittmentEntryImage.aspx" style="color: white; font-weight: bold;">Fitment Entry With Image</a></li>
                                </ul>
                         </div>
                     </div>

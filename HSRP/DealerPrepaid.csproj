@@ -357,6 +357,7 @@
     <Content Include="css\main.css" />
     <Content Include="css\table.css" />
     <Content Include="Data\oemdealerdataformat.xls" />
+    <Content Include="error.html" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="GenerateCaptcha.aspx" />
     <Content Include="Global.asax" />
@@ -569,6 +570,7 @@
     <Content Include="Main.Master" />
     <Content Include="SMSResponse.aspx" />
     <Content Include="RegisterMachine.aspx" />
+    <Content Include="Transaction\BMHSRPFittmentEntryImage.aspx" />
     <Content Include="Transaction\DLViewDealerOrder.aspx" />
     <Content Include="Transaction\NewCashReceiptDataEntry.aspx" />
     <Content Include="Transaction\ShipmentTrackingFile.xml" />
@@ -1092,6 +1094,13 @@
       <DependentUpon>RegisterMachine.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction\BMHSRPFittmentEntryImage.aspx.cs">
+      <DependentUpon>BMHSRPFittmentEntryImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transaction\BMHSRPFittmentEntryImage.aspx.designer.cs">
+      <DependentUpon>BMHSRPFittmentEntryImage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Transaction\DLViewDealerOrder.aspx.cs">
       <DependentUpon>DLViewDealerOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -8,6 +8,16 @@
     
     </style>
 
+     <script type="text/javascript">
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+     </script>
  
         
     <div class="container">
@@ -51,7 +61,7 @@
                                         Pincode:
                                     </div>
                                     <div class="col-sm-6">
-                                        <asp:TextBox ID="txtPincode" runat="server" MaxLength="6" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtPincode" runat="server" MaxLength="6" CssClass="form-control" onkeypress="return isNumber(event)"></asp:TextBox>
                                     </div>
                                 </div>
 
@@ -88,7 +98,7 @@
                                         Mobile No:
                                     </div>
                                     <div class="col-sm-6">
-                                        <asp:TextBox ID="txtmobile" runat="server" MaxLength="10" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtmobile" runat="server" MaxLength="10" CssClass="form-control" onkeypress="return isNumber(event)"></asp:TextBox>
                                     </div>
                                 </div>
 

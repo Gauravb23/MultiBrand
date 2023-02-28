@@ -97,20 +97,30 @@ namespace HSRP.Transaction
                 VehicleDetails _vd = JsonConvert.DeserializeObject<VehicleDetails>(responseJson);
                 if (_vd != null)
                 {
-                    divmsg.Visible = true;
-                    lblmsg.Text = _vd.message;                    
-                    lblmaker.Text = _vd.maker;
-                    lblFuel.Text = _vd.fuel;                    
-                    lblVehType.Text = _vd.vchCatg;
-                    lblStageType.Text = _vd.norms;
-                    lblVehClass.Text = _vd.vchType;
-                    CultureInfo culture = new CultureInfo("en-US");
-                    DateTime regDate = Convert.ToDateTime(_vd.regnDate, culture);
-                    lblregDate.Text = regDate.ToString("dd/MM/yyyy");
-                    lblstateCode.Text = _vd.stateCd;
-                    lblfCode.Text = _vd.hsrpFrontLaserCode;
-                    lblrCode.Text = _vd.hsrpRearLaserCode;
-                    llbMSGError.Visible = false;
+                    if(_vd.message == "Vehicle Not Found")
+                    {
+                        llbMSGError.Visible = true;
+                        llbMSGError.Text = "Details Not Found!";
+                        return;
+                    }
+                    else
+                    {
+                        divmsg.Visible = true;
+                        lblmsg.Text = _vd.message;
+                        lblmaker.Text = _vd.maker;
+                        lblFuel.Text = _vd.fuel;
+                        lblVehType.Text = _vd.vchCatg;
+                        lblStageType.Text = _vd.norms;
+                        lblVehClass.Text = _vd.vchType;
+                        CultureInfo culture = new CultureInfo("en-US");
+                        DateTime regDate = Convert.ToDateTime(_vd.regnDate, culture);
+                        lblregDate.Text = regDate.ToString("dd/MM/yyyy");
+                        lblstateCode.Text = _vd.stateCd;
+                        lblfCode.Text = _vd.hsrpFrontLaserCode;
+                        lblrCode.Text = _vd.hsrpRearLaserCode;
+                        llbMSGError.Visible = false;
+                    }
+                   
                 }
                 else
                 {

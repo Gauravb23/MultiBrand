@@ -439,23 +439,23 @@
                                         <asp:ListItem Value="2">At Home</asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
-                                <div class="col-md-2 col-lg-2 col-sm-2 ">
-                                    <asp:Label ID="lblLocationAddress" runat="server" Visible="false">Location Address<span style="color: #FF3300">*</span></asp:Label>
+                                <div class="col-md-2 col-lg-2 col-sm-2 ">                                    
                                    <asp:Label ID="lblstate" runat="server" Visible="false">State<span style="color: #FF3300">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-2 col-lg-2 col-sm-2" >
-                                    <asp:DropDownList ID="ddlLocationAddress" runat="server" CssClass="form-control" Visible="false">
-                                        <asp:ListItem Value="0">-- Select Fitment Address --</asp:ListItem>
-                                    </asp:DropDownList>
+                                <div class="col-md-2 col-lg-2 col-sm-2" >                                   
                                      <asp:DropDownList ID="ddlstate" runat="server" CssClass="form-control" Visible="false" DataValueField="HSRP_StateID"
                                          DataTextField="HSRPStateName" OnSelectedIndexChanged="ddlstate_SelectedIndexChanged" AutoPostBack="true">
                                          <asp:ListItem Value="0">-- Select State</asp:ListItem>
                                      </asp:DropDownList>
                                 </div>  
                                 <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:Label ID="lblLocationAddress" runat="server" Visible="false">Fitment Location<span style="color: #FF3300">*</span></asp:Label>
                                     <asp:Label ID="lbldistrict" runat="server" Visible="false">District<span style="color: #FF3300">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:DropDownList ID="ddlLocationAddress" runat="server" CssClass="form-control" Visible="false">
+                                        <asp:ListItem Value="0">-- Select Fitment Location --</asp:ListItem>
+                                    </asp:DropDownList>
                                     <asp:DropDownList ID="ddldistrict" runat="server" Visible="false" CssClass="form-control" DataTextField="RTOLocationName" DataValueField="RTOLocationID">
                                         <asp:ListItem Value="0">-- Select District --</asp:ListItem>
                                     </asp:DropDownList>

@@ -339,15 +339,6 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.DropDownList ddlAffixationType;
 
         /// <summary>
-        /// lblLocationAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLocationAddress;
-
-        /// <summary>
         /// lblstate control.
         /// </summary>
         /// <remarks>
@@ -355,15 +346,6 @@ namespace HSRP.Transaction
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblstate;
-
-        /// <summary>
-        /// ddlLocationAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLocationAddress;
 
         /// <summary>
         /// ddlstate control.
@@ -375,6 +357,15 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.DropDownList ddlstate;
 
         /// <summary>
+        /// lblLocationAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocationAddress;
+
+        /// <summary>
         /// lbldistrict control.
         /// </summary>
         /// <remarks>
@@ -382,6 +373,15 @@ namespace HSRP.Transaction
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbldistrict;
+
+        /// <summary>
+        /// ddlLocationAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLocationAddress;
 
         /// <summary>
         /// ddldistrict control.

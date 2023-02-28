@@ -195,7 +195,7 @@
                     <div class="card-c">
                         <div class=" flex-item">
                             <div class=" flex-item">
-                                <img style="color:#002e72" src="../images/search.svg" alt="txt" />
+                                <img src="../images/orderCart.svg" alt="txt" />
                             </div>
                             <div>
                                 <h3 style="color:#002e72"><b>Only Sticker</b></h3>
@@ -223,6 +223,7 @@
                                 <li></li>
                                   <li><a href="../Transaction/DealerLedger.aspx" style="color: white; font-weight: bold;">Dealer Ledger</a></li>
                                 <li><a href="../Report/ViewInvoices.aspx" style="color: white; font-weight: bold;">Invoices</a></li>
+                                <li><a href="../Transaction/BMHSRPFittmentEntryImage.aspx" style="color: white; font-weight: bold;">Fitment Entry With Image</a></li>
                                </ul>
                         </div>
                     </div>
