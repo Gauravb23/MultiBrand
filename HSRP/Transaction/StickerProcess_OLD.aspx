@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="StickerProcess.aspx.cs" Inherits="HSRP.Transaction.StickerProcess" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="StickerProcess_OLD.aspx.cs" Inherits="HSRP.Transaction.StickerProcess_OLD" EnableEventValidation="false" %>
 
 <%@ Register Assembly="ComponentArt.Web.UI" Namespace="ComponentArt.Web.UI" TagPrefix="ComponentArt" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -695,8 +695,8 @@
                                 <div class="row">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-2 col-sm-2 col-lg-2">
-                                        <asp:ImageButton ID="buttonSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="btnSave_Click" />
-                                        <asp:ImageButton ID="buttonAgainSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="buttonAgainSave_Click" />
+                                        <asp:ImageButton ID="buttonSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="btnSave_Click" />
+                                        <asp:ImageButton ID="buttonAgainSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="buttonAgainSave_Click" />
                                     </div>
                                 </div>
                                 

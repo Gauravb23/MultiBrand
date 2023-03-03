@@ -237,7 +237,7 @@ namespace HSRP.Transaction
             btnGO2.Visible = true;
             btnAdd2.Visible = false;
             btnSave2.Visible = false;
-            btnPrint.Visible = true;
+            //btnPrint.Visible = true;
             lblpincode.Visible = false;
             txtpincode.Visible = false;
             InitialSetting();
@@ -312,7 +312,7 @@ namespace HSRP.Transaction
             try
             {
                 SqlConnection con = new SqlConnection(ConnectionString);
-                SqlCommand cmd = new SqlCommand("AffixationDropdownAllOEM", con);
+                SqlCommand cmd = new SqlCommand("AffixationDropdown", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Userid", USERID);
                 cmd.Parameters.AddWithValue("@Dealerid", dealerid);
@@ -879,7 +879,7 @@ namespace HSRP.Transaction
                                     else
                                     {
                                         lblErrMess.Visible = true;
-                                        lblErrMess.Text = "Maker is different form vahan and you are not AUTHORIZED!";
+                                        lblErrMess.Text = _vd.message;
                                         return;
                                     }
                                 }
@@ -1332,7 +1332,7 @@ namespace HSRP.Transaction
                     lblErrMess.Visible = false;
                     lblSucMess.Text = "Order Saved Successfully, Rate Charged : " + newRates;
                     //lblavailbal.Text = availableBlanace();                                                          
-                    GenerateInvoice(txtRegNumber.Text.ToString(), newStateid);
+                    //GenerateInvoice(txtRegNumber.Text.ToString(), newStateid);
                     Cleardatasave();
                 }
                 else
@@ -1950,7 +1950,9 @@ namespace HSRP.Transaction
                         }
                         catch (Exception ev)
                         {
-
+                            lblErrMess.Text = ev.Message;
+                            lblErrMess.Visible = true;
+                            return;
                         }
 
                         #endregion
@@ -1981,47 +1983,57 @@ namespace HSRP.Transaction
 
         protected void btnPrint_Click(object sender, EventArgs e)
         {
-            string checkReceiptQuery = "select isnull(ReceiptPath,'') FileName, HSRPRecordID from multibrandhsrprecords where HSRPRecordID = '" + ViewState["HSRPRecordID"] + "'";
-            DataTable dtFileName = Utils.GetDataTable(checkReceiptQuery, ConnectionString);
-            if (dtFileName.Rows.Count > 0)
+            try
             {
-                #region
-                string FileName = dtFileName.Rows[0]["FileName"].ToString();
-                string folderpath = ConfigurationManager.AppSettings["ReceiptPath"].ToString();
-                string PdfFolder = folderpath + "/" + FileName;
-                if (FileName.Length > 0 && File.Exists(PdfFolder))
+                string checkReceiptQuery = "select isnull(ReceiptPath,'') FileName, HSRPRecordID from multibrandhsrprecords where HSRPRecordID = '" + ViewState["HSRPRecordID"] + "'";
+                DataTable dtFileName = Utils.GetDataTable(checkReceiptQuery, ConnectionString);
+                if (dtFileName.Rows.Count > 0)
                 {
-                    string[] arr = FileName.ToString().Split('/');
-                    int i = arr.Length;
-
-                    //string PdfSignedFolder = signFolderPath + arr[i - 1].ToString();
-                    string filename = arr[i - 1].ToString();
                     #region
-                    try
+                    string FileName = dtFileName.Rows[0]["FileName"].ToString();
+                    string folderpath = ConfigurationManager.AppSettings["ReceiptPathDownalod"].ToString();
+                    string PdfFolder = folderpath + "/" + FileName;
+                    if (FileName.Length > 0 && File.Exists(PdfFolder))
                     {
-                        HttpContext context = HttpContext.Current;
-                        context.Response.ContentType = "Application/pdf";
-                        context.Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename);
-                        context.Response.WriteFile(PdfFolder);
-                        context.Response.Flush(); // Sends all currently buffered output to the client.
-                        context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-                        context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                        string[] arr = FileName.ToString().Split('/');
+                        int i = arr.Length;
+
+                        //string PdfSignedFolder = signFolderPath + arr[i - 1].ToString();
+                        string filename = arr[i - 1].ToString();
+                        #region
+                        try
+                        {
+                            HttpContext context = HttpContext.Current;
+                            context.Response.ContentType = "Application/pdf";
+                            context.Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename);
+                            context.Response.WriteFile(PdfFolder);
+                            context.Response.Flush(); // Sends all currently buffered output to the client.
+                            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                        }
+                        catch (Exception ev)
+                        {
+                            lblErrMess.Text = ev.Message;
+                            lblErrMess.Visible = true;
+                        }
+                        #endregion
                     }
-                    catch (Exception ev)
+                    else
                     {
-                        lblErrMess.Text = ev.Message;
+                        lblErrMess.Text = "Receipt not Generated.";
                         lblErrMess.Visible = true;
+                        return;
                     }
                     #endregion
                 }
-                else
-                {
-                    lblErrMess.Text = "Receipt not Generated.";
-                    lblErrMess.Visible = true;
-                    return;
-                }
-                #endregion
             }
+            catch(Exception ex)
+            {
+                lblErrMess.Text = ex.Message;
+                lblErrMess.Visible = true;
+                return;
+            }
+           
         }
       
         class VehicleDetails

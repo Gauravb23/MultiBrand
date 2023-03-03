@@ -87,7 +87,7 @@ namespace HSRP.Transaction
         {
             // SQLString = "select  ROW_NUMBER() OVER (ORDER BY OrderNo) AS [Sr No.],vehicleregno,OwnerName,OrderNo,MobileNo,	VehicleType,VehicleClass,	ChassisNo,	EngineNo, OrderType,RoundOff_NetAmount, ExShowRoomPrice from HSRPRecords where  hsrp_stateid = '4'  and  addrecordby = 'Dealer' and  convert(date,hsrprecord_creationdate)= convert(date,'01/12/2017 00:00:00') AND CreatedBy='7455'";
 
-            SQLString = "TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
+            SQLString = "USP_TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
 
             DataTable dt = Utils.GetDataTable(SQLString.ToString(), CnnString.ToString());
             if (dt.Rows.Count > 0)
@@ -108,7 +108,7 @@ namespace HSRP.Transaction
         protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
         {
             grdid.Visible = false;
-            SQLString = "TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
+            SQLString = "USP_TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
             DataTable dt = Utils.GetDataTable(SQLString.ToString(), CnnString.ToString());
             if (dt.Rows.Count > 0)
             {

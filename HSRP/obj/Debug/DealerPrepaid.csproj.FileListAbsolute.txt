@@ -570,9 +570,6 @@ D:\Rabindra\prepaidRentACAB3dec\HSRP\obj\Debug\DealerPrepaid.csproj.CoreCompileI
 D:\Rabindra\prepaidRentACAB3dec\HSRP\obj\Debug\DealerPrepaid.csproj.CopyComplete
 D:\Rabindra\prepaidRentACAB3dec\HSRP\obj\Debug\HSRP.dll
 D:\Rabindra\prepaidRentACAB3dec\HSRP\obj\Debug\HSRP.pdb
-D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\DealerPrepaid.csproj.AssemblyReference.cache
-D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\HSRP.dll.licenses
-D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\DealerPrepaid.csproj.CoreCompileInputs.cache
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\HSRP.dll.config
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\HSRP.pdb
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\DataProvider.dll
@@ -580,6 +577,9 @@ D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\Newtonsoft.
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\System.Runtime.InteropServices.RuntimeInformation.dll
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\DataProvider.pdb
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\Newtonsoft.Json.xml
+D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\DealerPrepaid.csproj.AssemblyReference.cache
+D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\HSRP.dll.licenses
+D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\DealerPrepaid.csproj.CoreCompileInputs.cache
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\DealerPrepaid.csproj.CopyComplete
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\HSRP.dll
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Debug\HSRP.pdb

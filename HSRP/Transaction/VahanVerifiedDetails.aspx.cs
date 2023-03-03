@@ -106,6 +106,7 @@ namespace HSRP.Transaction
                     else
                     {
                         divmsg.Visible = true;
+                        lblmsg.Visible = true;
                         lblmsg.Text = _vd.message;
                         lblmaker.Text = _vd.maker;
                         lblFuel.Text = _vd.fuel;

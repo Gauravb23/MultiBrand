@@ -576,6 +576,7 @@
     <Content Include="Transaction\ShipmentTrackingFile.xml" />
     <Content Include="Transaction\AffixAddressUpdate.aspx" />
     <Content Include="Transaction\StickerProcess.aspx" />
+    <Content Include="Transaction\StickerProcess_OLD.aspx" />
     <Content Include="Transaction\TrackOrder.aspx" />
     <Content Include="Transaction\DealerLedger.aspx" />
     <Content Include="Transaction\VahanVerifiedDetails.aspx" />
@@ -1128,6 +1129,13 @@
     </Compile>
     <Compile Include="Transaction\StickerProcess.aspx.designer.cs">
       <DependentUpon>StickerProcess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\StickerProcess_OLD.aspx.cs">
+      <DependentUpon>StickerProcess_OLD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transaction\StickerProcess_OLD.aspx.designer.cs">
+      <DependentUpon>StickerProcess_OLD.aspx</DependentUpon>
     </Compile>
     <Compile Include="Transaction\TrackOrder.aspx.cs">
       <DependentUpon>TrackOrder.aspx</DependentUpon>

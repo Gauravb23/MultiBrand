@@ -695,8 +695,8 @@
                                 <div class="row">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-2 col-sm-2 col-lg-2">
-                                        <asp:ImageButton ID="buttonSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="btnSave_Click" />
-                                        <asp:ImageButton ID="buttonAgainSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="buttonAgainSave_Click" />
+                                        <asp:ImageButton ID="buttonSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="btnSave_Click" />
+                                        <asp:ImageButton ID="buttonAgainSave" runat="server" Visible="false" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="buttonAgainSave_Click" />
                                     </div>
                                 </div>
                                 

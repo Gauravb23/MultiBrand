@@ -177,6 +177,19 @@
                     </div>
                 </a>
 
+                <%-- <a href="../Transaction/StickerProcess.aspx" style="color: black; text-decoration: none;">
+                    <div class="card-c">
+                        <div class=" flex-item">
+                            <div class=" flex-item">
+                                <img src="../images/orderCart.svg" alt="txt" />
+                            </div>
+                            <div>
+                                <h3 style="color:#002e72"><b>Only Sticker</b></h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>--%>
+
                  <a href="../Transaction/VahanVerifiedDetails.aspx" style="color: black; text-decoration: none;">
                     <div class="card-c">
                         <div class=" flex-item">
@@ -191,19 +204,7 @@
                     </div>
                 </a>
 
-                <a href="../Transaction/StickerProcess.aspx" style="color: black; text-decoration: none;">
-                    <div class="card-c">
-                        <div class=" flex-item">
-                            <div class=" flex-item">
-                                <img src="../images/orderCart.svg" alt="txt" />
-                            </div>
-                            <div>
-                                <h3 style="color:#002e72"><b>Only Sticker</b></h3>
-                            </div>
-                        </div>
-
-                    </div>
-                </a>
+               
 
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -246,7 +247,7 @@
                             </div>
                             <ul>
                                   
-                                    <li><a href="../Transaction/trackOrder.aspx" style="color: white; font-weight: bold;">Track Order</a></li>
+                                    <li><a href="../Transaction/TrackOrder.aspx" style="color: white; font-weight: bold;">Track Order</a></li>
                                 <li><a href="../Transaction/DLViewDealerOrder.aspx" style="color: white; font-weight: bold;">View Order</a></li>
 
                             </ul>
