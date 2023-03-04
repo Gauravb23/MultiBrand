@@ -25,7 +25,7 @@ namespace HSRP.Transaction
     public partial class StickerProcess_OLD : System.Web.UI.Page
     {
         static String ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
-        static String ConnectionStringDL = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringLink"].ToString();
+        static String ConnectionStringDL = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringDL"].ToString();
         //static String ConnectionStringLink = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringLink"].ToString();
         static string FileRequestPath = ConfigurationManager.AppSettings["RequestFolder"].ToString();
 

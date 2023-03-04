@@ -177,7 +177,7 @@
                     </div>
                 </a>
 
-                <%-- <a href="../Transaction/StickerProcess.aspx" style="color: black; text-decoration: none;">
+                 <a href="../Transaction/StickerProcess.aspx" style="color: black; text-decoration: none;">
                     <div class="card-c">
                         <div class=" flex-item">
                             <div class=" flex-item">
@@ -188,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-                </a>--%>
+                </a>
 
                  <a href="../Transaction/VahanVerifiedDetails.aspx" style="color: black; text-decoration: none;">
                     <div class="card-c">

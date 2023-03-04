@@ -103,7 +103,7 @@ namespace HSRP.Transaction
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            string specialCharCE = @" \|{}%_!'#$%&'()+,./:;<=>?@<>@^£§€";
+            string specialCharCE = @"\|{}%_!'#$%&'()+,./:;<=>?@<>@^£§€";
             if (ddlstate.SelectedValue == "0")
             {
                 lblerrmsg.Visible = true;
@@ -128,19 +128,19 @@ namespace HSRP.Transaction
                 return;
             }
             string strCity = txtCity.Text.Trim();
-            if (txtCity.Text.Trim() != "")
-            {
-                foreach (var special in specialCharCE)
-                {
-                    if (strCity.Contains(special))
-                    {
-                        lblerrmsg.Visible = true;
-                        lblsucmsg.Visible = false;
-                        lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in City name!";
-                        return;
-                    }
-                }
-            }
+            //if (txtCity.Text.Trim() != "")
+            //{
+            //    foreach (var special in specialCharCE)
+            //    {
+            //        if (strCity.Contains(special))
+            //        {
+            //            lblerrmsg.Visible = true;
+            //            lblsucmsg.Visible = false;
+            //            lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in City name!";
+            //            return;
+            //        }
+            //    }
+            //}
 
             if (txtLandmark.Text == "")
             {
@@ -197,19 +197,19 @@ namespace HSRP.Transaction
                 return;
             }
             string strContact = txtContact.Text.Trim();
-            if (txtContact.Text.Trim() != "")
-            {               
-                foreach (var special in specialCharCE)
-                {
-                    if (strContact.Contains(special))
-                    {
-                        lblerrmsg.Visible = true;
-                        lblsucmsg.Visible = false;
-                        lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in Name!";
-                        return;
-                    }
-                }
-            }
+            //if (txtContact.Text.Trim() != "")
+            //{               
+            //    foreach (var special in specialCharCE)
+            //    {
+            //        if (strContact.Contains(special))
+            //        {
+            //            lblerrmsg.Visible = true;
+            //            lblsucmsg.Visible = false;
+            //            lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in Name!";
+            //            return;
+            //        }
+            //    }
+            //}
             
            
             query = "USP_AddAffixationAddressAllOem '" + lbldealername.Text + "','" + lbloemname.Text.ToString() + "','" + txtAddress.Text.ToString() + "','" + txtCity.Text.ToString() + "','" + ddlstate.SelectedItem.Text.ToString() + "','" + txtContact.Text.ToString() + "','" + txtmobile.Text.ToString() + "','" + txtPincode.Text.ToString() + "','" + txtLandmark.Text + "','" + ddlstate.SelectedValue + "','" + oemid + "','" + dealerid + "'";

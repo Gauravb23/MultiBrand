@@ -298,42 +298,58 @@ namespace HSRP.Transaction
              *   */
             string checkSQL = string.Empty;
             DataTable dt = new DataTable();
-            string ordertype = string.Empty;
-            string vehHR = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
-            string query = "select OrderType from  hsrprecords where VehicleRegNo = '"+ vehRegNo + "' and chassisno = '"+ chassisNo +"'";
-            string queryHR = "select OrderType from  hsrprecords_HR where VehicleRegNo = '"+ vehRegNo + "' and chassisno = '"+ chassisNo +"'";
-            DataTable dtquery = new DataTable();
-            DataTable dtqueryHR = new DataTable();
-            dtquery = Utils.GetDataTable(query,ConnectionString);
-            dtqueryHR = Utils.GetDataTable(queryHR,ConnectionString);
-            if(dtquery.Rows.Count > 0)
+            
+            checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
+             " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
+            dt = Utils.GetDataTable(checkSQL, ConnectionStringDL);
+
+            if (dt.Rows.Count == 0)
             {
-                ordertype = dtquery.Rows[0]["OrderType"].ToString();
-            }           
-            else if(dtqueryHR.Rows.Count > 0 )
-            {
-                ordertype = dtqueryHR.Rows[0]["OrderType"].ToString();
-            }
-            else
-            {
-                lblErrMess.Visible = true;
-                lblErrMess.Text = "Invalid Vehicle RegNo. or Chassis No.";
-                return;
+                string ordertype = string.Empty;
+                string vehHR = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+                string query = "select OrderType from  hsrprecords where VehicleRegNo = '" + vehRegNo + "' and chassisno = '" + chassisNo + "'";
+                string queryHR = "select OrderType from  hsrprecords_HR where VehicleRegNo = '" + vehRegNo + "' and chassisno = '" + chassisNo + "'";
+                DataTable dtquery = new DataTable();
+                DataTable dtqueryHR = new DataTable();
+                dtquery = Utils.GetDataTable(query, ConnectionString);
+                dtqueryHR = Utils.GetDataTable(queryHR, ConnectionString);
+                if (dtquery.Rows.Count > 0)
+                {
+                    ordertype = dtquery.Rows[0]["OrderType"].ToString();
+                }
+                else if (dtqueryHR.Rows.Count > 0)
+                {
+                    ordertype = dtqueryHR.Rows[0]["OrderType"].ToString();
+                }
+                else
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Invalid Vehicle RegNo. or Chassis No.";
+                    return;
+                }
+
+                if (vehHR == "HR" && ordertype == "OB")
+                {
+                    checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
+                  " from HSRPRecords_HR where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
+                    dt = Utils.GetDataTable(checkSQL, ConnectionString);
+                }
+                else
+                {
+                    checkSQL = "select top 1 Address1,NAVEMBID, OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
+                                  " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
+                    dt = Utils.GetDataTable(checkSQL, ConnectionString);
+                }
             }
 
-            if (vehHR == "HR" && ordertype == "OB")
+            if (dt.Rows.Count == 0)
             {
                 checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
-              " from HSRPRecords_HR where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
-                dt = Utils.GetDataTable(checkSQL, ConnectionString);
+                            " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
+                dt = Utils.GetDataTable(checkSQL, ConnectionStringHR);
+
             }
-            else
-            {
-                checkSQL = "select top 1 Address1,NAVEMBID, OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
-                              " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
-                dt = Utils.GetDataTable(checkSQL, ConnectionString);
-            }
-          
+            
             if (dt.Rows.Count > 0)
             {
                 string OwnerName = dt.Rows[0]["OwnerName"].ToString();
@@ -446,15 +462,8 @@ namespace HSRP.Transaction
                             /*
                              * Start validation from DB
                              */
-                            if ((vehFLaserCode.Substring(0, 2) != "AA") || (vehRLaserCode.Substring(0, 2) != "AA"))
-                            {
-                                Response.Redirect("https://www.bookmyhsrp.com/", true);
-                            }
+                           
 
-                            if ((vehFLaserCode.Length < 11))
-                            {
-                                Response.Redirect("https://www.bookmyhsrp.com/", true);
-                            }
                             #region
 
 
@@ -493,12 +502,37 @@ namespace HSRP.Transaction
                             }
                             else
                             {
-                                lblErrMess.Visible = true;
-                                lblErrMess.Text = "Invalid Vehicle RegNo. or Chassis No.";
-                                return;
+                                //lblErrMess.Visible = true;
+                                //lblErrMess.Text = "Invalid Vehicle RegNo. or Chassis No.";
+                                //return;
                             }
                             string vehHR = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
                             DataTable dtvalidHR = new DataTable();
+                            if ((vehFLaserCode.Substring(0, 2) != "AA") || (vehRLaserCode.Substring(0, 2) != "AA"))
+                            {
+                                if(vehHR == "HR")
+                                {
+                                    Response.Redirect("https://www.hsrphr.com/", true);
+                                }
+                                else
+                                {
+                                    Response.Redirect("https://www.bookmyhsrp.com/", true);
+                                }
+                                
+                            }
+
+                            if ((vehFLaserCode.Length < 11))
+                            {
+                                if(vehHR == "HR")
+                                {
+                                    Response.Redirect("https://www.hsrphr.com/", true);
+                                }
+                                else
+                                {
+                                    Response.Redirect("https://www.bookmyhsrp.com/", true);
+                                }
+                                
+                            }
                             if ((vehHR == "HR") && (ordertype == "OB"))
                             {
                                 queryHR = "select StickerMandatory from hsrprecords_HR where VehicleRegNo = '" + vehRegNo + "'";
@@ -569,11 +603,12 @@ namespace HSRP.Transaction
                                    "and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "'   ";
 
                                 ds = Utils.GetDataTable(query, ConnectionString);
-                                query = "select a.HSRPRecordID, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords_HR a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
-                                   "where  a.vehicleRegNo='" + vehRegNo + "'  " +
-                                   "and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "'   ";
 
-                                ds = Utils.GetDataTable(query, ConnectionString);
+                                //query = "select a.HSRPRecordID, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords_HR a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
+                                //   "where  a.vehicleRegNo='" + vehRegNo + "'  " +
+                                //   "and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "'   ";
+
+                                //ds = Utils.GetDataTable(query, ConnectionString);
                             }                            
 
                             if(ds.Rows.Count == 0)
@@ -646,7 +681,7 @@ namespace HSRP.Transaction
                                         {
                                             fulesticker = fuelType2;
                                         }
-
+                                       
                                         if ((vehHR == "HR") && (ordertype == "OB"))
                                         {
                                             sqlQuery = "StrickerOnlyEntryFRLaserSuccess_HR '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" +
@@ -999,9 +1034,16 @@ namespace HSRP.Transaction
                 string vehModel = txtmodel.Text.ToString().Trim();
                 string vehicleClass = ddlVehicleclass.SelectedItem.Text.ToString();
                 string regDate = txtVehRegDate.Text.ToString();//OrderDate.SelectedDate.ToString();
-                string fuelType = ddlFuelType.SelectedItem.Text.ToString();
-                string fuelType2 = ddlnew.SelectedItem.Text.ToString();
-
+                string fuelType = string.Empty;
+                if (ddlVehicleStateType.SelectedItem.Text.ToString() == "BS6")
+                {
+                    fuelType = ddlnew.SelectedItem.Text.ToString();
+                }
+                else
+                {
+                    fuelType = ddlFuelType.SelectedItem.Text.ToString();
+                }
+                            
                 string orderType = ddlOrderType.SelectedItem.Text.ToString();
                 string manuDate = HSRPAuthDate.SelectedDate.ToString();
 
@@ -1216,7 +1258,6 @@ namespace HSRP.Transaction
 
                                 FileRearLaser.SaveAs(Filepath);
                                 HiddenRearLaser.Value = FileName;
-
 
                             }
                             else
@@ -1465,50 +1506,62 @@ namespace HSRP.Transaction
                     return false;
                 }
 
-
-                try
+                if (txtVehRegDate.Text.Trim() == "")
                 {
-                    //Verify whether date entered in dd/MM/yyyy format.
-                    //bool isValid = regexDate.IsMatch(OrderDate.SelectedDate.ToString());
-
-                    ////Verify whether entered date is Valid date.
-                    //DateTime dt;
-                    //isValid = DateTime.TryParseExact(OrderDate.SelectedDate.ToString(), "dd/MM/yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out dt);
-
-                    //if (isValid)
-                    //{
-                    //    DateTime regMDate = DateTime.Parse(Convert.ToDateTime(OrderDate.SelectedDate.ToString()).ToShortDateString());
-                    //    DateTime todate = DateTime.Parse(Convert.ToDateTime("01/04/2019").ToShortDateString());
-                    //    if (regMDate > todate)
-                    //    {
-                    //        lblErrMess.Visible = true;
-                    //        lblErrMess.Text = "Choose Vehicle Reg. date before 01/04/2019";
-                    //        return;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    lblErrMess.Visible = true;
-                    //    lblErrMess.Text = "Vehicle Reg. date invalid";
-                    //    return;
-                    //}
-                    //txtVehRegDate.Text.ToString();//
-                    //DateTime regMDate = DateTime.Parse(Convert.ToDateTime(OrderDate.SelectedDate.ToString()).ToShortDateString());
-                    //DateTime regMDate = DateTime.Parse(Convert.ToDateTime(txtVehRegDate.Text.ToString()).ToShortDateString());
-                    //DateTime todate = DateTime.Parse(Convert.ToDateTime("01/04/2019").ToShortDateString());
-                    //if (regMDate > todate)
-                    //{
-                    //    lblErrMess.Visible = true;
-                    //    lblErrMess.Text = "Choose Vehicle Reg. date before 01/04/2019";
-                    //    return false;
-                    //}
-
-
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Please enter registration date!";
+                    return false;
                 }
-                catch (Exception ev)
-                {
 
-                }
+
+                //try
+                //{
+                //    //Verify whether date entered in dd/MM/yyyy format.
+                //    //bool isValid = regexDate.IsMatch(OrderDate.SelectedDate.ToString());
+                //    bool isValid = regexDate.IsMatch(txtVehRegDate.Text.ToString());
+
+                //    //Verify whether entered date is Valid date.
+                //    DateTime dt;
+                //    //isValid = DateTime.TryParseExact(OrderDate.SelectedDate.ToString(), "dd/MM/yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out dt);
+                //    isValid = DateTime.TryParseExact(txtVehRegDate.Text.ToString(), "dd/MM/yyyy", new CultureInfo("en-GB"), DateTimeStyles.None, out dt);
+                //    DateTime regMDate = new DateTime();
+                //    DateTime todate = new DateTime();
+
+                //    if (isValid)
+                //    {
+                //        //regMDate = DateTime.Parse(Convert.ToDateTime(OrderDate.SelectedDate.ToString()).ToShortDateString());
+                //        regMDate = DateTime.Parse(Convert.ToDateTime(txtVehRegDate.Text.ToString()).ToShortDateString());
+                //        todate = DateTime.Parse(Convert.ToDateTime("01/04/2019").ToShortDateString());
+                //        if (regMDate > todate)
+                //        {
+                //            lblErrMess.Visible = true;
+                //            lblErrMess.Text = "Choose Vehicle Reg. date before 01/04/2019";
+                //            return false;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        lblErrMess.Visible = true;
+                //        lblErrMess.Text = "Vehicle Reg. date invalid";
+                //        return false;
+                //    }
+
+
+                //    //regMDate = DateTime.Parse(Convert.ToDateTime(OrderDate.SelectedDate.ToString()).ToShortDateString());
+                //    regMDate = DateTime.Parse(Convert.ToDateTime(txtVehRegDate.Text.ToString()).ToShortDateString());
+                //    todate = DateTime.Parse(Convert.ToDateTime("01/04/2019").ToShortDateString());
+                //    if (regMDate > todate)
+                //    {
+                //        lblErrMess.Visible = true;
+                //        lblErrMess.Text = "Choose Vehicle Reg. date before 01/04/2019";
+                //        return false;
+                //    }
+
+                //}
+                //catch (Exception ev)
+                //{
+
+                //}
 
 
 
