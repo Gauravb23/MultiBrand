@@ -294,15 +294,20 @@ namespace HSRP.Transaction
 
                 string orderStatus = string.Empty;
                 string RecievedAffixationStatus = string.Empty;
-                string Query = "select vehicleregno, RecievedAffixationStatus, OrderStatus from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and Dealerid='" + dealerid + "'";
-
+                string Query = "select vehicleregno, RecievedAffixationStatus, OrderStatus from Hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and Dealerid='" + dealerid + "'";
+                string Queryhr = "select vehicleregno, RecievedAffixationStatus, OrderStatus from Hsrprecords_HR where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and Dealerid='" + dealerid + "'";
                 DataTable dtregno = Utils.GetDataTable(Query, ConnectionString);
+                DataTable dtregnohr = Utils.GetDataTable(Queryhr, ConnectionString);
                 if (dtregno.Rows.Count > 0)
                 {
                     orderStatus = dtregno.Rows[0]["OrderStatus"].ToString().Trim();
                     RecievedAffixationStatus = dtregno.Rows[0]["RecievedAffixationStatus"].ToString().Trim();
                 }
-
+                else if (dtregnohr.Rows.Count > 0)
+                {
+                    orderStatus = dtregno.Rows[0]["OrderStatus"].ToString().Trim();
+                    RecievedAffixationStatus = dtregno.Rows[0]["RecievedAffixationStatus"].ToString().Trim();
+                }
                 else
                 {
                     LblMessage.Text = "";
@@ -323,7 +328,9 @@ namespace HSRP.Transaction
                 {
 
                     string SQLCheckRecorQuery = "select HSRPRecordID,orderno, HSRP_stateId, VehicleRegNo, isnull(ChassisNo,'') ChassisNo,  isnull(OrderType,'') OrderType, isnull(convert(varchar,getDate(),105),'') ClosedDate, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode from hsrprecords where vehicleregno='"+ txtRegNumber.Text.ToString() +"' and  Dealerid='"+ dealerid +"'  order by HSRPRecordID desc";
+                    string SQLCheckRecorQueryHR = "select HSRPRecordID,orderno, HSRP_stateId, VehicleRegNo, isnull(ChassisNo,'') ChassisNo,  isnull(OrderType,'') OrderType, isnull(convert(varchar,getDate(),105),'') ClosedDate, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode from hsrprecords_HR where vehicleregno='"+ txtRegNumber.Text.ToString() +"' and  Dealerid='"+ dealerid +"'  order by HSRPRecordID desc";
                     DataTable dtRecords = Utils.GetDataTable(SQLCheckRecorQuery, ConnectionString);
+                    DataTable dtRecordsHR = Utils.GetDataTable(SQLCheckRecorQueryHR, ConnectionString);
 
                     if (dtRecords.Rows.Count == 1)
                     {
@@ -340,6 +347,37 @@ namespace HSRP.Transaction
                         {
                             //string UpdateQuery = "Update HSRPRecords set orderStatus= 'Closed' ,OrderClosedDate=Getdate() where  vehicleregno='" + txtRegNumber.Text.Trim().ToString() + "' and  HSRPRecordID='" + HSRPRecordID + "'  and IsBookMyHsrpRecord='Y' ";
                             UpdateQuery = "Update HSRPRecords set orderStatus= 'Closed' ,OrderClosedDate=Getdate() where  vehicleregno='" + txtRegNumber.Text.Trim().ToString() + "' and  Dealerid='" + dealerid + "'";
+                        }
+
+                        int i = Utils.ExecNonQuery(UpdateQuery, ConnectionString);
+                        if (i > 0)
+                        {
+                            string insertQuery = "insert into hsrpimagedata (Imgname, HSRPREcordid,Dealerid,Hsrp_stateid,OemID,imageRear)values ('" + HiddenFId.Value + "','" + HSRPRecordID + "','" + dealerid + "','" + HSRP_stateId + "','" + oemid + "','" + HiddenRId.Value + "')";
+
+                            int J = Utils.ExecNonQuery(insertQuery, ConnectionString);
+
+                            LblMessage.Visible = true;
+                            LblMessage.Text = "Registration No. Affixation Entry Saved Sucessfully";
+                            lblErrMsg.Text = "";
+                            txtRegNumber.Text = "";
+                            return;
+                        }
+                    }
+                    else if(dtRecordsHR.Rows.Count == 1)
+                    {
+                        string UpdateQuery = string.Empty;
+                        string HSRPRecordID = dtRecords.Rows[0]["HSRPRecordID"].ToString();
+                        string HSRP_stateId = dtRecords.Rows[0]["HSRP_stateId"].ToString();
+                        string VehicleRegNo = dtRecords.Rows[0]["VehicleRegNo"].ToString();
+                        string ChassisNo = dtRecords.Rows[0]["ChassisNo"].ToString();
+                        string OrderType = dtRecords.Rows[0]["OrderType"].ToString();
+                        string HSRP_Front_LaserCode = dtRecords.Rows[0]["HSRP_Front_LaserCode"].ToString();
+                        string HSRP_Rear_LaserCode = dtRecords.Rows[0]["HSRP_Rear_LaserCode"].ToString();
+
+                        if (RecievedAffixationStatus == "Y")
+                        {
+                            //string UpdateQuery = "Update HSRPRecords set orderStatus= 'Closed' ,OrderClosedDate=Getdate() where  vehicleregno='" + txtRegNumber.Text.Trim().ToString() + "' and  HSRPRecordID='" + HSRPRecordID + "'  and IsBookMyHsrpRecord='Y' ";
+                            UpdateQuery = "Update HSRPRecords_HR set orderStatus= 'Closed' ,OrderClosedDate=Getdate() where  vehicleregno='" + txtRegNumber.Text.Trim().ToString() + "' and  Dealerid='" + dealerid + "'";
                         }
 
                         int i = Utils.ExecNonQuery(UpdateQuery, ConnectionString);

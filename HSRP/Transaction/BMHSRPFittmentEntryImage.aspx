@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-2">
                                   
-                                     <asp:TextBox ID="txtRegNumber" runat="server" class="form-control"></asp:TextBox>
+                                     <asp:TextBox ID="txtRegNumber" runat="server" class="form-control" MaxLength="10"></asp:TextBox>
                                     
                                 </div>
 

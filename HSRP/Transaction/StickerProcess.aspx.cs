@@ -305,41 +305,9 @@ namespace HSRP.Transaction
 
             if (dt.Rows.Count == 0)
             {
-                string ordertype = string.Empty;
-                string vehHR = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
-                string query = "select OrderType from  hsrprecords where VehicleRegNo = '" + vehRegNo + "' and chassisno = '" + chassisNo + "'";
-                string queryHR = "select OrderType from  hsrprecords_HR where VehicleRegNo = '" + vehRegNo + "' and chassisno = '" + chassisNo + "'";
-                DataTable dtquery = new DataTable();
-                DataTable dtqueryHR = new DataTable();
-                dtquery = Utils.GetDataTable(query, ConnectionString);
-                dtqueryHR = Utils.GetDataTable(queryHR, ConnectionString);
-                if (dtquery.Rows.Count > 0)
-                {
-                    ordertype = dtquery.Rows[0]["OrderType"].ToString();
-                }
-                else if (dtqueryHR.Rows.Count > 0)
-                {
-                    ordertype = dtqueryHR.Rows[0]["OrderType"].ToString();
-                }
-                else
-                {
-                    lblErrMess.Visible = true;
-                    lblErrMess.Text = "Invalid Vehicle RegNo. or Chassis No.";
-                    return;
-                }
-
-                if (vehHR == "HR" && ordertype == "OB")
-                {
-                    checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
-                  " from HSRPRecords_HR where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
-                    dt = Utils.GetDataTable(checkSQL, ConnectionString);
-                }
-                else
-                {
-                    checkSQL = "select top 1 Address1,NAVEMBID, OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
-                                  " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
-                    dt = Utils.GetDataTable(checkSQL, ConnectionString);
-                }
+                checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
+                 " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
+                dt = Utils.GetDataTable(checkSQL, ConnectionString);
             }
 
             if (dt.Rows.Count == 0)
