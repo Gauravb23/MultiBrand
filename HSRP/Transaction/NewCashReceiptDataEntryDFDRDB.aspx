@@ -362,7 +362,7 @@
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddlVehicleStateType" runat="server" class="form-control"  Enabled="true" >
-                                                        <asp:ListItem Value="0">-Select Stage Type-</asp:ListItem>
+                                                        <asp:ListItem>-Select Vehicle Stage Type-</asp:ListItem>
                                                         <asp:ListItem Value="BS4">BS4 or Other</asp:ListItem>
                                                          <asp:ListItem Value="BS6">BS6</asp:ListItem>
                                                          <asp:ListItem Value="BS3">BS3</asp:ListItem>

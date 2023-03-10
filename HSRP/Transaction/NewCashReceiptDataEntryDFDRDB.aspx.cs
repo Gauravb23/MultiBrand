@@ -480,7 +480,7 @@ namespace HSRP.Transaction
                 lblErrMess.Text = "Please select fuel type!";
                 return;
             }
-            if (ddlVehicleStateType.SelectedValue == "0")
+            if (ddlVehicleStateType.SelectedItem.Text.ToString() == "-Select Vehicle Stage Type-")
             {
                 lblErrMess.Visible = true;
                 lblErrMess.Text = "Please select vehicle stage type!";
@@ -1203,7 +1203,7 @@ namespace HSRP.Transaction
                 }
                 else
                 {
-                    cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOem", con);
+                    cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOemDamage", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.AddWithValue("@hsrprecord_authorizationno", hsrprecord_authorizationno);
