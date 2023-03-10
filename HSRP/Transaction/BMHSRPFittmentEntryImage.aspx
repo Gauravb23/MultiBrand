@@ -17,7 +17,10 @@
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                          <h4>BookMyHSRP Vehicle Fittment Entry</h4> <asp:Button ID="btnback" runat="server" Text="Home" style="float:right;" CssClass="btn btn-primary" OnClick="btnback_Click"  />                            
+                            <div class="clearfix">
+                                 <h4 style="float:left">BookMyHSRP Vehicle Fitment Entry</h4>
+                                <asp:Button ID="btnback" runat="server" Text="Home" style="float:right;" CssClass="btn btn-primary" OnClick="btnback_Click"  />                            
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="row" id="TR2" runat="server">

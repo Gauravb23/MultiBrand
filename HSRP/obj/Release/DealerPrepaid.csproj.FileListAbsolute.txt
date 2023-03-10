@@ -853,3 +853,16 @@ D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\System.Runt
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\DataProvider.pdb
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\bin\Newtonsoft.Json.xml
 D:\All Latest Dealer Portals\Latest Code 24Aug22\MultiBrand\HSRP\obj\Release\DealerPrepaid.csproj.CopyComplete
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\HSRP.dll.config
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\HSRP.pdb
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\DataProvider.dll
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\Newtonsoft.Json.dll
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\DataProvider.pdb
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\bin\Newtonsoft.Json.xml
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\obj\Release\DealerPrepaid.csproj.AssemblyReference.cache
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\obj\Release\HSRP.dll.licenses
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\obj\Release\DealerPrepaid.csproj.CoreCompileInputs.cache
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\obj\Release\DealerPrepaid.csproj.CopyComplete
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\obj\Release\HSRP.dll
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\HSRP\obj\Release\HSRP.pdb

@@ -304,6 +304,8 @@
     <Content Include="content\dam\doitassets\eesl\images\logo-en-main.png" />
     <Content Include="content\dam\doitassets\eesl\images\logonew.png" />
     <Content Include="content\dam\doitassets\eesl\images\phone-icon.jpg" />
+    <Content Include="content\font-awesome.css" />
+    <Content Include="content\font-awesome.min.css" />
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -358,6 +360,7 @@
     <Content Include="css\table.css" />
     <Content Include="Data\oemdealerdataformat.xls" />
     <Content Include="error.html" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="GenerateCaptcha.aspx" />
     <Content Include="Global.asax" />
@@ -572,7 +575,9 @@
     <Content Include="RegisterMachine.aspx" />
     <Content Include="Transaction\BMHSRPFittmentEntryImage.aspx" />
     <Content Include="Transaction\DLViewDealerOrder.aspx" />
+    <Content Include="Transaction\LaserReceivedDealerwise.aspx" />
     <Content Include="Transaction\NewCashReceiptDataEntry.aspx" />
+    <Content Include="Transaction\NewCashReceiptDataEntryDFDRDB.aspx" />
     <Content Include="Transaction\ShipmentTrackingFile.xml" />
     <Content Include="Transaction\AffixAddressUpdate.aspx" />
     <Content Include="Transaction\StickerProcess.aspx" />
@@ -619,6 +624,11 @@
     <Content Include="Data\BMHSRPFORMENROLLMENTFORDEALERUK.pdf" />
     <Content Include="Data\BMHSRPFORMENROLLMENTFORDEALERBIHAR.pdf" />
     <Content Include="Data\PPTDealerTraining.pdf" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\Settings.settings">
@@ -1109,6 +1119,13 @@
     <Compile Include="Transaction\DLViewDealerOrder.aspx.designer.cs">
       <DependentUpon>DLViewDealerOrder.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Transaction\LaserReceivedDealerwise.aspx.cs">
+      <DependentUpon>LaserReceivedDealerwise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transaction\LaserReceivedDealerwise.aspx.designer.cs">
+      <DependentUpon>LaserReceivedDealerwise.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Transaction\NewCashReceiptDataEntry.aspx.cs">
       <DependentUpon>NewCashReceiptDataEntry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1122,6 +1139,13 @@
     </Compile>
     <Compile Include="Transaction\AffixAddressUpdate.aspx.designer.cs">
       <DependentUpon>AffixAddressUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\NewCashReceiptDataEntryDFDRDB.aspx.cs">
+      <DependentUpon>NewCashReceiptDataEntryDFDRDB.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transaction\NewCashReceiptDataEntryDFDRDB.aspx.designer.cs">
+      <DependentUpon>NewCashReceiptDataEntryDFDRDB.aspx</DependentUpon>
     </Compile>
     <Compile Include="Transaction\StickerProcess.aspx.cs">
       <DependentUpon>StickerProcess.aspx</DependentUpon>

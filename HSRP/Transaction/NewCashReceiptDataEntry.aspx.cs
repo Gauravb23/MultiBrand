@@ -237,7 +237,7 @@ namespace HSRP.Transaction
             btnGO2.Visible = true;
             btnAdd2.Visible = false;
             btnSave2.Visible = false;
-            //btnPrint.Visible = true;
+            btnPrint.Visible = true;
             lblpincode.Visible = false;
             txtpincode.Visible = false;
             InitialSetting();
@@ -389,7 +389,7 @@ namespace HSRP.Transaction
 
         protected void ddlstate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
+            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue +"' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
             dt = Utils.GetDataTable(Query, ConnectionString);
             ddldistrict.DataSource = dt;
             ddldistrict.DataBind();
@@ -1332,7 +1332,7 @@ namespace HSRP.Transaction
                     lblErrMess.Visible = false;
                     lblSucMess.Text = "Order Saved Successfully, Rate Charged : " + newRates;
                     //lblavailbal.Text = availableBlanace();                                                          
-                    //GenerateInvoice(txtRegNumber.Text.ToString(), newStateid);
+                    GenerateInvoice(txtRegNumber.Text.ToString(), newStateid);
                     Cleardatasave();
                 }
                 else
@@ -1719,7 +1719,8 @@ namespace HSRP.Transaction
 
         protected void btnAdd2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("../Transaction/AffixAddressUpdate.aspx");
+            string plate = "plate";
+            Response.Redirect("../Transaction/AffixAddressUpdate.aspx?Through=" + plate, true);
         }
 
         protected string GetOrderType(string date)

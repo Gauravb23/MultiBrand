@@ -482,3 +482,9 @@ D:\Ananda\prepaidRentACAB\prepaidRentACAB\DataProvider\obj\Release\DataProvider.
 D:\Ananda\prepaidRentACAB\prepaidRentACAB\DataProvider\obj\Release\DataProvider.csproj.CoreCompileInputs.cache
 D:\Ananda\prepaidRentACAB\prepaidRentACAB\DataProvider\obj\Release\DataProvider.dll
 D:\Ananda\prepaidRentACAB\prepaidRentACAB\DataProvider\obj\Release\DataProvider.pdb
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\bin\Release\DataProvider.dll
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\bin\Release\DataProvider.pdb
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Release\DataProvider.csproj.AssemblyReference.cache
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Release\DataProvider.csproj.CoreCompileInputs.cache
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Release\DataProvider.dll
+D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Release\DataProvider.pdb

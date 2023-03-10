@@ -305,8 +305,8 @@ namespace HSRP.Transaction
                 }
                 else if (dtregnohr.Rows.Count > 0)
                 {
-                    orderStatus = dtregno.Rows[0]["OrderStatus"].ToString().Trim();
-                    RecievedAffixationStatus = dtregno.Rows[0]["RecievedAffixationStatus"].ToString().Trim();
+                    orderStatus = dtregnohr.Rows[0]["OrderStatus"].ToString().Trim();
+                    RecievedAffixationStatus = dtregnohr.Rows[0]["RecievedAffixationStatus"].ToString().Trim();
                 }
                 else
                 {
@@ -366,13 +366,13 @@ namespace HSRP.Transaction
                     else if(dtRecordsHR.Rows.Count == 1)
                     {
                         string UpdateQuery = string.Empty;
-                        string HSRPRecordID = dtRecords.Rows[0]["HSRPRecordID"].ToString();
-                        string HSRP_stateId = dtRecords.Rows[0]["HSRP_stateId"].ToString();
-                        string VehicleRegNo = dtRecords.Rows[0]["VehicleRegNo"].ToString();
-                        string ChassisNo = dtRecords.Rows[0]["ChassisNo"].ToString();
-                        string OrderType = dtRecords.Rows[0]["OrderType"].ToString();
-                        string HSRP_Front_LaserCode = dtRecords.Rows[0]["HSRP_Front_LaserCode"].ToString();
-                        string HSRP_Rear_LaserCode = dtRecords.Rows[0]["HSRP_Rear_LaserCode"].ToString();
+                        string HSRPRecordID = dtRecordsHR.Rows[0]["HSRPRecordID"].ToString();
+                        string HSRP_stateId = dtRecordsHR.Rows[0]["HSRP_stateId"].ToString();
+                        string VehicleRegNo = dtRecordsHR.Rows[0]["VehicleRegNo"].ToString();
+                        string ChassisNo = dtRecordsHR.Rows[0]["ChassisNo"].ToString();
+                        string OrderType = dtRecordsHR.Rows[0]["OrderType"].ToString();
+                        string HSRP_Front_LaserCode = dtRecordsHR.Rows[0]["HSRP_Front_LaserCode"].ToString();
+                        string HSRP_Rear_LaserCode = dtRecordsHR.Rows[0]["HSRP_Rear_LaserCode"].ToString();
 
                         if (RecievedAffixationStatus == "Y")
                         {
