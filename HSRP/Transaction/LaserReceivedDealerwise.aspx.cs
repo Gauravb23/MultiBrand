@@ -24,22 +24,10 @@ namespace HSRP.Transaction
         string SQLString = string.Empty;
         string strUserID = string.Empty;
         string ComputerIP = string.Empty;
-        string UserType = string.Empty;
         string HSRPStateID = string.Empty;
         string RTOLocationID = string.Empty;
         int IResult;
-        string sendURL = string.Empty;
-        string SMSText = string.Empty;
-        string SqlQuery = string.Empty;
-
-        string AllLocation = string.Empty;
-        string OrderStatus = string.Empty;
-        int iChkCount = 0;
-        string vehicle = string.Empty;
-        DataProvider.BAL bl = new DataProvider.BAL();
-        BAL obj = new BAL();
-        string StickerManditory = string.Empty;
-
+        DataTable dt = new DataTable();
         string USERID = string.Empty;
         string dealerid = string.Empty;
 
@@ -48,7 +36,7 @@ namespace HSRP.Transaction
             Utils.GZipEncodePage();
             if (Session["UID"] == null)
             {
-                Response.Redirect("~/Login.aspx", true);
+                Response.Redirect("/error.aspx", true);
             }
             else
             {
@@ -87,9 +75,8 @@ namespace HSRP.Transaction
         public void ChallandropDown()
         {
             try
-            {
-                //and rtolocationID='" + RTOLocationID + "' 
-                ///    Change by receiving Rtolocation by amit through by ravi  05-july-19
+            {                
+                //Change by receiving Rtolocation by amit through by ravi  05-july-19
                 SQLString = "USP_ReceivingEntryMultiBrand '"+ dealerid +"'";
                 Utils.PopulateDropDownList(dropdownChallanNo, SQLString.ToString(), CnnString, "-- Select Challan No --");
             }
@@ -104,14 +91,14 @@ namespace HSRP.Transaction
             try
             {
                 // and rtolocationID='" + RTOLocationID + "'
-                if (dropdownChallanNo.SelectedItem.Text != "--Select Challan No--")
+                if (dropdownChallanNo.SelectedItem.Text != "-- Select Challan No --")
                 {
                     string SQLString = "USP_ReceivingEntryGridMultiBrand '"+ dealerid +"','"+ dropdownChallanNo.SelectedValue.ToString() +"'";
                     dt = Utils.GetDataTable(SQLString, CnnString);
 
                     if (dt.Rows.Count > 0)
                     {
-                        btnUpdate.Visible = true;
+                        btnSave.Visible = true;
                         GridView1.DataSource = dt;
                         GridView1.DataBind();
                         GridView1.Visible = true;
@@ -120,7 +107,7 @@ namespace HSRP.Transaction
                     {
 
                         lblErrMsg.Text = "Record Not Found";
-                        btnUpdate.Visible = false;
+                        btnSave.Visible = false;
                         GridView1.DataSource = null;
                         GridView1.DataBind();
                     }
@@ -128,7 +115,7 @@ namespace HSRP.Transaction
                 else
                 {
                     lblErrMsg.Text = String.Empty;
-                    lblErrMsg.Text = "Please Select Challan no.";
+                    lblErrMsg.Text = "Please select challan no!";
                     return;
                 }
             }
@@ -172,16 +159,13 @@ namespace HSRP.Transaction
        
 
 
-        DataTable dt = new DataTable();
+        
 
         protected void dropdownDuplicateFIle_SelectedIndexChanged(object sender, EventArgs e)
         {
             LblMessage.Text = "";
-            lblErrMsg.Text = "";
-            string SQLString = "select hsrprecordid,vehicleregno,hsrp_rear_lasercode,hsrp_Front_lasercode,OrderStatus from hsrprecords where OrderStatus='Embossing Done' and ChallanNo='" + dropdownChallanNo.SelectedItem.ToString() + "' and hsrp_StateID='" + HSRPStateID + "' and RecievedAffixationStatus='N' and  Dealerid = '" + dealerid + "'  ";
-            dt = Utils.GetDataTable(SQLString, CnnString);
-            ShowGrid();
-            //and rtolocationID='" + RTOLocationID + "'
+            lblErrMsg.Text = "";           
+            ShowGrid();           
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -195,13 +179,87 @@ namespace HSRP.Transaction
         StringBuilder sbinsert = new StringBuilder();
         StringBuilder sbupdate = new StringBuilder();
 
-        protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
+        //protected void btnUpdate_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        string rtolocationid = RTOLocationID;
+        //        LblMessage.Text = "";
+        //        lblErrMsg.Text = "";
+               
+        //        for (int i = 0; i < GridView1.Rows.Count; i++)
+        //        {
+        //            CheckBox chk = GridView1.Rows[i].Cells[0].FindControl("CHKSelect") as CheckBox;
+        //            CheckBox chkrej = GridView1.Rows[i].Cells[0].FindControl("CHKreject1") as CheckBox;
+        //            if (chk.Checked == true)
+        //            {
+        //                string strRecordId = GridView1.DataKeys[i]["hsrprecordid"].ToString();
+        //                string Query = "select vehicleregno from hsrprecords where hsrprecordId = '"+ strRecordId +"'";
+        //                dt = Utils.GetDataTable(Query,CnnString);
+
+        //                string QueryHR = "select vehicleregno from hsrprecords_HR where hsrprecordId = '" + strRecordId + "'";
+        //                DataTable dtHR = Utils.GetDataTable(QueryHR, CnnString);
+
+        //                if(dt.Rows.Count > 0)
+        //                {
+        //                    sbupdate.Append("update hsrprecords set ReceivedAtAffixationCenterID ='" + RTOLocationID + "',RecievedAtAffixationDateTime=getdate(),RecievedAffixationCenterByUserID='" + strUserID + "',RecievedAffixationStatus='Y' where  hsrprecordid ='" + strRecordId + "' ;");
+        //                }
+
+        //                if(dtHR.Rows.Count > 0)
+        //                {
+        //                    sbupdate.Append("update hsrprecords_HR set ReceivedAtAffixationCenterID ='" + RTOLocationID + "',RecievedAtAffixationDateTime=getdate(),RecievedAffixationCenterByUserID='" + strUserID + "',RecievedAffixationStatus='Y' where  hsrprecordid ='" + strRecordId + "' ;");
+        //                }
+
+        //            }
+        //            if (chkrej.Checked == true)
+        //            {
+        //                string strRecordId = GridView1.DataKeys[i]["hsrprecordid"].ToString();
+        //                sbupdate.Append("update hsrprecords set hsrp_flag='R' where  hsrprecordid ='" + strRecordId + "' ;");
+        //            }
+        //            if (chk.Checked == false)
+        //            {
+        //                lblErrMsg.Visible = true;
+        //                lblErrMsg.Text = "Please select atleast one order!";
+        //                return;
+        //            }
+        //        }
+        //        if (!string.IsNullOrEmpty(sbupdate.ToString().Trim()))
+        //        {
+        //            IResult = Utils.ExecNonQuery(sbupdate.ToString(), CnnString);
+        //            if (IResult > 0)
+        //            {
+        //                LblMessage.Visible = true;
+        //                lblErrMsg.Text = "";
+        //                LblMessage.Text = "";
+
+        //                LblMessage.Text = "Received Successfully......";
+        //                ChallandropDown();
+        //                GridView1.Visible = false;
+        //                //ShowGrid();
+        //                //return;
+        //            }
+        //            else
+        //            {
+        //                lblErrMsg.Visible = true;
+        //                lblErrMsg.Text = "";
+        //                lblErrMsg.Text = "Record Not Saved.";
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblErrMsg.Text = ex.Message.ToString();
+        //    }
+        //}
+
+        protected void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 string rtolocationid = RTOLocationID;
                 LblMessage.Text = "";
                 lblErrMsg.Text = "";
+
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
                     CheckBox chk = GridView1.Rows[i].Cells[0].FindControl("CHKSelect") as CheckBox;
@@ -209,27 +267,45 @@ namespace HSRP.Transaction
                     if (chk.Checked == true)
                     {
                         string strRecordId = GridView1.DataKeys[i]["hsrprecordid"].ToString();
-                        string Query = "select vehicleregno from hsrprecords where hsrprecord = '"+ strRecordId +"'";
-                        dt = Utils.GetDataTable(Query,CnnString);
+                        string Query = "select vehicleregno from hsrprecords where hsrprecordId = '" + strRecordId + "'";
+                        dt = Utils.GetDataTable(Query, CnnString);
 
-                        string QueryHR = "select vehicleregno from hsrprecords_HR where hsrprecord = '" + strRecordId + "'";
+                        string QueryHR = "select vehicleregno from hsrprecords_HR where hsrprecordId = '" + strRecordId + "'";
                         DataTable dtHR = Utils.GetDataTable(QueryHR, CnnString);
 
-                        if(dt.Rows.Count > 0)
+                        if (dt.Rows.Count > 0)
                         {
                             sbupdate.Append("update hsrprecords set ReceivedAtAffixationCenterID ='" + RTOLocationID + "',RecievedAtAffixationDateTime=getdate(),RecievedAffixationCenterByUserID='" + strUserID + "',RecievedAffixationStatus='Y' where  hsrprecordid ='" + strRecordId + "' ;");
                         }
 
-                        if(dtHR.Rows.Count > 0)
+                        if (dtHR.Rows.Count > 0)
                         {
-                            sbupdate.Append("update hsrprecords set ReceivedAtAffixationCenterID ='" + RTOLocationID + "',RecievedAtAffixationDateTime=getdate(),RecievedAffixationCenterByUserID='" + strUserID + "',RecievedAffixationStatus='Y' where  hsrprecordid ='" + strRecordId + "' ;");
+                            sbupdate.Append("update hsrprecords_HR set ReceivedAtAffixationCenterID ='" + RTOLocationID + "',RecievedAtAffixationDateTime=getdate(),RecievedAffixationCenterByUserID='" + strUserID + "',RecievedAffixationStatus='Y' where  hsrprecordid ='" + strRecordId + "' ;");
                         }
 
                     }
                     if (chkrej.Checked == true)
                     {
                         string strRecordId = GridView1.DataKeys[i]["hsrprecordid"].ToString();
-                        sbupdate.Append("update hsrprecords set hsrp_flag='R' where  hsrprecordid ='" + strRecordId + "' ;");
+                        string Query = "select vehicleregno from hsrprecords where hsrprecordId = '" + strRecordId + "'";
+                        dt = Utils.GetDataTable(Query, CnnString);
+
+                        string QueryHR = "select vehicleregno from hsrprecords_HR where hsrprecordId = '" + strRecordId + "'";
+                        DataTable dtHR = Utils.GetDataTable(QueryHR, CnnString);
+                        if(dt.Rows.Count > 0)
+                        {
+                            sbupdate.Append("update hsrprecords set hsrp_flag='R' where hsrprecordid ='" + strRecordId + "' ;");
+                        }
+                        if (dtHR.Rows.Count > 0)
+                        {
+                            sbupdate.Append("update hsrprecords_HR set hsrp_flag='R' where hsrprecordid ='" + strRecordId + "' ;");
+                        }
+                    }
+                    if (chk.Checked == false)
+                    {
+                        lblErrMsg.Visible = true;
+                        lblErrMsg.Text = "Please select atleast one order!";
+                        return;
                     }
                 }
                 if (!string.IsNullOrEmpty(sbupdate.ToString().Trim()))
@@ -240,10 +316,10 @@ namespace HSRP.Transaction
                         LblMessage.Visible = true;
                         lblErrMsg.Text = "";
                         LblMessage.Text = "";
-
-                        LblMessage.Text = "Received Successfully......";
+                        LblMessage.Text = "Plate receiving entry done successfully......";
                         ChallandropDown();
                         GridView1.Visible = false;
+                        btnSave.Visible = false;
                         //ShowGrid();
                         //return;
                     }

@@ -514,7 +514,7 @@
                                             <asp:Label runat="server" ID="Label24" Visible="true"> HSRP FrontLaser/ SerialNo. <span style="color: #FF3300">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                              <asp:TextBox ID="txtfronlaser" runat="server" class="form-control" MaxLength="20" autocomplete="off"></asp:TextBox>
+                                              <asp:TextBox ID="txtfronlaser" runat="server" class="form-control" MaxLength="12" autocomplete="off"></asp:TextBox>
                                             <asp:HiddenField runat="server" ID="HideFLaserTxt" />
                                         </div>
                                         <%--<div class="col-md-3 col-sm-3 col-lg-3">
@@ -530,7 +530,7 @@
                                             <asp:Label runat="server" ID="Label25" Visible="true"> HSRP RearLaser/ SerialNo. <span style="color: #FF3300">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                            <asp:TextBox ID="txtRearlaser" runat="server" class="form-control" MaxLength="20" autocomplete="off"></asp:TextBox>
+                                            <asp:TextBox ID="txtRearlaser" runat="server" class="form-control" MaxLength="12" autocomplete="off"></asp:TextBox>
                                             <asp:HiddenField runat="server" ID="HideRLaserTxt" />
                                         </div>
                                         <%--<div class="col-md-3 col-sm-3 col-lg-3">

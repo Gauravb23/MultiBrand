@@ -61,12 +61,14 @@
             <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="panel-group">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <asp:ImageButton ID="ImageButton1" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="left" ImageUrl="../images/button/back.png" Style="height: 27px; width: 27px; margin-top: -4px;" OnClientClick="JavaScript: window.history.back(1); return false;" />&nbsp;&nbsp;
-                            HSRP Plate Received At Affixation Center 
+                        <div class="panel-heading">                           
+                            <div class="clearfix">
+                                <h4 style="float:left;"> HSRP Plate Received At Affixation Center </h4>
                              <a href="../LiveReports/LiveTracking.aspx" style="float: right">
                                  <img class="" src="../images/button/home.png" alt="logo" style="height: 27px; width: 27px; margin-top: -4px;">
                              </a>
+                            </div>
+                           
                         </div>
                         <div class="panel-body">
                             <div class="row" id="TR2" runat="server">
@@ -88,14 +90,14 @@
                                 
                             </div>
                            
-                            <div class="row">
-                                <asp:Label ID="LblMessage" runat="server" Font-Names="Arial" Font-Size="10pt" ForeColor="Blue" Text=""></asp:Label>
+                            <div class="row" style="margin-left:10px;">
+                                <asp:Label ID="LblMessage" runat="server" Font-Names="Arial" Font-Size="15pt" ForeColor="Blue" Text=""></asp:Label>
                                 &nbsp;&nbsp;
-                                        <asp:Label ID="lblErrMsg" runat="server" Font-Names="Arial" Font-Size="10pt" ForeColor="#FF3300" />
+                                <asp:Label ID="lblErrMsg" runat="server" Font-Names="Arial" Font-Size="15pt" ForeColor="#FF3300" />
                             </div>
                             <div class="row" style="overflow-x: auto; font-size: 12px;">
                                 <asp:GridView ID="GridView1" runat="server" BackColor="White" AutoGenerateColumns="false"
-                                    OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="true" PageSize="1000"
+                                    OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="true" PageSize="50"
                                     align="center" CellPadding="4" ForeColor="#333333" GridLines="Both" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" Width="100%"
                                     DataKeyNames="hsrprecordid">
                                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -202,10 +204,9 @@
                                     </Columns>
                                 </asp:GridView>
                             </div>
-                            <div class="row">
-                                <asp:ImageButton ID="btnUpdate" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="btnUpdate_Click" OnClientClick="return validate()" Visible="false" />
-                                <%--<asp:Button ID="btnUpdate" runat="server" Text="Save" CssClass="button"
-                                    OnClick="btnUpdate_Click" Visible="False" Height="21px" BackColor="Orange" ForeColor="#000000" />--%>
+                            <div class="row" style="float:right;">
+                               <%-- <asp:ImageButton ID="btnUpdate" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="btnUpdate_Click" OnClientClick="return validate()" Visible="false" />--%>
+                               <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave_Click" OnClientClick="return validate()" Visible="false" />                               
                             </div>
                         </div>
                     </div>

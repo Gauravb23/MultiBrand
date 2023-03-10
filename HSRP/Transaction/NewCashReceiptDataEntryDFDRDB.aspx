@@ -362,7 +362,7 @@
                                      <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
                                                 <ContentTemplate>
                                                     <asp:DropDownList ID="ddlVehicleStateType" runat="server" class="form-control"  Enabled="true" >
-                                                        <asp:ListItem>-Select Stage Type-</asp:ListItem>
+                                                        <asp:ListItem Value="0">-Select Stage Type-</asp:ListItem>
                                                         <asp:ListItem Value="BS4">BS4 or Other</asp:ListItem>
                                                          <asp:ListItem Value="BS6">BS6</asp:ListItem>
                                                          <asp:ListItem Value="BS3">BS3</asp:ListItem>
@@ -391,7 +391,8 @@
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-lg-2" id="divmodel2" visible="false" runat="server">
                                      <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="form-control"
-                                        AutoPostBack="false" Visible="true">
+                                        AutoPostBack="false">
+                                         <asp:ListItem Value="0">-- Select Order Type -- </asp:ListItem>
                                   <asp:ListItem Value="DB">Both Damage Plates (Front and Rear)</asp:ListItem>
                                   <asp:ListItem Value="DF">Front Damage Plate</asp:ListItem>
                                   <asp:ListItem Value="DR">Rear Damage Plate</asp:ListItem>

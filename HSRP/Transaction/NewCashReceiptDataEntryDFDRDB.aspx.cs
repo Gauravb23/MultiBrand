@@ -480,7 +480,7 @@ namespace HSRP.Transaction
                 lblErrMess.Text = "Please select fuel type!";
                 return;
             }
-            if (ddlVehicleStateType.SelectedItem.Text.Trim() == "-Select-")
+            if (ddlVehicleStateType.SelectedValue == "0")
             {
                 lblErrMess.Visible = true;
                 lblErrMess.Text = "Please select vehicle stage type!";
@@ -492,7 +492,7 @@ namespace HSRP.Transaction
                 lblErrMess.Text = "Please select vehicle type!";
                 return;
             }
-            if (ddlOrderType.SelectedItem.Text.ToString() == "-Select Order Type-")
+            if (ddlOrderType.SelectedValue == "0")
             {
                 lblErrMess.Visible = true;
                 lblErrMess.Text = "Please select order type!";
@@ -916,18 +916,18 @@ namespace HSRP.Transaction
                 string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or right(ChassisNo,5) ='" + strChassisno1 + "') and orderstatus in ('New Order' ,'Embossing Done') and isnull(challanno,'')='' and isnull(challandate,'')=''   ";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                if (dtregno.Rows.Count > 0 || dtregnoHR.Rows.Count > 0)
+                if ((dtregno.Rows.Count > 0) && (dtregnoHR.Rows.Count > 0))
                 {
                     lblErrMess.Visible = true;
                     lblErrMess.Text = "Check Vehicle No. All Ready book but Not Dispatch!";
                     return;
                 }
 
-                Query = "select top 1 vehicleregno from hsrprecords h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' ) and  d.oemid='" + oemid + "' ";
-                QueryHR = "select top 1 vehicleregno from hsrprecords_HR h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' ) and  d.oemid='" + oemid + "'";
+                Query = "select top 1 vehicleregno from hsrprecords h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' )  ";
+                QueryHR = "select top 1 vehicleregno from hsrprecords_HR h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' ) ";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                if (dtregno.Rows.Count > 0)
+                if ((dtregno.Rows.Count == 0) && (dtregnoHR.Rows.Count == 0))
                 {
                     lblErrMess.Visible = true;
                     lblErrMess.Text = "New Order is  not available  for this Dealer!";
@@ -972,8 +972,8 @@ namespace HSRP.Transaction
 
                     Query = "select top 1 vehicleregno from hsrprecords where vehicleregno = '" + txtRegNumber.Text.ToString() + "'";
                     dt = Utils.GetDataTable(Query,ConnectionString);
-                    Query = "select top 1 vehicleregno from hsrprecords where vehicleregno = '" + txtRegNumber.Text.ToString() + "'";
-                    dtregnoHR = Utils.GetDataTable(Query, ConnectionStringHR);
+                    QueryHR = "select top 1 vehicleregno from hsrprecords_HR where vehicleregno = '" + txtRegNumber.Text.ToString() + "'";
+                    dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
 
                     if (dt.Rows.Count > 0)
                     {
@@ -1002,12 +1002,7 @@ namespace HSRP.Transaction
                         VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
                         if (VehicleRegoE == "HR")
                         {
-
-                            if (VehicleRegoE == "HR")
-                            {
-                                newStateid = "4";
-                            }
-
+                            newStateid = "4";                            
                             SqlConnection conn = new SqlConnection(ConnectionString);
                             SqlCommand cmdd = new SqlCommand("usp_BMHSRPOemRatesAndSize", conn);
                             cmdd.CommandType = CommandType.StoredProcedure;
@@ -1097,7 +1092,7 @@ namespace HSRP.Transaction
                 SqlCommand cmd = new SqlCommand();
                 if (newStateid == "4")
                 {
-                    cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOemHRDemo", con);
+                    cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOemHRDemoDamage", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     con.Open();
                     cmd.Parameters.AddWithValue("@hsrprecord_authorizationno", hsrprecord_authorizationno);
@@ -1127,10 +1122,8 @@ namespace HSRP.Transaction
                         cmd.Parameters.AddWithValue("@RTOLocationID", ddldistrict.SelectedValue);
                     }
 
-                    cmd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.ToString());
-
-                    string orderType = GetOrderType(strFrmDateString);
-                    cmd.Parameters.AddWithValue("@OrderType", orderType);
+                    cmd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.ToString());                   
+                    cmd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue);
                     cmd.Parameters.AddWithValue("@NetAmount", newRates);
                     cmd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
                     cmd.Parameters.AddWithValue("@OrderStatus", "New Order");
@@ -1239,8 +1232,8 @@ namespace HSRP.Transaction
 
                     cmd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.ToString());
 
-                    string orderType = GetOrderType(strFrmDateString);
-                    cmd.Parameters.AddWithValue("@OrderType", orderType);
+                    
+                    cmd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue);
                     cmd.Parameters.AddWithValue("@NetAmount", newRates);
                     cmd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
                     cmd.Parameters.AddWithValue("@OrderStatus", "New Order");
