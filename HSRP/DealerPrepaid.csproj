@@ -575,6 +575,7 @@
     <Content Include="RegisterMachine.aspx" />
     <Content Include="Transaction\BMHSRPFittmentEntryImage.aspx" />
     <Content Include="Transaction\DLViewDealerOrder.aspx" />
+    <Content Include="Transaction\FitterMobile.aspx" />
     <Content Include="Transaction\LaserReceivedDealerwise.aspx" />
     <Content Include="Transaction\NewCashReceiptDataEntry.aspx" />
     <Content Include="Transaction\NewCashReceiptDataEntryDFDRDB.aspx" />
@@ -1118,6 +1119,13 @@
     </Compile>
     <Compile Include="Transaction\DLViewDealerOrder.aspx.designer.cs">
       <DependentUpon>DLViewDealerOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\FitterMobile.aspx.cs">
+      <DependentUpon>FitterMobile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transaction\FitterMobile.aspx.designer.cs">
+      <DependentUpon>FitterMobile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Transaction\LaserReceivedDealerwise.aspx.cs">
       <DependentUpon>LaserReceivedDealerwise.aspx</DependentUpon>

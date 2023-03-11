@@ -262,9 +262,9 @@ namespace HSRP.Transaction
 
                 for (int i = 0; i < GridView1.Rows.Count; i++)
                 {
-                    CheckBox chk = GridView1.Rows[i].Cells[0].FindControl("CHKSelect") as CheckBox;
+                    CheckBox chknew = GridView1.Rows[i].Cells[0].FindControl("CHKSelect") as CheckBox;
                     CheckBox chkrej = GridView1.Rows[i].Cells[0].FindControl("CHKreject1") as CheckBox;
-                    if (chk.Checked == true)
+                    if (chknew.Checked == true)
                     {
                         string strRecordId = GridView1.DataKeys[i]["hsrprecordid"].ToString();
                         string Query = "select vehicleregno from hsrprecords where hsrprecordId = '" + strRecordId + "'";
@@ -301,13 +301,9 @@ namespace HSRP.Transaction
                             sbupdate.Append("update hsrprecords_HR set hsrp_flag='R' where hsrprecordid ='" + strRecordId + "' ;");
                         }
                     }
-                    if (chk.Checked == false)
-                    {
-                        lblErrMsg.Visible = true;
-                        lblErrMsg.Text = "Please select atleast one order!";
-                        return;
-                    }
+                    
                 }
+               
                 if (!string.IsNullOrEmpty(sbupdate.ToString().Trim()))
                 {
                     IResult = Utils.ExecNonQuery(sbupdate.ToString(), CnnString);
@@ -330,6 +326,7 @@ namespace HSRP.Transaction
                         lblErrMsg.Text = "Record Not Saved.";
                     }
                 }
+                
             }
             catch (Exception ex)
             {
