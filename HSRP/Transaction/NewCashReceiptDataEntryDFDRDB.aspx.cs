@@ -353,6 +353,7 @@ namespace HSRP.Transaction
                 txtpincode.Visible = false;
                 ddlLocationAddress.Visible = true;
                 lblLocationAddress.Visible = true;
+                btnAdd2.Visible = true;
             }
 
             if (ddlAffixationType.SelectedValue == "2")
@@ -374,6 +375,7 @@ namespace HSRP.Transaction
                 txtpincode.Visible = true;
                 ddlLocationAddress.Visible = false;
                 lblLocationAddress.Visible = false;
+                btnAdd2.Visible = false;
             }
         }
 
@@ -1578,9 +1580,14 @@ namespace HSRP.Transaction
                         divmodel2.Visible = true;
                         divdevtype.Visible = true;
                         btnGO2.Visible = false;
-                        btnAdd2.Visible = true;
                         btnSave2.Visible = true;
                         btnPrint.Visible = false;
+                        hr1.Visible = true;
+                        hr2.Visible = true;
+                        divfitment.Visible = true;
+                        divdocument.Visible = true;
+                        divdocument2.Visible = true;
+                        divdocument3.Visible = true;
                         DisableControl();
                     }
                     else
@@ -1602,7 +1609,6 @@ namespace HSRP.Transaction
                         divdevtype.Visible = false;
                         btnGO2.Visible = true;
                         btnPrint.Visible = false;
-                        btnAdd2.Visible = false;
                         lblErrMess.Text = _vd.message.ToString();
                         InitialSetting();
                         ddlVehicleclass.ClearSelection();
@@ -1610,6 +1616,12 @@ namespace HSRP.Transaction
                         ddlVehicleStateType.SelectedItem.Text = "-Select Stage Type-";
                         txtmodel.Text = "";
                         ddlVehicletype.ClearSelection();
+                        hr1.Visible = false;
+                        hr2.Visible = false;
+                        divfitment.Visible = false;
+                        divdocument.Visible = false;
+                        divdocument2.Visible = false;
+                        divdocument3.Visible = false;
                         return;
                     }
 

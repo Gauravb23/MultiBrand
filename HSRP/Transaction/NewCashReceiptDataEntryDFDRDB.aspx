@@ -271,7 +271,7 @@
                         <div class="panel-body">
                             <div class="row bookingform">
                                 <div class="col-md-10 col-lg-10 col-sm-10"></div>
-                                <div class="col-md-2 col-lg-2 col-sm-2" style="border: 1px ridge; background: #0d0076 border-box; color: white;">Available Balance:&nbsp;&nbsp;&nbsp;<asp:Label ID="lblavailbal" runat="server" Font-Bold="true"></asp:Label></div>
+                                <div class="col-md-2 col-lg-2 col-sm-2" runat="server" visible="false" style="border: 1px ridge; background: #0d0076 border-box; color: white;">Available Balance:&nbsp;&nbsp;&nbsp;<asp:Label ID="lblavailbal" runat="server" Font-Bold="true"></asp:Label></div>
 
                             </div>
                             <div class="row bookingform">
@@ -430,8 +430,13 @@
 
                                 </div>
                             </div>
-                                  <hr />                                
-                            <div class="row" id="divdevtype" runat="server" Visible="false">
+                                  <hr id="hr1" runat="server" visible="false" />          
+                             <div class="row" visible="false" id="divfitment" runat="server">
+                                <div class="col-md-4 col-sm-4 col-lg-4">
+                               <b><u>Fitment Location Details</u></b> 
+                                    </div>
+                            </div>
+                            <div class="row" id="divdevtype" runat="server" Visible="false" style="margin-top:10px;">
                                 <div class="col-md-2 col-lg-2 col-sm-2">
                                      Fitment Address<span style="color: #FF3300">*</span>
                                 </div>
@@ -479,14 +484,65 @@
                                 </div>
 
                             </div>
+                            <div class="row justify-content-center" style="margin-top:12px;">
+                                <div style="text-align: center;">
+                                 <asp:Button ID="btnAdd2" runat="server" Text="Add Location" CssClass="btn btn-primary" OnClick="btnAdd2_Click" Visible="false" />
+                                </div>   
+                            </div>
+                            <hr id="hr2" runat="server" visible="false"/>
+                            <div class="row" id="divdocument" runat="server" visible="false">
+                                <div class="col-md-4 col-sm-4 col-lg-4">
+                               <b><u>Documents Upload</u></b> 
+                                    </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;" visible="false" id="divdocument2" runat="server">
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <asp:Label runat="server" ID="lblRC" Visible="true"> Upload Vehicle Registration Certificate<span style="color: #FF3300">*</span></asp:Label>
+                                      <br />
+                                    <asp:Label runat="server" ID="lblRCmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                     <asp:FileUpload runat="server" CssClass="form-control" ID="RcUploader" />
+                                     <asp:HiddenField runat="server" ID="HiddenRCPath" />
+                                </div>
+                                 <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <asp:Label runat="server" ID="lblFIR" Visible="true"> Upload FIR<span style="color: #FF3300">*</span></asp:Label>
+                                      <br />
+                                    <asp:Label runat="server" ID="lblFIRmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                     <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload1" />
+                                     <asp:HiddenField runat="server" ID="HiddenField1" />
+                                </div>
+                            </div>
 
+                            <div class="row" style="margin-top:10px;" visible="false" id="divdocument3" runat="server">
+                                 <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <asp:Label runat="server" ID="lblfront" Visible="true"> Front Laser Code Image <span style="color: #FF3300">*</span></asp:Label>
+                                      <br />
+                                    <asp:Label runat="server" ID="lblfrontmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <asp:FileUpload runat="server" CssClass="form-control" ID="FileFrontlaser" />
+                                    <asp:HiddenField runat="server" ID="HiddenFlaser" />
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <asp:Label runat="server" ID="lblrear" Visible="true"> Rear Laser Code Image <span style="color: #FF3300">*</span></asp:Label>
+                                      <br />
+                                    <asp:Label runat="server" ID="lblrearmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                    <asp:FileUpload runat="server" CssClass="form-control" ID="FileRearLaser" />
+                                    <asp:HiddenField runat="server" ID="HiddenRearLaser" />
+                                </div>
+                            </div>
                             <div class="row justify-content-center" style="margin-top:12px;" >
                               
                                 <div style="text-align: center;">
                                     <%--<asp:ImageButton ID="btnAdd" Visible="true" runat="server" AlternateText="Add" TabIndex="2" ImageAlign="Right" ImageUrl="../images/Button/AddLocation.jpg" Style="height: 24px; width: 69px;" OnClick="btnAdd_Click" />--%>
                                     <%--<asp:ImageButton ID="buttonSave" Visible="false" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" OnClick="btnSave_Click" OnClientClick="return validate()"  />--%>
                                     <asp:Button ID="btnSave2" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="btnSave2_Click" OnClientClick="return validate()" Visible="false" />
-                                    <asp:Button ID="btnAdd2" runat="server" Text="Add Location" CssClass="btn btn-primary" OnClick="btnAdd2_Click" Visible="false" />
+                                   
                                     <asp:Button ID="btnPrint" runat="server" Text="Print Receipt" CssClass="btn btn-primary" OnClick="btnPrint_Click" Visible="false" />
                                 </div>
                             </div>
