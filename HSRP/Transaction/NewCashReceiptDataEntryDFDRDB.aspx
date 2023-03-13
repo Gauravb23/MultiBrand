@@ -390,8 +390,8 @@
                                      <%--Model <span style="color: #FF3300">*</span>--%>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-lg-2" id="divmodel2" visible="false" runat="server">
-                                     <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="form-control"
-                                        AutoPostBack="false">
+                                     <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged"
+                                        AutoPostBack="true">
                                          <asp:ListItem Value="0">-- Select Order Type -- </asp:ListItem>
                                   <asp:ListItem Value="DB">Both Damage Plates (Front and Rear)</asp:ListItem>
                                   <asp:ListItem Value="DF">Front Damage Plate</asp:ListItem>
@@ -511,27 +511,27 @@
                                     <asp:Label runat="server" ID="lblFIRmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-lg-3">
-                                     <asp:FileUpload runat="server" CssClass="form-control" ID="FileUpload1" />
-                                     <asp:HiddenField runat="server" ID="HiddenField1" />
+                                     <asp:FileUpload runat="server" CssClass="form-control" ID="FIRUploader" />
+                                     <asp:HiddenField runat="server" ID="HiddenFIR" />
                                 </div>
                             </div>
 
                             <div class="row" style="margin-top:10px;" visible="false" id="divdocument3" runat="server">
-                                 <div class="col-md-3 col-sm-3 col-lg-3">
-                                    <asp:Label runat="server" ID="lblfront" Visible="true"> Front Laser Code Image <span style="color: #FF3300">*</span></asp:Label>
+                                 <div class="col-md-3 col-sm-3 col-lg-3" id="divflaser" runat="server" visible="false">
+                                    <asp:Label runat="server" ID="lblfront"> Front Laser Code Image <span style="color: #FF3300">*</span></asp:Label>
                                       <br />
-                                    <asp:Label runat="server" ID="lblfrontmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
+                                    <asp:Label runat="server" ID="lblfrontmax" ForeColor="Red"> Max File Size 200Kb</asp:Label>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                <div class="col-md-3 col-sm-3 col-lg-3" id="divflaser2" runat="server" visible="false">
                                     <asp:FileUpload runat="server" CssClass="form-control" ID="FileFrontlaser" />
                                     <asp:HiddenField runat="server" ID="HiddenFlaser" />
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-lg-3">
-                                    <asp:Label runat="server" ID="lblrear" Visible="true"> Rear Laser Code Image <span style="color: #FF3300">*</span></asp:Label>
+                                <div class="col-md-3 col-sm-3 col-lg-3" id="divrlaser" runat="server" visible="false">
+                                    <asp:Label runat="server" ID="lblrear"> Rear Laser Code Image <span style="color: #FF3300">*</span></asp:Label>
                                       <br />
-                                    <asp:Label runat="server" ID="lblrearmax" ForeColor="Red" Visible="true"> Max File Size 200Kb</asp:Label>
+                                    <asp:Label runat="server" ID="lblrearmax" ForeColor="Red"> Max File Size 200Kb</asp:Label>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-lg-3">
+                                <div class="col-md-3 col-sm-3 col-lg-3" id="divrlaser2" runat="server" visible="false">
                                     <asp:FileUpload runat="server" CssClass="form-control" ID="FileRearLaser" />
                                     <asp:HiddenField runat="server" ID="HiddenRearLaser" />
                                 </div>

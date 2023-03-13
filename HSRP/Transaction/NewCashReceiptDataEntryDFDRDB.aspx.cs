@@ -21,6 +21,7 @@ using System.Text;
 using HSRP.SMLService;
 using System.Security.Cryptography;
 using iTextSharp.text.html.simpleparser;
+using System.Drawing;
 
 namespace HSRP.Transaction
 {
@@ -29,6 +30,7 @@ namespace HSRP.Transaction
         static String ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
         static String ConnStringBMHSRP = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringBMHSRP"].ToString();
         static String ConnectionStringHR = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionStringHR"].ToString();
+        static string FileRequestPath = ConfigurationManager.AppSettings["RequestFolder"].ToString();
         [Obsolete]
         string ParivahanAPI = ConfigurationSettings.AppSettings["ParivahanAPI"].ToString();
         [Obsolete]
@@ -236,6 +238,12 @@ namespace HSRP.Transaction
             btnGO2.Visible = true;
             btnAdd2.Visible = false;
             btnSave2.Visible = false;
+            divfitment.Visible = false;
+            divdocument.Visible = false;
+            divdocument2.Visible = false;
+            divdocument3.Visible = false;
+            hr1.Visible = false;
+            hr2.Visible = false;
             //btnPrint.Visible = true;
             lblpincode.Visible = false;
             txtpincode.Visible = false;
@@ -376,6 +384,31 @@ namespace HSRP.Transaction
                 ddlLocationAddress.Visible = false;
                 lblLocationAddress.Visible = false;
                 btnAdd2.Visible = false;
+            }
+        }
+
+        protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlOrderType.SelectedValue == "DB")
+            {
+                divflaser.Visible = true;
+                divflaser2.Visible = true;
+                divrlaser.Visible = true;
+                divrlaser2.Visible = true;
+            }
+            if(ddlOrderType.SelectedValue == "DF")
+            {
+                divflaser.Visible = false;
+                divflaser2.Visible = false;
+                divrlaser.Visible = true;
+                divrlaser2.Visible = true;
+            }
+            if (ddlOrderType.SelectedValue == "DR")
+            {
+                divflaser.Visible = true;
+                divflaser2.Visible = true;
+                divrlaser.Visible = false;
+                divrlaser2.Visible = false;
             }
         }
 
@@ -565,6 +598,216 @@ namespace HSRP.Transaction
                 }
 
             }
+
+            #region Upload RC
+            if (RcUploader.HasFile)
+            {
+                int _size = 3072;// equal 3 mb
+                string _fileExt = System.IO.Path.GetExtension(RcUploader.FileName);
+                if (_fileExt.ToLower() == ".png" || _fileExt.ToLower() == ".jpg" || _fileExt.ToLower() == ".jpeg" || _fileExt.ToLower() == ".pdf")
+                {
+                    if ((RcUploader.PostedFile.ContentLength / 1024) <= _size)
+                    {
+                        string FileName = System.IO.Path.GetFileName(RcUploader.FileName);
+
+                        FileName = txtRegNumber.Text + "-RC-" + System.DateTime.Now.Day.ToString() + System.DateTime.Now.Month.ToString() + System.DateTime.Now.Year.ToString() + System.DateTime.Now.Hour.ToString() + System.DateTime.Now.Minute.ToString() + _fileExt;
+                        //string path = ConfigurationManager.AppSettings["ScannedRcBr"].ToString();
+                        if (!Directory.Exists(FileRequestPath))
+                        {
+                            Directory.CreateDirectory(FileRequestPath);
+                        }
+                        string Filepath = FileRequestPath + FileName;
+
+                        RcUploader.SaveAs(Filepath);
+                        HiddenRCPath.Value = FileName;
+                    }
+                    else
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.ForeColor = Color.Maroon;
+                        lblErrMess.Text = "Vehicle Registration Certificate Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                        return;
+                    }
+                }
+                else
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.ForeColor = Color.Maroon;
+                    lblErrMess.Text = "Vehicle Registration Certificate Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                    return;
+                }
+            }
+            else
+            {
+                lblErrMess.Visible = true;
+                lblErrMess.ForeColor = Color.Maroon;
+                lblErrMess.Text = "Please upload Vehicle Registration Certificate Image..";
+                return;
+
+            }
+            #endregion
+
+            #region Upload FIR
+            if (FIRUploader.HasFile)
+            {
+                int _size = 3072;// equal 3 mb
+                string _fileExt = System.IO.Path.GetExtension(FIRUploader.FileName);
+
+                if (_fileExt.ToLower() == ".png" || _fileExt.ToLower() == ".jpg" || _fileExt.ToLower() == ".jpeg" || _fileExt.ToLower() == ".pdf")
+                {
+                    if ((FIRUploader.PostedFile.ContentLength / 1024) <= _size)
+                    {
+                        string FileName = System.IO.Path.GetFileName(FIRUploader.FileName);
+
+                        FileName = txtRegNumber.Text + "-ID-" + System.DateTime.Now.Day.ToString() + System.DateTime.Now.Month.ToString() + System.DateTime.Now.Year.ToString() + System.DateTime.Now.Hour.ToString() + System.DateTime.Now.Minute.ToString() + _fileExt;
+                        //string path = FileUploadDir + "";
+                        if (!Directory.Exists(FileRequestPath))
+                        {
+                            Directory.CreateDirectory(FileRequestPath);
+                        }
+                        string Filepath = FileRequestPath + FileName;
+
+                        FIRUploader.SaveAs(Filepath);
+                        HiddenFIR.Value = FileName;
+
+                    }
+                    else
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.ForeColor = Color.Maroon;
+                        lblErrMess.Text = "FIR Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                        return;
+                    }
+                }
+                else
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.ForeColor = Color.Maroon;
+                    lblErrMess.Text = "FIR Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                    return;
+                }
+            }
+            else
+            {
+                lblErrMess.Visible = true;
+                lblErrMess.ForeColor = Color.Maroon;
+                lblErrMess.Text = "Please upload FIR Image..";
+                return;
+            }
+
+            #endregion
+
+
+            #region Upload Front Laser
+            if((ddlOrderType.SelectedValue == "DB") || (ddlOrderType.SelectedValue == "DR"))
+            {
+                if (FileFrontlaser.HasFile)
+                {
+                    int _size = 3072;// equal 3 mb
+                    string _fileExt = System.IO.Path.GetExtension(FileFrontlaser.FileName);
+
+                    if (_fileExt.ToLower() == ".png" || _fileExt.ToLower() == ".jpg" || _fileExt.ToLower() == ".jpeg" || _fileExt.ToLower() == ".pdf")
+                    {
+                        if ((FileFrontlaser.PostedFile.ContentLength / 1024) <= _size)
+                        {
+                            string FileName = System.IO.Path.GetFileName(FileFrontlaser.FileName);
+
+                            FileName = txtRegNumber.Text + "-FrontLaser-" + System.DateTime.Now.Day.ToString() + System.DateTime.Now.Month.ToString() + System.DateTime.Now.Year.ToString() + System.DateTime.Now.Hour.ToString() + System.DateTime.Now.Minute.ToString() + _fileExt;
+                            //string path = ConfigurationManager.AppSettings["ScannedRcBr"].ToString();
+                            if (!Directory.Exists(FileRequestPath))
+                            {
+                                Directory.CreateDirectory(FileRequestPath);
+                            }
+                            string Filepath = FileRequestPath + FileName;
+
+                            FileFrontlaser.SaveAs(Filepath);
+                            HiddenFlaser.Value = FileName;
+                        }
+                        else
+                        {
+                            lblErrMess.Visible = true;
+                            lblErrMess.ForeColor = Color.Maroon;
+                            lblErrMess.Text = "Vehicle Front Laser Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.ForeColor = Color.Maroon;
+                        lblErrMess.Text = "Vehicle Front Laser Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                        return;
+                    }
+                }
+                else
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.ForeColor = Color.Maroon;
+                    lblErrMess.Text = "Please upload Vehicle Front Laser Image..";
+                    return;
+                }
+            }
+
+            #endregion
+
+
+            #region Upload Rear Laser
+
+            if((ddlOrderType.SelectedValue == "DB") || (ddlOrderType.SelectedValue == "DF")) 
+            {
+                if (FileRearLaser.HasFile)
+                {
+
+                    int _size = 3072;// equal 3 mb
+                    string _fileExt = System.IO.Path.GetExtension(FileRearLaser.FileName);
+
+
+                    if (_fileExt.ToLower() == ".png" || _fileExt.ToLower() == ".jpg" || _fileExt.ToLower() == ".jpeg" || _fileExt.ToLower() == ".pdf")
+                    {
+                        if ((FileRearLaser.PostedFile.ContentLength / 1024) <= _size)
+                        {
+                            string FileName = System.IO.Path.GetFileName(FileRearLaser.FileName);
+
+                            FileName = txtRegNumber.Text + "-RearLaser-" + System.DateTime.Now.Day.ToString() + System.DateTime.Now.Month.ToString() + System.DateTime.Now.Year.ToString() + System.DateTime.Now.Hour.ToString() + System.DateTime.Now.Minute.ToString() + _fileExt;
+                            //string path = ConfigurationManager.AppSettings["ScannedRcBr"].ToString();
+                            if (!Directory.Exists(FileRequestPath))
+                            {
+                                Directory.CreateDirectory(FileRequestPath);
+                            }
+                            string Filepath = FileRequestPath + FileName;
+
+                            FileRearLaser.SaveAs(Filepath);
+                            HiddenRearLaser.Value = FileName;
+
+                        }
+                        else
+                        {
+                            lblErrMess.Visible = true;
+                            lblErrMess.ForeColor = Color.Maroon;
+                            lblErrMess.Text = "Vehicle Rear Laser Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                            return;
+                        }
+
+                    }
+                    else
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.ForeColor = Color.Maroon;
+                        lblErrMess.Text = "Vehicle Rear Laser Image Should be in png/jpg/jpeg/pdf format or less than 3 mb";
+                        return;
+                    }
+                }
+                else
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.ForeColor = Color.Maroon;
+                    lblErrMess.Text = "Please upload Vehicle Rear Laser Image..";
+                    return;
+
+                }
+            }
+           
+            #endregion
 
 
             url = HttpContext.Current.Request.Url.AbsoluteUri;
@@ -1089,236 +1332,127 @@ namespace HSRP.Transaction
                     hsrprecord_authorizationno = "0";
                 }
 
+
+                string rcFileName = HiddenRCPath.Value;
+                string firFileName = HiddenFIR.Value;
+                string flFileName = HiddenFlaser.Value;
+                string rlFileName = HiddenRearLaser.Value;
                 DataTable dt1 = new DataTable();
                 string query1 = string.Empty;
                 SqlCommand cmd = new SqlCommand();
-                if (newStateid == "4")
+               
+                cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOemDamageForApproval", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                cmd.Parameters.AddWithValue("@hsrprecord_authorizationno", hsrprecord_authorizationno);
+                cmd.Parameters.AddWithValue("@hsrprecord_authorizationdate", DateTime.Now.ToString());
+                cmd.Parameters.AddWithValue("@SaveMacAddress", macbase);
+                cmd.Parameters.AddWithValue("@DeliveryChallanNo", DC);
+                cmd.Parameters.AddWithValue("@ISFrontPlateSize", 'N');
+                cmd.Parameters.AddWithValue("@ISRearPlateSize", 0);
+                cmd.Parameters.AddWithValue("@HSRPRecord_CreationDate", DateTime.Now.ToString());
+
+                if (ddlAffixationType.SelectedValue == "1")
                 {
-                    cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOemHRDemoDamage", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@hsrprecord_authorizationno", hsrprecord_authorizationno);
-                    cmd.Parameters.AddWithValue("@hsrprecord_authorizationdate", DateTime.Now.ToString());
-                    cmd.Parameters.AddWithValue("@SaveMacAddress", macbase);
-                    cmd.Parameters.AddWithValue("@DeliveryChallanNo", DC);
-                    cmd.Parameters.AddWithValue("@ISFrontPlateSize", 'N');
-                    cmd.Parameters.AddWithValue("@ISRearPlateSize", 0);
-                    cmd.Parameters.AddWithValue("@HSRPRecord_CreationDate", DateTime.Now.ToString());
-                    //cmd.Parameters.AddWithValue("@HSRP_StateID", ddlstate.SelectedValue);
-                    //cmd.Parameters.AddWithValue("@RTOLocationID", ddldistrict.SelectedValue);
+                    Query = "select State_Id from dealeraffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "'";
+                    dt = Utils.GetDataTable(Query, ConnectionString);
 
-                    if (ddlAffixationType.SelectedValue == "1")
-                    {
-                        Query = "select State_Id from dealeraffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "'";
-                        dt = Utils.GetDataTable(Query, ConnectionString);
+                    query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
+                    dt1 = Utils.GetDataTable(query1, ConnectionString);
 
-                        query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
-                        dt1 = Utils.GetDataTable(query1, ConnectionString);
+                    cmd.Parameters.AddWithValue("@HSRP_StateID", dt.Rows[0]["State_Id"].ToString());
+                    cmd.Parameters.AddWithValue("@RTOLocationID", dt1.Rows[0]["rtolocationid"].ToString());
+                }
+                if (ddlAffixationType.SelectedValue == "2")
+                {
+                    cmd.Parameters.AddWithValue("@HSRP_StateID", ddlstate.SelectedValue);
+                    cmd.Parameters.AddWithValue("@RTOLocationID", ddldistrict.SelectedValue);
+                }
 
-                        cmd.Parameters.AddWithValue("@HSRP_StateID", dt.Rows[0]["State_Id"].ToString());
-                        cmd.Parameters.AddWithValue("@RTOLocationID", dt1.Rows[0]["rtolocationid"].ToString());
-                    }
-                    if (ddlAffixationType.SelectedValue == "2")
-                    {
-                        cmd.Parameters.AddWithValue("@HSRP_StateID", ddlstate.SelectedValue);
-                        cmd.Parameters.AddWithValue("@RTOLocationID", ddldistrict.SelectedValue);
-                    }
-
-                    cmd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.ToString());                   
-                    cmd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue);
-                    cmd.Parameters.AddWithValue("@NetAmount", newRates);
-                    cmd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
-                    cmd.Parameters.AddWithValue("@OrderStatus", "New Order");
-                    cmd.Parameters.AddWithValue("@CashReceiptNo", cashrc);
-                    cmd.Parameters.AddWithValue("@ChassisNo", txtChassisno.Text.Trim());
-                    cmd.Parameters.AddWithValue("@EngineNo", txtEngineNo.Text.Trim());
-                    cmd.Parameters.AddWithValue("@frontplatesize", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@rearplatesize", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@CreatedBy", USERID);
-                    cmd.Parameters.AddWithValue("@vehicleref", "New");
-                    cmd.Parameters.AddWithValue("@FrontplatePrize", 0);
-                    cmd.Parameters.AddWithValue("@RearPlatePrize", 0);
-                    cmd.Parameters.AddWithValue("@StickerPrize", 0);
-                    cmd.Parameters.AddWithValue("@ScrewPrize", 0);
-                    //cmd.Parameters.AddWithValue("@TotalAmount", (dtrates.Rows[0]["roundoff_netamount"].ToString()+fitmentCharges));
-                    cmd.Parameters.AddWithValue("@TotalAmount", newRates);
-                    cmd.Parameters.AddWithValue("@VAT_Amount", 0);
-                    //cmd.Parameters.AddWithValue("@RoundOff_NetAmount", Math.Round(decimal.Round(decimal.Parse(dtrates.Rows[0]["roundoff_netamount"].ToString()), 2, MidpointRounding.AwayFromZero))+ Math.Round(decimal.Parse(fitmentCharges.ToString()),2, MidpointRounding.AwayFromZero));
-                    cmd.Parameters.AddWithValue("@RoundOff_NetAmount", newRates);
-                    cmd.Parameters.AddWithValue("@VAT_Percentage", 0);
-                    cmd.Parameters.AddWithValue("@PlateAffixationDate", "");
-                    cmd.Parameters.AddWithValue("@DateOfInsurance", Convert.ToDateTime(strFrmDateString.ToString()));
-                    cmd.Parameters.AddWithValue("@ReceiptNo", "");
-                    cmd.Parameters.AddWithValue("@vehicleregno", txtRegNumber.Text.Replace(" ", "").Trim());
-                    cmd.Parameters.AddWithValue("@dealerid", dealerid);
-                    cmd.Parameters.AddWithValue("@addrecordby", "Dealer");
-                    cmd.Parameters.AddWithValue("@fixingcharge", fixcharge);
-                    cmd.Parameters.AddWithValue("@StickerMandatory", StickerMandatory);
-                    cmd.Parameters.AddWithValue("@userrtolocationid", Session["UserRTOLocationID"].ToString());
-                    cmd.Parameters.AddWithValue("@SGSTPer", dtrates.Rows[0]["sgstper"].ToString());
-                    cmd.Parameters.AddWithValue("@SGSTAmount", dtrates.Rows[0]["sgstamt"].ToString());
-                    cmd.Parameters.AddWithValue("@CGSTPer", dtrates.Rows[0]["cgstper"].ToString());
-                    cmd.Parameters.AddWithValue("@CGSTAmount", dtrates.Rows[0]["cgstamt"].ToString());
-                    cmd.Parameters.AddWithValue("@gstbasicamount", dtrates.Rows[0]["GstBasic_Amt"].ToString());
-                    cmd.Parameters.AddWithValue("@GSTRoundoff_value", "0.00");
-                    cmd.Parameters.AddWithValue("@typeofapplication", ddlFuelType.SelectedItem.Text.ToString());
-                    cmd.Parameters.AddWithValue("@ManufactureDate", Convert.ToDateTime(strToDateString.ToString()));
-                    cmd.Parameters.AddWithValue("@ManufacturerModel", txtmodel.Text.ToString());
-                    cmd.Parameters.AddWithValue("@VehicleTypeNew", ddlVehicletype.SelectedItem.ToString());
-                    if ((ddlVehicleStateType.SelectedItem.Text.Contains("VI")) || (ddlVehicleStateType.SelectedValue == "BS6"))
-                    {
-                        cmd.Parameters.AddWithValue("@VehicleStagingType", "BS6");
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@VehicleStagingType", "BS4");
-                    }
-
-                    if (ddlAffixationType.SelectedValue == "1")
-                    {
-                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
-                        dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
-                        cmd.Parameters.AddWithValue("@Affix_Id", ddlLocationAddress.SelectedItem.Value.ToString());
-                        cmd.Parameters.AddWithValue("@Address1", ddlLocationAddress.SelectedItem.Text.ToString());
-                        cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
-                    }
-
-                    if (ddlAffixationType.SelectedValue == "2")
-                    {
-                        cmd.Parameters.AddWithValue("@Affix_Id", DBNull.Value);
-                        cmd.Parameters.AddWithValue("@Address1", txtHomeAddress.Text.ToString());
-                        string navembidquery = "select NAVEMBID from rtolocation where rtolocationid = '" + ddldistrict.SelectedValue + "'";
-                        dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
-                        cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
-                    }
-
-                    cmd.Parameters.AddWithValue("@address2", url);
-                    cmd.Parameters.AddWithValue("@Pinno", txtpincode.Text.ToString());
-                    cmd.Parameters.AddWithValue("@TypeOfDelivery", ddlAffixationType.SelectedValue);
-                    cmd.Parameters.AddWithValue("@oemid", oemid);
-
-                    //cmd.Parameters.Add("@NewHsrpR", SqlDbType.Char, 1);
-                    cmd.Parameters.Add("@Message", SqlDbType.Char, 1);
-                    cmd.Parameters["@Message"].Direction = ParameterDirection.Output;
-                    cmd.ExecuteNonQuery();
-                    //conHR.Close();
+                cmd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.ToString());                   
+                cmd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue);
+                cmd.Parameters.AddWithValue("@NetAmount", newRates);
+                cmd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
+                cmd.Parameters.AddWithValue("@OrderStatus", "New Order");
+                cmd.Parameters.AddWithValue("@CashReceiptNo", cashrc);
+                cmd.Parameters.AddWithValue("@ChassisNo", txtChassisno.Text.Trim());
+                cmd.Parameters.AddWithValue("@EngineNo", txtEngineNo.Text.Trim());
+                cmd.Parameters.AddWithValue("@frontplatesize", DBNull.Value);
+                cmd.Parameters.AddWithValue("@rearplatesize", DBNull.Value);
+                cmd.Parameters.AddWithValue("@CreatedBy", USERID);
+                cmd.Parameters.AddWithValue("@vehicleref", "New");
+                cmd.Parameters.AddWithValue("@FrontplatePrize", 0);
+                cmd.Parameters.AddWithValue("@RearPlatePrize", 0);
+                cmd.Parameters.AddWithValue("@StickerPrize", 0);
+                cmd.Parameters.AddWithValue("@ScrewPrize", 0);
+                //cmd.Parameters.AddWithValue("@TotalAmount", (dtrates.Rows[0]["roundoff_netamount"].ToString()+fitmentCharges));
+                cmd.Parameters.AddWithValue("@TotalAmount", newRates);
+                cmd.Parameters.AddWithValue("@VAT_Amount", 0);
+                //cmd.Parameters.AddWithValue("@RoundOff_NetAmount", Math.Round(decimal.Round(decimal.Parse(dtrates.Rows[0]["roundoff_netamount"].ToString()), 2, MidpointRounding.AwayFromZero))+ Math.Round(decimal.Parse(fitmentCharges.ToString()),2, MidpointRounding.AwayFromZero));
+                cmd.Parameters.AddWithValue("@RoundOff_NetAmount", newRates);
+                cmd.Parameters.AddWithValue("@VAT_Percentage", 0);
+                cmd.Parameters.AddWithValue("@PlateAffixationDate", "");
+                cmd.Parameters.AddWithValue("@DateOfInsurance", Convert.ToDateTime(strFrmDateString.ToString()));
+                cmd.Parameters.AddWithValue("@ReceiptNo", "");
+                cmd.Parameters.AddWithValue("@vehicleregno", txtRegNumber.Text.Replace(" ", "").Trim());
+                cmd.Parameters.AddWithValue("@dealerid", dealerid);
+                cmd.Parameters.AddWithValue("@addrecordby", "Dealer");
+                cmd.Parameters.AddWithValue("@fixingcharge", fixcharge);
+                cmd.Parameters.AddWithValue("@StickerMandatory", StickerMandatory);
+                cmd.Parameters.AddWithValue("@userrtolocationid", Session["UserRTOLocationID"].ToString());
+                cmd.Parameters.AddWithValue("@SGSTPer", dtrates.Rows[0]["sgstper"].ToString());
+                cmd.Parameters.AddWithValue("@SGSTAmount", dtrates.Rows[0]["sgstamt"].ToString());
+                cmd.Parameters.AddWithValue("@CGSTPer", dtrates.Rows[0]["cgstper"].ToString());
+                cmd.Parameters.AddWithValue("@CGSTAmount", dtrates.Rows[0]["cgstamt"].ToString());
+                cmd.Parameters.AddWithValue("@gstbasicamount", dtrates.Rows[0]["GstBasic_Amt"].ToString());
+                cmd.Parameters.AddWithValue("@GSTRoundoff_value", "0.00");
+                cmd.Parameters.AddWithValue("@typeofapplication", ddlFuelType.SelectedItem.Text.ToString());
+                cmd.Parameters.AddWithValue("@ManufactureDate", Convert.ToDateTime(strToDateString.ToString()));
+                cmd.Parameters.AddWithValue("@ManufacturerModel", txtmodel.Text.ToString());
+                cmd.Parameters.AddWithValue("@VehicleTypeNew", ddlVehicletype.SelectedItem.ToString());
+                if ((ddlVehicleStateType.SelectedItem.Text.Contains("VI")) || (ddlVehicleStateType.SelectedValue == "BS6"))
+                {
+                    cmd.Parameters.AddWithValue("@VehicleStagingType", "BS6");
                 }
                 else
                 {
-                    cmd = new SqlCommand("HRCashcollection_DealerManualPrepaidAllOemDamage", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@hsrprecord_authorizationno", hsrprecord_authorizationno);
-                    cmd.Parameters.AddWithValue("@hsrprecord_authorizationdate", DateTime.Now.ToString());
-                    cmd.Parameters.AddWithValue("@SaveMacAddress", macbase);
-                    cmd.Parameters.AddWithValue("@DeliveryChallanNo", DC);
-                    cmd.Parameters.AddWithValue("@ISFrontPlateSize", 'N');
-                    cmd.Parameters.AddWithValue("@ISRearPlateSize", 0);
-                    cmd.Parameters.AddWithValue("@HSRPRecord_CreationDate", DateTime.Now.ToString());
-                    if (ddlAffixationType.SelectedValue == "1")
-                    {
-                        Query = "select State_Id from dealeraffixation where SubDealerId = '" + ddlLocationAddress.SelectedValue + "'";
-                        dt = Utils.GetDataTable(Query, ConnectionString);
-
-                        query1 = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
-                        dt1 = Utils.GetDataTable(query1, ConnectionString);
-
-                        cmd.Parameters.AddWithValue("@HSRP_StateID", dt.Rows[0]["State_Id"].ToString());
-                        cmd.Parameters.AddWithValue("@RTOLocationID", dt1.Rows[0]["rtolocationid"].ToString());
-                    }
-                    if (ddlAffixationType.SelectedValue == "2")
-                    {
-                        cmd.Parameters.AddWithValue("@HSRP_StateID", ddlstate.SelectedValue);
-                        cmd.Parameters.AddWithValue("@RTOLocationID", ddldistrict.SelectedValue);
-                    }
-
-                    cmd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.ToString());
-
-                    
-                    cmd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue);
-                    cmd.Parameters.AddWithValue("@NetAmount", newRates);
-                    cmd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
-                    cmd.Parameters.AddWithValue("@OrderStatus", "New Order");
-                    cmd.Parameters.AddWithValue("@CashReceiptNo", cashrc);
-                    cmd.Parameters.AddWithValue("@ChassisNo", txtChassisno.Text.Trim());
-                    cmd.Parameters.AddWithValue("@EngineNo", txtEngineNo.Text.Trim());
-                    cmd.Parameters.AddWithValue("@frontplatesize", dtrates.Rows[0]["FrontPlateSize"].ToString());
-                    cmd.Parameters.AddWithValue("@rearplatesize", dtrates.Rows[0]["RearPlateSize"].ToString());
-                    cmd.Parameters.AddWithValue("@CreatedBy", USERID);
-                    cmd.Parameters.AddWithValue("@vehicleref", "New");
-                    cmd.Parameters.AddWithValue("@FrontplatePrize", 0);
-                    cmd.Parameters.AddWithValue("@RearPlatePrize", 0);
-                    cmd.Parameters.AddWithValue("@StickerPrize", 0);
-                    cmd.Parameters.AddWithValue("@ScrewPrize", 0);
-                    //cmd.Parameters.AddWithValue("@TotalAmount", (dtrates.Rows[0]["roundoff_netamount"].ToString()+fitmentCharges));
-                    cmd.Parameters.AddWithValue("@TotalAmount", newRates);
-                    cmd.Parameters.AddWithValue("@VAT_Amount", 0);
-                    //cmd.Parameters.AddWithValue("@RoundOff_NetAmount", Math.Round(decimal.Round(decimal.Parse(dtrates.Rows[0]["roundoff_netamount"].ToString()), 2, MidpointRounding.AwayFromZero))+ Math.Round(decimal.Parse(fitmentCharges.ToString()),2, MidpointRounding.AwayFromZero));
-                    cmd.Parameters.AddWithValue("@RoundOff_NetAmount", newRates);
-                    cmd.Parameters.AddWithValue("@VAT_Percentage", 0);
-                    cmd.Parameters.AddWithValue("@PlateAffixationDate", "");
-                    cmd.Parameters.AddWithValue("@DateOfInsurance", Convert.ToDateTime(strFrmDateString.ToString()));
-                    cmd.Parameters.AddWithValue("@ReceiptNo", "");
-                    cmd.Parameters.AddWithValue("@vehicleregno", txtRegNumber.Text.Replace(" ", "").Trim());
-                    cmd.Parameters.AddWithValue("@dealerid", dealerid);
-                    cmd.Parameters.AddWithValue("@addrecordby", "Dealer");
-                    cmd.Parameters.AddWithValue("@fixingcharge", fixcharge);
-                    cmd.Parameters.AddWithValue("@StickerMandatory", StickerMandatory);
-                    cmd.Parameters.AddWithValue("@userrtolocationid", Session["UserRTOLocationID"].ToString());
-                    cmd.Parameters.AddWithValue("@SGSTPer", dtrates.Rows[0]["sgstper"].ToString());
-                    cmd.Parameters.AddWithValue("@SGSTAmount", dtrates.Rows[0]["sgstamt"].ToString());
-                    cmd.Parameters.AddWithValue("@CGSTPer", dtrates.Rows[0]["cgstper"].ToString());
-                    cmd.Parameters.AddWithValue("@CGSTAmount", dtrates.Rows[0]["cgstamt"].ToString());
-                    cmd.Parameters.AddWithValue("@gstbasicamount", dtrates.Rows[0]["GstBasic_Amt"].ToString());
-                    cmd.Parameters.AddWithValue("@GSTRoundoff_value", "0.00");
-                    cmd.Parameters.AddWithValue("@typeofapplication", ddlFuelType.SelectedItem.Text.ToString());
-                    cmd.Parameters.AddWithValue("@ManufactureDate", Convert.ToDateTime(strToDateString.ToString()));
-                    cmd.Parameters.AddWithValue("@ManufacturerModel", txtmodel.Text.ToString());
-                    cmd.Parameters.AddWithValue("@plantCode", DBNull.Value);
-                    cmd.Parameters.AddWithValue("@VehicleTypeNew", ddlVehicletype.SelectedItem.ToString());
-                    if ((ddlVehicleStateType.SelectedItem.Text.Contains("VI")) || (ddlVehicleStateType.SelectedValue == "BS6"))
-                    {
-                        cmd.Parameters.AddWithValue("@VehicleStagingType", "BS6");
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@VehicleStagingType", "BS4");
-                    }
-
-                    if (ddlAffixationType.SelectedValue == "1")
-                    {
-                        cmd.Parameters.AddWithValue("@Affix_Id", ddlLocationAddress.SelectedItem.Value.ToString());
-                        cmd.Parameters.AddWithValue("@Address1", ddlLocationAddress.SelectedItem.Text.ToString());
-                    }
-                    if (ddlAffixationType.SelectedValue == "2")
-                    {
-                        cmd.Parameters.AddWithValue("@Address1", txtHomeAddress.Text.ToString());
-                    }
-
-                    cmd.Parameters.AddWithValue("@address2", url);
-                    cmd.Parameters.AddWithValue("@Pinno", txtpincode.Text.ToString());
-                    cmd.Parameters.AddWithValue("@TypeOfDelivery", ddlAffixationType.SelectedValue);
-                    cmd.Parameters.AddWithValue("@oemid", oemid);
-                    if (ddlAffixationType.SelectedValue == "1")
-                    {
-                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
-                        dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
-                        cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
-                    }
-                    if (ddlAffixationType.SelectedValue == "2")
-                    {
-                        string navembidquery = "select top 1 NAVEMBID from rtolocation where RTOLocationID = '" + ddldistrict.SelectedValue + "'";
-                        dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
-                        cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
-                    }
-
-                    //cmd.Parameters.Add("@NewHsrpR", SqlDbType.Char, 1);
-                    cmd.Parameters.Add("@Message", SqlDbType.Char, 1);
-                    cmd.Parameters["@Message"].Direction = ParameterDirection.Output;
-                    cmd.ExecuteNonQuery();
-
+                    cmd.Parameters.AddWithValue("@VehicleStagingType", "BS4");
                 }
 
+                if (ddlAffixationType.SelectedValue == "1")
+                {
+                    string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
+                    dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
+                    cmd.Parameters.AddWithValue("@Affix_Id", ddlLocationAddress.SelectedItem.Value.ToString());
+                    cmd.Parameters.AddWithValue("@Address1", ddlLocationAddress.SelectedItem.Text.ToString());
+                    cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
+                }
+
+                if (ddlAffixationType.SelectedValue == "2")
+                {
+                    cmd.Parameters.AddWithValue("@Affix_Id", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Address1", txtHomeAddress.Text.ToString());
+                    string navembidquery = "select NAVEMBID from rtolocation where rtolocationid = '" + ddldistrict.SelectedValue + "'";
+                    dt1 = Utils.GetDataTable(navembidquery, ConnectionString);
+                    cmd.Parameters.AddWithValue("@navembid", dt1.Rows[0]["NAVEMBID"].ToString());
+                }
+
+                cmd.Parameters.AddWithValue("@address2", url);
+                cmd.Parameters.AddWithValue("@Pinno", txtpincode.Text.ToString());
+                cmd.Parameters.AddWithValue("@TypeOfDelivery", ddlAffixationType.SelectedValue);
+                cmd.Parameters.AddWithValue("@oemid", oemid);
+
+                cmd.Parameters.AddWithValue("@RCFileName", rcFileName);
+                cmd.Parameters.AddWithValue("@FIRFileName", firFileName);
+                cmd.Parameters.AddWithValue("@FLFileName", flFileName);
+                cmd.Parameters.AddWithValue("@RLFileName", rlFileName);
+                
+
+                //cmd.Parameters.Add("@NewHsrpR", SqlDbType.Char, 1);
+                cmd.Parameters.Add("@Message", SqlDbType.Char, 1);
+                cmd.Parameters["@Message"].Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                                             
                 string message = cmd.Parameters["@Message"].Value.ToString();
                 con.Close();
 

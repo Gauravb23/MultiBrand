@@ -537,22 +537,22 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.Label lblFIRmax;
 
         /// <summary>
-        /// FileUpload1 control.
+        /// FIRUploader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.FileUpload FIRUploader;
 
         /// <summary>
-        /// HiddenField1 control.
+        /// HiddenFIR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFIR;
 
         /// <summary>
         /// divdocument3 control.
@@ -562,6 +562,15 @@ namespace HSRP.Transaction
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divdocument3;
+
+        /// <summary>
+        /// divflaser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divflaser;
 
         /// <summary>
         /// lblfront control.
@@ -582,6 +591,15 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.Label lblfrontmax;
 
         /// <summary>
+        /// divflaser2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divflaser2;
+
+        /// <summary>
         /// FileFrontlaser control.
         /// </summary>
         /// <remarks>
@@ -600,6 +618,15 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.HiddenField HiddenFlaser;
 
         /// <summary>
+        /// divrlaser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divrlaser;
+
+        /// <summary>
         /// lblrear control.
         /// </summary>
         /// <remarks>
@@ -616,6 +643,15 @@ namespace HSRP.Transaction
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblrearmax;
+
+        /// <summary>
+        /// divrlaser2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divrlaser2;
 
         /// <summary>
         /// FileRearLaser control.
