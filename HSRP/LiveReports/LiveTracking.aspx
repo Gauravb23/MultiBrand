@@ -163,7 +163,31 @@
 
             <div class="card-container">
 
-                <a href="../Transaction/NewCashReceiptDataEntry.aspx" style="color: black; text-decoration: none;">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front flex-item">
+                            <div class=" flex-item">
+                                <img style="color:#002e72" src="../images/orderCart.svg" alt="txt" />
+                            </div>
+                            <div>
+                                <h3 style="color:#002e72"><b>Book Order</b></h3>
+                            </div>
+                        </div>
+                        <div class="flip-card-back" >
+                            <div class="back_title" style="margin-bottom: 1rem;">
+                                <p >Book Order</p>
+                            </div>
+                            <ul>
+                                <li></li>
+                                  <li><a href="../Transaction/NewCashReceiptDataEntry.aspx" style="color: white; font-weight: bold;">Book Order</a></li>
+                                <li><a href="../Transaction/NewCashReceiptDataEntryDFDRDB.aspx" style="color: white; font-weight: bold;">Book Order (Damage)</a></li>
+                                <li><a href="../Transaction/StickerProcess.aspx" style="color: white; font-weight: bold;">Book Only Sticker</a></li>
+                               </ul>
+                        </div>
+                    </div>
+                </div>
+
+               <%-- <a href="../Transaction/NewCashReceiptDataEntry.aspx" style="color: black; text-decoration: none;">
                     <div class="card-c">
                         <div class=" flex-item">
                             <div class=" flex-item">
@@ -188,7 +212,7 @@
                             </div>
                         </div>
                     </div>
-                </a>
+                </a>--%>
 
                  <a href="../Transaction/VahanVerifiedDetails.aspx" style="color: black; text-decoration: none;">
                     <div class="card-c">
@@ -224,7 +248,9 @@
                                 <li></li>
                                   <li><a href="../Transaction/DealerLedger.aspx" style="color: white; font-weight: bold;">Dealer Ledger</a></li>
                                 <li><a href="../Report/ViewInvoices.aspx" style="color: white; font-weight: bold;">Invoices</a></li>
+                                 <li><a href="../Transaction/LaserReceivedDealerwise.aspx" style="color: white; font-weight: bold;">HSRP Plate Receiving Entry</a></li>
                                 <li><a href="../Transaction/BMHSRPFittmentEntryImage.aspx" style="color: white; font-weight: bold;">Fitment Entry With Image</a></li>
+                                <li><a href="../Transaction/FitterMobile.aspx" style="color: white; font-weight: bold;">Add Fitter Mobile Number</a></li>                               
                                </ul>
                         </div>
                     </div>

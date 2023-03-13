@@ -17,6 +17,7 @@ namespace HSRP.Transaction
         string oemid = string.Empty;
         string query = string.Empty;
         DataTable dt = new DataTable();
+        string Through = string.Empty;
         int i = 0;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,7 +28,7 @@ namespace HSRP.Transaction
             userid = Session["UID"].ToString();
             try
             {
-                if (Session["UserType"].ToString() == null)
+                if (Session["UID"] == null)
                 {
                     Response.Redirect("~/error.html",true);
                 }
@@ -40,8 +41,14 @@ namespace HSRP.Transaction
             {
                 Response.Redirect("~/error.html",true);
             }
+            if (Request.QueryString["Through"] != null)
+            {
+                Through = Request.QueryString["Through"].ToString();
+                Session["Through"] = Through;
+            }
             if (!Page.IsPostBack)
             {
+                
                 getdata();
                 bindState();
             }
@@ -103,7 +110,7 @@ namespace HSRP.Transaction
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            string specialCharCE = @"\|{}%_!'#$%&'()+,./:;<=>?@<>@^£§€";
+            string specialCharCE = @"'";
             if (ddlstate.SelectedValue == "0")
             {
                 lblerrmsg.Visible = true;
@@ -119,7 +126,22 @@ namespace HSRP.Transaction
                 lblsucmsg.Visible = false;
                 return;
             }
-           
+
+            string strAddress = txtAddress.Text.Trim();
+            if (txtAddress.Text.Trim() != "")
+            {
+                foreach (var special in specialCharCE)
+                {
+                    if (strAddress.Contains(special))
+                    {
+                        lblerrmsg.Visible = true;
+                        lblsucmsg.Visible = false;
+                        lblerrmsg.Text = "Special character(') not allowed in Address!";
+                        return;
+                    }
+                }
+            }
+
             if (txtCity.Text == "")
             {
                 lblerrmsg.Visible = true;
@@ -127,20 +149,21 @@ namespace HSRP.Transaction
                 lblsucmsg.Visible = false;
                 return;
             }
+
             string strCity = txtCity.Text.Trim();
-            //if (txtCity.Text.Trim() != "")
-            //{
-            //    foreach (var special in specialCharCE)
-            //    {
-            //        if (strCity.Contains(special))
-            //        {
-            //            lblerrmsg.Visible = true;
-            //            lblsucmsg.Visible = false;
-            //            lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in City name!";
-            //            return;
-            //        }
-            //    }
-            //}
+            if (txtCity.Text.Trim() != "")
+            {
+                foreach (var special in specialCharCE)
+                {
+                    if (strCity.Contains(special))
+                    {
+                        lblerrmsg.Visible = true;
+                        lblsucmsg.Visible = false;
+                        lblerrmsg.Text = "Special character(') not allowed in City name!";
+                        return;
+                    }
+                }
+            }
 
             if (txtLandmark.Text == "")
             {
@@ -148,6 +171,21 @@ namespace HSRP.Transaction
                 lblerrmsg.Text = "Please enter landmark!";
                 lblsucmsg.Visible = false;
                 return;
+            }
+
+            string strLandmark = txtLandmark.Text.Trim();
+            if (txtLandmark.Text.Trim() != "")
+            {
+                foreach (var special in specialCharCE)
+                {
+                    if (strLandmark.Contains(special))
+                    {
+                        lblerrmsg.Visible = true;
+                        lblsucmsg.Visible = false;
+                        lblerrmsg.Text = "Special character(') not allowed in Landmark!";
+                        return;
+                    }
+                }
             }
 
             if (txtPincode.Text == "")
@@ -196,23 +234,33 @@ namespace HSRP.Transaction
                 lblsucmsg.Visible = false;
                 return;
             }
+
             string strContact = txtContact.Text.Trim();
-            //if (txtContact.Text.Trim() != "")
-            //{               
-            //    foreach (var special in specialCharCE)
-            //    {
-            //        if (strContact.Contains(special))
-            //        {
-            //            lblerrmsg.Visible = true;
-            //            lblsucmsg.Visible = false;
-            //            lblerrmsg.Text = "Special characters like (|,{,},%,_,!,',#,$,%,&,',(,),+,.,/,:,;,<,=,>,?,@,<,>,@,^,£,§,€) are not allowed in Name!";
-            //            return;
-            //        }
-            //    }
-            //}
-            
-           
-            query = "USP_AddAffixationAddressAllOem '" + lbldealername.Text + "','" + lbloemname.Text.ToString() + "','" + txtAddress.Text.ToString() + "','" + txtCity.Text.ToString() + "','" + ddlstate.SelectedItem.Text.ToString() + "','" + txtContact.Text.ToString() + "','" + txtmobile.Text.ToString() + "','" + txtPincode.Text.ToString() + "','" + txtLandmark.Text + "','" + ddlstate.SelectedValue + "','" + oemid + "','" + dealerid + "'";
+            if (txtContact.Text.Trim() != "")
+            {
+                foreach (var special in specialCharCE)
+                {
+                    if (strContact.Contains(special))
+                    {
+                        lblerrmsg.Visible = true;
+                        lblsucmsg.Visible = false;
+                        lblerrmsg.Text = "Special character(') not allowed in Name!";
+                        return;
+                    }
+                }
+            }
+
+            query = "select top 1 Address from DealerAffixation where Address = '"+ txtAddress.Text.ToString() +"'";
+            dt = Utils.GetDataTable(query,ConnectionString);
+            if(dt.Rows.Count > 0)
+            {
+                lblerrmsg.Visible = true;
+                lblsucmsg.Visible = false;
+                lblerrmsg.Text = "Entered address is already mapped. Please enter another address!";
+                return;
+            }
+
+            query = "USP_AddAffixationAddressAllOem '" + lbldealername.Text + "','" + lbloemname.Text.ToString() + "','" + txtAddress.Text.ToString().Replace("'", " ") + "','" + txtCity.Text.ToString().Replace("'", " ") + "','" + ddlstate.SelectedItem.Text.ToString() + "','" + txtContact.Text.ToString().Replace("'"," ") + "','" + txtmobile.Text.ToString() + "','" + txtPincode.Text.ToString() + "','" + txtLandmark.Text.ToString().Replace("'"," ") + "','" + ddlstate.SelectedValue + "','" + oemid + "','" + dealerid + "'";
             i = Utils.ExecNonQuery(query,ConnectionString);
             
             if(i > 0)
@@ -233,7 +281,14 @@ namespace HSRP.Transaction
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("../Transaction/NewCashReceiptDataEntry.aspx");
+            if(Through == "plate")
+            {
+                Response.Redirect("../Transaction/NewCashReceiptDataEntry.aspx");
+            }
+            if(Through == "sticker")
+            {
+                Response.Redirect("../Transaction/StickerProcess.aspx");
+            }
         }
 
         protected Boolean isMobileNoValid(string mobileNo)

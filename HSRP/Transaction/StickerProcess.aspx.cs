@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace HSRP.Transaction
 {
@@ -41,6 +42,7 @@ namespace HSRP.Transaction
         string macbase = string.Empty;
         string Dealeardetail = string.Empty;
         string oemid = string.Empty;
+        string checkSQL = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -77,6 +79,7 @@ namespace HSRP.Transaction
             if (!IsPostBack)
             {
                 BindOemnameDropdown();
+                bindState();
                 BindVehicleTypeDropdown();
 
                 if (Session["Save"] != null && Session["Save"].ToString().ToLower().Contains("saved".ToLower()))
@@ -101,6 +104,97 @@ namespace HSRP.Transaction
             }
         }
 
+        protected void ddlAffixationType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAffixationType.SelectedValue == "1")
+            {
+                lblHomeAddress.Visible = false;
+                txtHomeAddress.Visible = false;
+                lblstate.Visible = true;
+                ddlstate.Visible = true;
+                ddlstate.ClearSelection();
+                ddlLocationAddress.ClearSelection();
+                ddlLocationAddress.Items.Clear();
+                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
+                ddldistrict.ClearSelection();
+                ddldistrict.Items.Clear();
+                ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- Select District -", "0"));
+                lbldistrict.Visible = false;
+                ddldistrict.Visible = false;
+                lblpincode.Visible = false;
+                txtpincode.Visible = false;
+                ddlLocationAddress.Visible = true;
+                lblLocationAddress.Visible = true;
+                btnAdd2.Visible = true;
+            }
+
+            if (ddlAffixationType.SelectedValue == "2")
+            {
+                lblHomeAddress.Visible = true;
+                txtHomeAddress.Visible = true;
+                lblstate.Visible = true;
+                ddlstate.Visible = true;
+                ddlstate.ClearSelection();
+                ddlLocationAddress.ClearSelection();
+                ddlLocationAddress.Items.Clear();
+                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
+                ddldistrict.ClearSelection();
+                ddldistrict.Items.Clear();
+                ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- Select District -", "0"));
+                lbldistrict.Visible = true;
+                ddldistrict.Visible = true;
+                lblpincode.Visible = true;
+                txtpincode.Visible = true;
+                ddlLocationAddress.Visible = false;
+                lblLocationAddress.Visible = false;
+                btnAdd2.Visible = false;
+            }
+        }
+
+        protected void bindState()
+        {
+            Query = "Select HSRPStateName, HSRP_StateId from HSRPState order by HSRPStateName asc";
+            dt = Utils.GetDataTable(Query, ConnectionString);
+            ddlstate.DataSource = dt;
+            ddlstate.DataBind();
+            ddlstate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select State --", "0"));
+        }
+
+        protected void ddlstate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
+            dt = Utils.GetDataTable(Query, ConnectionString);
+            ddldistrict.DataSource = dt;
+            ddldistrict.DataBind();
+            ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select District --", "0"));
+            DropdownAffixation(ddlstate.SelectedValue.ToString());
+        }
+
+        public void DropdownAffixation(string stateid)
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(ConnectionString);
+                SqlCommand cmd = new SqlCommand("AffixationDropdown", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Userid", USERID);
+                cmd.Parameters.AddWithValue("@Dealerid", dealerid);
+                cmd.Parameters.AddWithValue("@OemId", oemid);
+                cmd.Parameters.AddWithValue("@StateId", stateid);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddlLocationAddress.DataSource = dt;
+                ddlLocationAddress.DataTextField = "Name";
+                ddlLocationAddress.DataValueField = "Value";
+                ddlLocationAddress.DataBind();
+                ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
+            }
+            catch (Exception ex)
+            {
+                lblErrMess.Text = ex.Message.ToString();
+            }
+        }
 
         private void BindOemnameDropdown()
         {
@@ -124,6 +218,7 @@ namespace HSRP.Transaction
                 lblErrMess.Visible = true;
             }
         }
+
         private void BindVehicleTypeDropdown()
         {
             try
@@ -277,9 +372,27 @@ namespace HSRP.Transaction
                 }
             }
 
+            if (string.IsNullOrEmpty(txtEngineNo.Text.Trim()))
+            {
+                lblErrMess.Visible = true;
+                lblErrMess.Text = "Please enter valid engine no!";
+                return;
+            }
+
+            foreach (var item in specialChar)
+            {
+                if (txtEngineNo.Text.Trim().Contains(item))
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Special characters not allowed in engine number!";
+                    return;
+                }
+            }
+
 
             string vehRegNo = txtRegNumber.Text.ToString().Trim();
             string chassisNo = txtChassisno.Text.ToString().Trim();
+            string engineno = txtEngineNo.Text.ToString().Trim();
 
             /*
              * Start DB working
@@ -295,10 +408,169 @@ namespace HSRP.Transaction
                 Amit Bhargava <amitbhargavain@gmail.com>
                 date:	29 Jul 2020, 10:40
              * 
+             * 
              *   */
-            string checkSQL = string.Empty;
-            DataTable dt = new DataTable();
-            
+
+            #region Vahan Validation checking (code edit by Ashok:22-01-2022)
+
+            string VehicleRego = txtRegNumber.Text.ToString().Trim();
+            string Chassisno = txtChassisno.Text.Trim().ToString();
+            string strChassisno = Chassisno.Substring(Chassisno.Length - 5, 5);
+            string Engineno = txtEngineNo.Text.ToString().Trim();
+            string strEngineno = string.Empty;
+            strEngineno = Engineno.Substring(Engineno.Length - 5, 5);
+            string maker1 = string.Empty;
+            string IS_OEM_Name_Match = string.Empty;
+            string QryFindOEMName = string.Empty;
+
+            string responseJson = rosmerta_API_2(txtRegNumber.Text.ToString().Trim().ToUpper(), strChassisno, strEngineno, "5UwoklBqiW");
+            VehicleDetails _vd = JsonConvert.DeserializeObject<VehicleDetails>(responseJson);
+
+            QryFindOEMName = @"select OEMID,OemName from oemvahanmapping WHERE OemName='" + _vd.maker + "'";
+            DataTable dt = Utils.GetDataTable(QryFindOEMName, ConnectionString);
+
+            if (dt.Rows.Count > 0)
+            {
+                oemid = dt.Rows[0]["OEMID"].ToString();
+            }
+            string strIsvahan = @"select isVahan from Dealermaster where dealerid = '" + dealerid + "'";
+
+            DataTable dtchkIsvahan = Utils.GetDataTable(strIsvahan, ConnectionString);
+
+            //if((HSRPStateID != "10" && HSRPStateID != "5" && HSRPStateID != "9") &&(dtchkIsvahan.Rows[0]["IsVahan"].ToString()=="Y"))
+            string VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+
+            if ((HSRPStateID != "10") && (VehicleRegoE != "TS") && (dtchkIsvahan.Rows[0]["IsVahan"].ToString() == "Y"))
+            {
+                try
+                {
+
+                    string SkipOemName = SkipOemName = @"select VEHICLETYPE from OEMMaster where OEMID = '" + oemid + "'";
+
+                    DataTable dtchk = Utils.GetDataTable(SkipOemName, ConnectionString);
+                    if (dtchk.Rows[0]["VEHICLETYPE"].ToString().Trim() != "Trailer & Trolley Supplement")
+                    {
+
+                        string maker = _vd.maker;
+                        string fueltype = _vd.fuel;
+                        string vahanstatus = _vd.message;
+                        string norms = _vd.norms;
+                        string vehicletype = _vd.vchType;
+                        string vehiclecatg = _vd.vchCatg;
+                        string regdate = _vd.regnDate;
+                        string strquery = string.Empty;
+                        if(regdate == "")
+                        {
+                            txtVehRegDate.Text = "";
+                            txtVehRegDate.Enabled = true;
+                        }
+                        else
+                        {
+                            txtVehRegDate.Text = regdate;
+                            txtVehRegDate.Enabled = false;
+                        }
+                       
+                        strquery = "insert into VahanLog values('" + dealerid + "','" + oemid + "','" + vahanstatus + "','" + fueltype + "','" + maker + "','" + vehicletype + "','" + norms + "','" + vehiclecatg + "','" + regdate + "','" + USERID + "', getdate(),'" + txtRegNumber.Text + "','" + txtChassisno.Text + "','" + txtEngineNo.Text + "')";
+                        Utils.ExecNonQuery(strquery, ConnectionString);
+
+
+                        // maker1 = dt.Rows[0]["OemName"].ToString();
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            for (int i = 0; i <= dt.Rows.Count - 1; i++)
+                            {
+                                maker1 = dt.Rows[i]["OemName"].ToString().ToUpper();
+
+                                if (maker1 == _vd.maker.ToUpper())
+                                {
+                                    IS_OEM_Name_Match = "Y";
+                                    break;
+
+                                }
+                                else
+                                {
+                                    IS_OEM_Name_Match = "N";
+
+                                }
+
+                            }
+                        }
+
+                        // Debug.WriteLine(_vd.message);
+                        //  Console.WriteLine(_vd.fuel + "-" + _vd.maker + "_" + _vd.message + "-" + _vd.norms + "-" + _vd.vchCatg + "-" + _vd.vchType);
+
+                        if (_vd.fuel == "" || _vd.maker == "" || _vd.message == "" || _vd.norms == "" || _vd.vchCatg == "" || _vd.vchType == "")
+                        {
+                            lblErrMess.Visible = true;
+                            lblErrMess.Text = "Vehicle details not available in Vahan";
+                            return;
+                        }
+
+
+                        else
+                        {
+                            if (IS_OEM_Name_Match == "Y")
+                            {
+
+                                if (_vd.message == "Vehicle details available in Vahan")
+                                {
+
+
+                                    if ((_vd.message == "Vehicle details available in Vahan") && (_vd.maker.ToUpper() == maker1))
+                                    {
+
+                                        //if (Convert.ToDateTime(_vd.regnDate) <= Convert.ToDateTime(validDatetime))
+                                        //{
+                                        //    lblErrMess.Visible = true;
+                                        //    lblErrMess.Text = "Kindly book order in B Option";
+                                        //    return;
+                                        //}
+
+                                        ////if ((_vd.regnDate != InPutRegdate) && (_vd.regnDate != ""))                                                        
+                                        //{
+
+                                        //    lblErrMess.Visible = true;
+                                        //    lblErrMess.Text = "Kindly  select  correct Regdate!";
+                                        //    return;
+                                        //}
+
+                                    }
+                                    else
+                                    {
+                                        lblErrMess.Visible = true;
+                                        lblErrMess.Text = "Maker is different form vahan and you are not AUTHORIZED! ";
+                                        return;
+
+                                    }
+                                }
+                                else
+                                {
+                                    lblErrMess.Visible = true;
+                                    lblErrMess.Text = _vd.message;
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                lblErrMess.Visible = true;
+                                lblErrMess.Text = "Maker is different form vahan and you are not AUTHORIZED!  ";
+                                return;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Soemthing went wrong while validating with vahan!";
+                    return;
+                }
+            }
+
+            #endregion
+
+
             checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
              " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
             dt = Utils.GetDataTable(checkSQL, ConnectionStringDL);
@@ -306,7 +578,7 @@ namespace HSRP.Transaction
             if (dt.Rows.Count == 0)
             {
                 checkSQL = "select top 1 OwnerName, MobileNo, EngineNo, VehicleType,ManufacturerModel , VehicleClass, '' RegDate, ManufacturingYear, isnull(HSRP_Front_LaserCode,'') HSRP_Front_LaserCode, isnull(HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode " +
-                 " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
+                   " from HSRPRecords where vehicleRegNo='" + vehRegNo + "'  and orderStatus in ('Embossing Done', 'Closed')  order by HSRPRecordID desc";
                 dt = Utils.GetDataTable(checkSQL, ConnectionString);
             }
 
@@ -349,11 +621,10 @@ namespace HSRP.Transaction
 
                 txtOwnerName.Text = OwnerName;
                 txtmobileno.Text = MobileNo;
-                txtEngineNo.Text = EngineNo;
-                txtEngineNo.Enabled = false;
+                //txtEngineNo.Text = EngineNo;
+                //txtEngineNo.Enabled = false;
                 ddlVehicletype.SelectedItem.Text = VehicleType;
                 txtmodel.Text = ManufacturerModel;
-
                 ddlVehicleclass.SelectedItem.Text = VehicleClass;
                 //OrderDate.SelectedDate = RegDate
 
@@ -392,8 +663,27 @@ namespace HSRP.Transaction
             ddlVehicleStateType.ClearSelection();
             ddlVehicleStateType.SelectedIndex = 0;
             ddlVehicletype.ClearSelection();
-
+            lblHomeAddress.Visible = false;
+            txtHomeAddress.Visible = false;
+            lblstate.Visible = false;
+            ddlstate.Visible = false;
+            ddlstate.ClearSelection();
+            ddlLocationAddress.ClearSelection();
+            ddlLocationAddress.Items.Clear();
+            ddlLocationAddress.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select Fitment Location--", "0"));
+            ddldistrict.ClearSelection();
+            ddldistrict.Items.Clear();
+            ddldistrict.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- Select District -", "0"));
+            lbldistrict.Visible = false;
+            ddldistrict.Visible = false;
+            lblpincode.Visible = false;
+            txtpincode.Visible = false;
+            ddlLocationAddress.Visible = false;
+            lblLocationAddress.Visible = false;
+            ddlAffixationType.ClearSelection();
+            btnAdd2.Visible = false;
         }
+
         string fulesticker;
         protected void btnSave_Click(object sender, ImageClickEventArgs e)
         {
@@ -412,7 +702,8 @@ namespace HSRP.Transaction
                     string vehicleType = ddlVehicletype.SelectedItem.Text.ToString();
                     string vehModel = txtmodel.Text.ToString().Trim();
                     string vehicleClass = ddlVehicleclass.SelectedItem.Text.ToString();
-                    string regDate = txtVehRegDate.Text.ToString();// OrderDate.SelectedDate.ToString();
+                    DateTime regDate = DateTime.ParseExact(txtVehRegDate.Text, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                    string savedate = regDate.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                     string fuelType = ddlFuelType.SelectedItem.Text.ToString();
                     string fuelType2 = ddlnew.SelectedItem.Text.ToString();
 
@@ -421,8 +712,13 @@ namespace HSRP.Transaction
 
                     string vehFLaserCode = txtfronlaser.Text.ToString().Trim();
                     string vehRLaserCode = txtRearlaser.Text.ToString().Trim();
-
-                   
+                    string fitmentType = ddlAffixationType.SelectedValue.ToString();
+                    string fitmentState = string.Empty;
+                    string fitmentLocation = string.Empty;
+                    string fitmentLocationID = string.Empty;
+                    string fitmentHome = string.Empty;
+                    string fitmentHomePin = string.Empty;
+                    
                     if (vehFLaserCode != "" && vehRLaserCode != "")
                     {
                         try
@@ -454,87 +750,17 @@ namespace HSRP.Transaction
 
 
                             string ordertype = string.Empty;
-                            string query = "select OrderType from  hsrprecords where VehicleRegNo = '" + vehRegNo + "' and chassisno = '" + vehChassisNo + "'";
-                            string queryHR = "select OrderType from  hsrprecords_HR where VehicleRegNo = '" + vehRegNo + "' and chassisno = '" + vehChassisNo + "'";
-                            DataTable dtquery = new DataTable();
-                            DataTable dtqueryHR = new DataTable();
-                            dtquery = Utils.GetDataTable(query, ConnectionString);
-                            dtqueryHR = Utils.GetDataTable(queryHR, ConnectionString);
-                            if (dtquery.Rows.Count > 0)
-                            {
-                                ordertype = dtquery.Rows[0]["OrderType"].ToString();
-                            }
-                            else if (dtqueryHR.Rows.Count > 0)
-                            {
-                                ordertype = dtqueryHR.Rows[0]["OrderType"].ToString();
-                            }
-                            else
-                            {
-                                //lblErrMess.Visible = true;
-                                //lblErrMess.Text = "Invalid Vehicle RegNo. or Chassis No.";
-                                //return;
-                            }
-                            string vehHR = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
-                            DataTable dtvalidHR = new DataTable();
+                            string query = string.Empty;
+                            
                             if ((vehFLaserCode.Substring(0, 2) != "AA") || (vehRLaserCode.Substring(0, 2) != "AA"))
                             {
-                                if(vehHR == "HR")
-                                {
-                                    Response.Redirect("https://www.hsrphr.com/", true);
-                                }
-                                else
-                                {
-                                    Response.Redirect("https://www.bookmyhsrp.com/", true);
-                                }
-                                
+                                Response.Redirect("https://www.bookmyhsrp.com/", true);
                             }
 
                             if ((vehFLaserCode.Length < 11))
                             {
-                                if(vehHR == "HR")
-                                {
-                                    Response.Redirect("https://www.hsrphr.com/", true);
-                                }
-                                else
-                                {
-                                    Response.Redirect("https://www.bookmyhsrp.com/", true);
-                                }
-                                
-                            }
-                            if ((vehHR == "HR") && (ordertype == "OB"))
-                            {
-                                queryHR = "select StickerMandatory from hsrprecords_HR where VehicleRegNo = '" + vehRegNo + "'";
-                                dtvalidHR = Utils.GetDataTable(queryHR, ConnectionString);
-                                if (dtvalidHR.Rows.Count == 0)
-                                {
-
-                                }
-                                else if (dtvalidHR.Rows[0]["StickerMandatory"].ToString() == "N" || dtvalidHR.Rows[0]["StickerMandatory"].ToString() == "")
-                                {
-                                    lblSucMess.Visible = false;
-                                    lblErrMess.Visible = true;
-                                    lblErrMess.Text = "You cannot place the order for two wheeler!";
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                query = "select StickerMandatory from hsrprecords where VehicleRegNo = '" + vehRegNo + "'";
-                                DataTable dtvalid = Utils.GetDataTable(query, ConnectionString);
-
-                                if (dtvalid.Rows.Count == 0)
-                                {
-
-                                }
-                                else if (dtvalid.Rows[0]["StickerMandatory"].ToString() == "N" || dtvalid.Rows[0]["StickerMandatory"].ToString() == "")
-                                {
-                                    lblSucMess.Visible = false;
-                                    lblErrMess.Visible = true;
-                                    lblErrMess.Text = "You cannot place the order for two wheeler!";
-                                    return;
-                                }
-                            }
-
+                                Response.Redirect("https://www.bookmyhsrp.com/", true);
+                            }                           
 
                             DataTable dt1 = new DataTable();
                             string strstickerPrinterFacility = string.Empty;
@@ -559,29 +785,22 @@ namespace HSRP.Transaction
 
                             DataTable ds = new DataTable();
                            
-                            query = "select a.HSRPRecordID, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
+                            query = "select a.HSRPRecordID, a.RegistrationDate, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
                               "where  a.vehicleRegNo='" + vehRegNo + "'  and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "' ";
                            
                             ds = Utils.GetDataTable(query, ConnectionStringDL);
 
                             if (ds.Rows.Count == 0)
                             {
-                                query = "select a.HSRPRecordID, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
+                                query = "select a.HSRPRecordID, a.RegistrationDate, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
                                    "where  a.vehicleRegNo='" + vehRegNo + "'  " +
                                    "and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "'   ";
-
-                                ds = Utils.GetDataTable(query, ConnectionString);
-
-                                //query = "select a.HSRPRecordID, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords_HR a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
-                                //   "where  a.vehicleRegNo='" + vehRegNo + "'  " +
-                                //   "and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "'   ";
-
-                                //ds = Utils.GetDataTable(query, ConnectionString);
+                                ds = Utils.GetDataTable(query, ConnectionString);                               
                             }                            
 
                             if(ds.Rows.Count == 0)
                             {
-                                query = "select a.HSRPRecordID, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
+                                query = "select a.HSRPRecordID, a.RegistrationDate, a.HSRP_Sticker_LaserCode, a.StickerMandatory, a.VehicleRegNo,a.EngineNo,a.ChassisNo,isnull(a.HSRP_Front_LaserCode,'') HSRP_Front_LaserCode,isnull(a.HSRP_Rear_LaserCode,'') HSRP_Rear_LaserCode,b.RTOLocationname ,b.RTOLocationCode , HSRPState.HSRPStateName ,HSRPState.statetext from HSRPRecords a inner join rtolocation  as b on a.RTOLocationID =b.RTOLocationID inner join HSRPState  on HSRPState.HSRP_StateID= b.HSRP_StateID " +
                                    "where  a.vehicleRegNo='" + vehRegNo + "'  " +
                                    "and a.HSRP_Front_LaserCode = '" + vehFLaserCode + "'  and a.HSRP_Rear_LaserCode = '" + vehRLaserCode + "'   ";
 
@@ -597,6 +816,11 @@ namespace HSRP.Transaction
                                 string FrontLCode = ds.Rows[0]["HSRP_Front_LaserCode"].ToString();
                                 string RearLaserCode = ds.Rows[0]["HSRP_Rear_LaserCode"].ToString();
                                 string ChassisNo = ds.Rows[0]["ChassisNo"].ToString();
+                                string registrationDate = ds.Rows[0]["RegistrationDate"].ToString();
+                                string ValidDateTime = "01/04/2019";                               
+                                string VehicleRegNo = txtRegNumber.Text.ToString();
+                                string vehHR = VehicleRegNo.Substring(0, 2).Trim();
+                                
                                 if (Stricker != "")
                                 {
 
@@ -615,25 +839,13 @@ namespace HSRP.Transaction
                                          * Finally uncomment code lineNo 458 to 462
                                          */
 
-                                        string addressquery = "";
                                         string address = "";
                                         string navembid = "";
-                                        DataTable dtadd = new DataTable();
-                                        if ((vehHR == "HR") && (ordertype == "OB"))
-                                        {
-                                            addressquery = "select top 1 Address1,NAVEMBID from hsrprecords_HR where VehicleRegNo = '" + vehRegNo + "'";
-                                            dtadd = Utils.GetDataTable(addressquery, ConnectionString);
-                                            address = dtadd.Rows[0]["Address1"].ToString();
-                                            navembid = dtadd.Rows[0]["NAVEMBID"].ToString();
-                                        }
-
-                                        else
-                                        {
-                                            addressquery = "select top 1 Address1,NAVEMBID from hsrprecords where VehicleRegNo = '" + vehRegNo + "'";
-                                            dtadd = Utils.GetDataTable(addressquery, ConnectionString);
-                                            address = dtadd.Rows[0]["Address1"].ToString();
-                                            navembid = dtadd.Rows[0]["NAVEMBID"].ToString();
-                                        }
+                                        string state_id = "";
+                                        string pincode = "";
+                                        string rtolocationid = "";
+                                        DataTable dtadd = new DataTable(); 
+                                        
 
                                         string isBookMyHSRP = string.Empty;
                                         string queryfetchstatusofBookMyHSRP = "select Count(HSRPrecordId) as BookMyHSRPExist from HSRPRecords where  Vehicleregno = '" + vehRegNo + "' and  IsBookMyHsrpRecord='Y'";
@@ -649,24 +861,53 @@ namespace HSRP.Transaction
                                         {
                                             fulesticker = fuelType2;
                                         }
-                                       
-                                        if ((vehHR == "HR") && (ordertype == "OB"))
+
+                                        DataTable dtt = new DataTable();
+
+                                        if (ddlAffixationType.SelectedValue == "1")
+                                        {
+                                            string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
+                                            dtt = Utils.GetDataTable(navembidquery, ConnectionString);
+                                            navembid = dtt.Rows[0]["NAVEMBID"].ToString();
+                                            address = ddlLocationAddress.SelectedItem.Text.ToString();
+                                            state_id = ddlstate.SelectedValue.ToString();
+                                            pincode = null;
+                                            rtolocationid = dtt.Rows[0]["rtolocationid"].ToString();
+                                        }
+                                        if (ddlAffixationType.SelectedValue == "2")
+                                        {
+                                            string navembidquery = "select top 1 NAVEMBID from rtolocation where RTOLocationID = '" + ddldistrict.SelectedValue + "'";
+                                            dtt = Utils.GetDataTable(navembidquery, ConnectionString);
+                                            navembid = dtt.Rows[0]["NAVEMBID"].ToString();
+                                            address = txtHomeAddress.Text.ToString();
+                                            state_id = ddlstate.SelectedValue.ToString();
+                                            pincode = txtpincode.Text.ToString();
+                                            rtolocationid = ddldistrict.SelectedValue;
+                                        }
+
+                                        if(registrationDate == "")
+                                        {
+                                            registrationDate = txtVehRegDate.Text.ToString();
+                                        }
+                                      
+                                        if ((vehHR == "HR") && (DateTime.Parse(registrationDate, CultureInfo.InvariantCulture) < DateTime.Parse(ValidDateTime, CultureInfo.InvariantCulture)))
                                         {
                                             sqlQuery = "StrickerOnlyEntryFRLaserSuccess_HR '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" +
                                             ChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" +
-                                            regDate + "', '" + fulesticker + "', '" + orderType + "', '" + manuDate + "', '" +
-                                            vehFLaserCode + "', '" + vehRLaserCode + "', '" + oemid + "', '" + dealerid + "', '" + HSRPStateID + "', '" + USERID + "','" + VehicleStateType + "','N','" + address + "','" + navembid + "' ";
+                                            savedate + "', '" + fulesticker + "', '" + orderType + "', '" + manuDate + "', '" +
+                                            vehFLaserCode + "', '" + vehRLaserCode + "', '" + oemid + "', '" + dealerid + "', '" + state_id + "', '" + USERID + "','" + VehicleStateType + "','N','" + address + "','" + navembid + "','" + pincode + "','" + ddlAffixationType.SelectedValue + "','"+ rtolocationid +"' ";
                                         }
                                         else
                                         {
                                             sqlQuery = "USP_StrickerOnlyEntryFRLaserSuccess '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" +
                                             ChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" +
-                                            regDate + "', '" + fulesticker + "', '" + orderType + "', '" + manuDate + "', '" +
-                                            vehFLaserCode + "', '" + vehRLaserCode + "', '" + oemid + "', '" + dealerid + "', '" + HSRPStateID + "', '" + USERID + "','" + VehicleStateType + "','N','" + address + "','" + navembid + "' ";
-                                        }
-                                       
+                                            savedate + "', '" + fulesticker + "', '" + orderType + "', '" + manuDate + "', '" +
+                                            vehFLaserCode + "', '" + vehRLaserCode + "', '" + oemid + "', '" + dealerid + "', '" + state_id + "', '" + USERID + "','" + VehicleStateType + "','N','" + address + "','" + navembid + "','" + pincode + "','" + ddlAffixationType.SelectedValue + "','"+ rtolocationid +"' ";
 
-                                        DataTable dt = Utils.GetDataTable(sqlQuery, ConnectionString);
+                                        }
+
+
+                                        dt = Utils.GetDataTable(sqlQuery, ConnectionString);
 
                                         if (dt.Rows.Count > 0)
                                         {
@@ -828,7 +1069,7 @@ namespace HSRP.Transaction
 
                                         //StringBuilder sbVehicleRegNo = new StringBuilder();
 
-                                        string VehicleRegNo = string.Empty;
+                                        
                                         StringBuilder sbVehicleRegNo = new StringBuilder();
                                         try
                                         {
@@ -879,7 +1120,7 @@ namespace HSRP.Transaction
                                         table.AddCell(cell3);
 
 
-                                        string VehicleRegDate = regDate.Replace("/", "-");
+                                        string VehicleRegDate = savedate.Replace("/", "-");
                                         StringBuilder sbVehicleRegDate = new StringBuilder();
                                         for (int i = VehicleRegDate.Length - 1; i >= 0; i--)
                                         {
@@ -1001,7 +1242,8 @@ namespace HSRP.Transaction
                 string vehicleType = ddlVehicletype.SelectedItem.Text.ToString();
                 string vehModel = txtmodel.Text.ToString().Trim();
                 string vehicleClass = ddlVehicleclass.SelectedItem.Text.ToString();
-                string regDate = txtVehRegDate.Text.ToString();//OrderDate.SelectedDate.ToString();
+                DateTime regDate = DateTime.ParseExact(txtVehRegDate.Text, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                string savedate = regDate.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                 string fuelType = string.Empty;
                 if (ddlVehicleStateType.SelectedItem.Text.ToString() == "BS6")
                 {
@@ -1268,7 +1510,34 @@ namespace HSRP.Transaction
                         return;
                     }
 
-                   
+                    string address = "";
+                    string navembid = "";
+                    string state_id = "";
+                    string pincode = "";
+                    string rtolocationid = "";
+                    DataTable dtt = new DataTable();
+
+                    if (ddlAffixationType.SelectedValue == "1")
+                    {
+                        string navembidquery = "select top 1 rtolocationid, NAVEMBID from rtolocation where RTOLocationID in (select RTOLocationID from DealerAffixation where SubDealerId = " + ddlLocationAddress.SelectedValue + ")";
+                        dtt = Utils.GetDataTable(navembidquery, ConnectionString);
+                        navembid = dtt.Rows[0]["NAVEMBID"].ToString();
+                        address = ddlLocationAddress.SelectedItem.Text.ToString();
+                        state_id = ddlstate.SelectedValue.ToString();
+                        pincode = null;
+                        rtolocationid = dtt.Rows[0]["rtolocationid"].ToString();
+                    }
+                    if (ddlAffixationType.SelectedValue == "2")
+                    {
+                        string navembidquery = "select top 1 NAVEMBID from rtolocation where RTOLocationID = '" + ddldistrict.SelectedValue + "'";
+                        dtt = Utils.GetDataTable(navembidquery, ConnectionString);
+                        navembid = dtt.Rows[0]["NAVEMBID"].ToString();
+                        address = txtHomeAddress.Text.ToString();
+                        state_id = ddlstate.SelectedValue.ToString();
+                        pincode = txtpincode.Text.ToString();
+                        rtolocationid = ddldistrict.SelectedValue;
+                    }
+
                     string rcFileName = HiddenRCPath.Value;
                     string idFileName = HiddenIDPath.Value;
                     string flFileName = HiddenFlaser.Value;
@@ -1295,7 +1564,7 @@ namespace HSRP.Transaction
                         //if ((oemid != "1005") && (isBookMyHSRP == "0"))
                         //{
                         
-                        sqlQuery = "StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + regDate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + HSRPStateID + "', '" + USERID + "','" + VehicleStateType + "'";
+                        sqlQuery = "StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + savedate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + state_id + "', '" + USERID + "','" + VehicleStateType + "','" + address + "','" + navembid + "','" + pincode + "', '"+ ddlAffixationType.SelectedValue +"','"+ rtolocationid +"'";
                         
                         // }
                         //if ((oemid != "1005") && (isBookMyHSRP == "1"))
@@ -1317,7 +1586,7 @@ namespace HSRP.Transaction
                         {
                             if (dt.Rows[0]["status"].ToString() == "1")
                             {
-                                string msg = "Records saved successfull";
+                                string msg = "Records saved successfully.";
                                 Session["Save"] = "saved";
                                 Response.Redirect("StickerProcess.aspx?msg=" + msg);
                             }
@@ -1591,6 +1860,64 @@ namespace HSRP.Transaction
                     }
                 }
 
+                if (ddlAffixationType.SelectedValue == "0")
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Please select fitment address!";
+                    return false;
+                }
+
+                if (ddlAffixationType.SelectedValue == "1")
+                {
+                    if (ddlstate.SelectedValue == "0")
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.Text = "Please select state!";
+                        return false;
+                    }
+
+                    if (ddlLocationAddress.SelectedValue == "0")
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.Text = "Please select fitment location!";
+                        return false;
+                    }
+
+                }
+
+                if (ddlAffixationType.SelectedValue == "2")
+                {
+
+                    if (ddlstate.SelectedValue == "0")
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.Text = "Please select state!";
+                        return false;
+                    }
+
+                    if (ddldistrict.SelectedValue == "0")
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.Text = "Please select district!";
+                        return false;
+                    }
+
+                    if (txtHomeAddress.Text == "")
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.Text = "Please enter address!";
+                        return false;
+                    }
+
+                    if (txtpincode.Text == "")
+                    {
+                        lblErrMess.Visible = true;
+                        lblErrMess.Text = "Please enter pincode!";
+                        return false;
+                    }
+
+                }
+
             }
             catch (Exception ev)
             {
@@ -1759,6 +2086,12 @@ namespace HSRP.Transaction
 
         }
 
+        protected void btnAdd2_Click(object sender, EventArgs e)
+        {
+            string sticker = "sticker";
+            Response.Redirect("../Transaction/AffixAddressUpdate.aspx?Through="+sticker,true);
+        }
+
         protected void ddlVehicleStateType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlVehicleStateType.SelectedValue == "BS4 or Other")
@@ -1771,6 +2104,50 @@ namespace HSRP.Transaction
                 ddlnew.Visible = true;
                 ddlFuelType.Visible = false;
             }
+        }
+
+        public string rosmerta_API_2(string vehRegNo, string chasiNo, string EngineNo, string Key)
+        {
+            string html = string.Empty;
+
+
+            string decryptedString = string.Empty;
+
+            try
+            {
+
+                string url = @"" + ConfigurationManager.AppSettings["VehicleStatusAPI2"].ToString() + "?VehRegNo=" + vehRegNo + "&ChassisNo=" + chasiNo + "&EngineNo=" + EngineNo + "&X=" + Key + "";
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.AutomaticDecompression = DecompressionMethods.GZip;
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    html = reader.ReadToEnd();
+
+                }
+
+            }
+            catch (Exception ev)
+            {
+                html = "Error While Calling Vahan Service - " + ev.Message;
+            }
+
+
+            return html;
+        }
+
+        class VehicleDetails
+        {
+            public string message { get; set; }
+            public string fuel { get; set; }
+            public string maker { get; set; }
+            public string vchType { get; set; }
+            public string norms { get; set; }
+            public string vchCatg { get; set; }
+            public string regnDate { get; set; }
         }
     }
 }

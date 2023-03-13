@@ -4,6 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
+  
 
     <script type="text/javascript">
         function OrderDate_OnDateChange(sender, eventArgs) {
@@ -275,9 +276,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1 col-sm-1 col-lg-1">
-                                    <asp:ImageButton ID="ImgBtnCheck" runat="server" AlternateText="Check Data" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="ImgBtnCheck_Click" />
-                                </div>
+                               
                             </div>
                             <br />
 
@@ -285,10 +284,10 @@
                                 <div class="col-md-5 col-sm-5 col-lg-5">
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-lg-4">
-                                            <asp:Label runat="server" ID="Label13" Visible="true"> Owner Name <span style="color: #FF3300">*</span></asp:Label>
+                                            <asp:Label runat="server" ID="Label16" Visible="true"> Engine No <span style="color: #FF3300">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                            <asp:TextBox ID="txtOwnerName" runat="server" class="form-control" MaxLength="100" autocomplete="off"></asp:TextBox>
+                                              <asp:TextBox ID="txtEngineNo" runat="server" class="form-control" MaxLength="20" autocomplete="off"></asp:TextBox>
                                         </div>
 
                                     </div>
@@ -304,6 +303,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                 <div class="col-md-1 col-sm-1 col-lg-1">
+                                    <asp:ImageButton ID="ImgBtnCheck" runat="server" AlternateText="Check Data" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="ImgBtnCheck_Click" />
+                                </div>
                             </div>
                             
 
@@ -313,13 +315,14 @@
                                 <div class="col-md-5 col-sm-5 col-lg-5">
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-lg-4">
-                                            <asp:Label runat="server" ID="Label16" Visible="true"> Engine No <span style="color: #FF3300">*</span></asp:Label>
+                                            <asp:Label runat="server" ID="Label13" Visible="true"> Owner Name <span style="color: #FF3300">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                              <asp:TextBox ID="txtEngineNo" runat="server" class="form-control" MaxLength="20" autocomplete="off"></asp:TextBox>
+                                            <asp:TextBox ID="txtOwnerName" runat="server" class="form-control" MaxLength="100" autocomplete="off"></asp:TextBox>
                                         </div>
 
                                     </div>
+                                    
                                 </div>
                                 <div class="col-md-1 col-sm-1 col-lg-1"></div>
                                 <div class="col-md-5 col-sm-5 col-lg-5">
@@ -392,10 +395,10 @@
                                 <div class="col-md-5 col-sm-5 col-lg-5">
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4 col-lg-4"">
-                                            <asp:Label runat="server" ID="Label20" Visible="true">  Date of Registration<span style="color: #FF3300">*</span><br /> (dd/MM/yyyy) </asp:Label>
+                                            <asp:Label runat="server" ID="Label20" Visible="true">  Date of Registration<span style="color: #FF3300">*</span><br /> (yyyy/MM/dd) </asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                            <asp:TextBox ID="txtVehRegDate" runat="server" class="form-control" MaxLength="10" autocomplete="off" placeholder="dd/MM/yyyy"></asp:TextBox>
+                                            <asp:TextBox ID="txtVehRegDate" runat="server" class="form-control" MaxLength="10" autocomplete="off" placeholder="yyyy/MM/dd"></asp:TextBox>
                                              <%--<table width="100%">
                                                  <tr>
                                                      <td>
@@ -504,10 +507,6 @@
                                 </div>
                             </div>
 
-
-                            
-                            
-                            <br />
                             <div class="row">
                                 <div class="col-md-5 col-sm-5 col-lg-5">
                                     <div class="row">
@@ -515,7 +514,7 @@
                                             <asp:Label runat="server" ID="Label24" Visible="true"> HSRP FrontLaser/ SerialNo. <span style="color: #FF3300">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                              <asp:TextBox ID="txtfronlaser" runat="server" class="form-control" MaxLength="20" autocomplete="off"></asp:TextBox>
+                                              <asp:TextBox ID="txtfronlaser" runat="server" class="form-control" MaxLength="12" autocomplete="off"></asp:TextBox>
                                             <asp:HiddenField runat="server" ID="HideFLaserTxt" />
                                         </div>
                                         <%--<div class="col-md-3 col-sm-3 col-lg-3">
@@ -531,7 +530,7 @@
                                             <asp:Label runat="server" ID="Label25" Visible="true"> HSRP RearLaser/ SerialNo. <span style="color: #FF3300">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-8 col-sm-8 col-lg-8">
-                                            <asp:TextBox ID="txtRearlaser" runat="server" class="form-control" MaxLength="20" autocomplete="off"></asp:TextBox>
+                                            <asp:TextBox ID="txtRearlaser" runat="server" class="form-control" MaxLength="12" autocomplete="off"></asp:TextBox>
                                             <asp:HiddenField runat="server" ID="HideRLaserTxt" />
                                         </div>
                                         <%--<div class="col-md-3 col-sm-3 col-lg-3">
@@ -541,6 +540,64 @@
                                 </div>
                             </div>
                             <br />
+                            <hr />
+                               <div class="row" id="divdevtype" runat="server" Visible="true">
+                                <div class="col-md-2 col-lg-2 col-sm-2">
+                                     Fitment Address<span style="color: #FF3300">*</span>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2">
+                                     <asp:DropDownList ID="ddlAffixationType" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlAffixationType_SelectedIndexChanged">  
+                                        <asp:ListItem Value="0">- Select Type -</asp:ListItem>
+                                        <asp:ListItem Value="1">At Your Location</asp:ListItem>
+                                        <asp:ListItem Value="2">At Home</asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2 ">                                    
+                                   <asp:Label ID="lblstate" runat="server" Visible="false">State<span style="color: #FF3300">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2" >                                   
+                                     <asp:DropDownList ID="ddlstate" runat="server" CssClass="form-control" Visible="false" DataValueField="HSRP_StateID"
+                                         DataTextField="HSRPStateName" OnSelectedIndexChanged="ddlstate_SelectedIndexChanged" AutoPostBack="true">  
+                                         <asp:ListItem Value="0">-- Select State</asp:ListItem>
+                                     </asp:DropDownList>
+                                </div>  
+                                <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:Label ID="lblLocationAddress" runat="server" Visible="false">Fitment Location<span style="color: #FF3300">*</span></asp:Label>
+                                    <asp:Label ID="lbldistrict" runat="server" Visible="false">District<span style="color: #FF3300">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:DropDownList ID="ddlLocationAddress" runat="server" CssClass="form-control" Visible="false">
+                                        <asp:ListItem Value="0">-- Select Fitment Location --</asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:DropDownList ID="ddldistrict" runat="server" Visible="false" CssClass="form-control" DataTextField="RTOLocationName" DataValueField="RTOLocationID">
+                                        <asp:ListItem Value="0">-- Select District --</asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-md-2 col-lg-2 col-sm-2" >
+                                     <asp:Label ID="lblHomeAddress" runat="server" Visible="false">Home Location Address<span style="color: #FF3300">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:TextBox ID="txtHomeAddress" runat="server" class="form-control" Visible="false"></asp:TextBox>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:Label ID="lblpincode" runat="server" Visible="false">Pincode<span style="color: #FF3300">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-2" >
+                                    <asp:TextBox ID="txtpincode" runat="server" Visible="false" MaxLength="6" CssClass="form-control"></asp:TextBox>
+                                </div>                              
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-md-2 col-lg-2 col-sm-2"></div>
+                                <div class="col-md-2 col-lg-2 col-sm-2"></div>
+                                <div class="col-md-1 col-lg-1 col-sm-1"></div>
+                                 <div class="col-md-2 col-lg-2 col-sm-2" >
+                                     <asp:Button ID="btnAdd2" runat="server" Text="Add New Location" CssClass="btn btn-primary" OnClick="btnAdd2_Click" Visible="false" />                                    
+                                </div>
+                            </div>
+                            <br />
+                            <hr />
 
                             <div class="form-group" runat="server" visible="false" id="DivFrontRearUpload">
 

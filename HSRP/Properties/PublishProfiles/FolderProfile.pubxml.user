@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <History>False|2023-01-13T08:59:50.2589032Z;True|2023-01-11T22:18:26.3077262+05:30;True|2023-01-09T14:06:28.5112493+05:30;False|2022-12-24T11:00:04.9187377+05:30;True|2022-12-10T18:19:09.5454669+05:30;False|2022-12-10T18:18:51.1585956+05:30;False|2022-12-10T11:40:52.6758632+05:30;True|2022-12-03T17:26:37.5372250+05:30;True|2022-05-27T16:59:37.1523045+05:30;False|2022-05-27T16:59:23.6027036+05:30;False|2022-05-26T15:42:35.8927904+05:30;False|2022-05-26T15:40:22.4178023+05:30;True|2022-05-25T17:12:39.3038581+05:30;False|2022-05-25T17:12:17.9074561+05:30;False|2022-05-24T16:30:13.3630753+05:30;False|2022-05-18T11:06:50.6020946+05:30;False|2022-05-17T16:56:49.3054615+05:30;False|2022-05-05T14:14:15.1402380+05:30;False|2022-05-02T17:27:41.6369016+05:30;False|2022-05-02T16:33:03.2450466+05:30;False|2022-04-28T12:32:39.1660192+05:30;False|2022-04-25T15:53:12.0635657+05:30;True|2022-04-22T18:01:09.6193038+05:30;False|2022-04-22T18:00:50.8970062+05:30;False|2022-04-19T14:34:32.7514572+05:30;True|2022-04-16T15:51:58.7393139+05:30;False|2022-04-16T15:51:26.3858871+05:30;False|2022-04-16T15:50:47.1387690+05:30;False|2022-04-15T19:48:19.3033475+05:30;False|2022-04-05T17:59:22.3345033+05:30;</History>
-    <_PublishTargetUrl>D:\PublishedCode\Dealer Published Code\13Jan23\Prepaid_13Jan23</_PublishTargetUrl>
+    <History>False|2023-03-09T09:19:45.4818850Z;True|2023-03-09T14:37:08.8557131+05:30;True|2023-03-09T12:48:02.8227509+05:30;True|2023-03-07T10:35:06.2126114+05:30;False|2023-03-07T10:34:17.8163451+05:30;True|2023-03-03T16:44:27.6255327+05:30;False|2023-01-13T14:29:50.2589032+05:30;True|2023-01-11T22:18:26.3077262+05:30;True|2023-01-09T14:06:28.5112493+05:30;False|2022-12-24T11:00:04.9187377+05:30;True|2022-12-10T18:19:09.5454669+05:30;False|2022-12-10T18:18:51.1585956+05:30;False|2022-12-10T11:40:52.6758632+05:30;True|2022-12-03T17:26:37.5372250+05:30;True|2022-05-27T16:59:37.1523045+05:30;False|2022-05-27T16:59:23.6027036+05:30;False|2022-05-26T15:42:35.8927904+05:30;False|2022-05-26T15:40:22.4178023+05:30;True|2022-05-25T17:12:39.3038581+05:30;False|2022-05-25T17:12:17.9074561+05:30;False|2022-05-24T16:30:13.3630753+05:30;False|2022-05-18T11:06:50.6020946+05:30;False|2022-05-17T16:56:49.3054615+05:30;False|2022-05-05T14:14:15.1402380+05:30;False|2022-05-02T17:27:41.6369016+05:30;False|2022-05-02T16:33:03.2450466+05:30;False|2022-04-28T12:32:39.1660192+05:30;False|2022-04-25T15:53:12.0635657+05:30;True|2022-04-22T18:01:09.6193038+05:30;False|2022-04-22T18:00:50.8970062+05:30;False|2022-04-19T14:34:32.7514572+05:30;True|2022-04-16T15:51:58.7393139+05:30;False|2022-04-16T15:51:26.3858871+05:30;False|2022-04-16T15:50:47.1387690+05:30;False|2022-04-15T19:48:19.3033475+05:30;False|2022-04-05T17:59:22.3345033+05:30;</History>
+    <_PublishTargetUrl>D:\PublishedCode\Published Code For Test\MultiBrand\MultiBrand_V22_V5_9Mar23</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Themes/default/.DS_Store">
@@ -184,6 +184,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="assets/img/bg-img-captcha.png">
       <publishTime>11/01/2020 18:10:46</publishTime>
+    </File>
+    <File Include="assets/img/bg-login.jpeg">
+      <publishTime>01/24/2023 17:16:56</publishTime>
     </File>
     <File Include="assets/img/bike-fill.svg">
       <publishTime>11/01/2020 18:10:46</publishTime>
@@ -435,10 +438,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/25/2011 13:16:50</publishTime>
     </File>
     <File Include="bin/DataProvider.dll">
-      <publishTime>04/20/2022 21:58:15</publishTime>
+      <publishTime>03/06/2023 14:21:36</publishTime>
     </File>
     <File Include="bin/DataProvider.pdb">
-      <publishTime>04/20/2022 21:58:15</publishTime>
+      <publishTime>03/06/2023 14:21:36</publishTime>
     </File>
     <File Include="bin/Excel.dll">
       <publishTime>01/17/2013 18:40:30</publishTime>
@@ -447,13 +450,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/28/2016 10:03:16</publishTime>
     </File>
     <File Include="bin/HSRP.dll">
-      <publishTime>01/13/2023 14:30:12</publishTime>
+      <publishTime>03/09/2023 18:49:06</publishTime>
     </File>
     <File Include="bin/HSRP.dll.config">
-      <publishTime>01/06/2023 14:57:52</publishTime>
+      <publishTime>03/07/2023 10:10:14</publishTime>
     </File>
     <File Include="bin/HSRP.pdb">
-      <publishTime>01/13/2023 14:30:12</publishTime>
+      <publishTime>03/09/2023 18:49:06</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>01/10/2013 16:59:48</publishTime>
@@ -643,6 +646,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="content/dam/doitassets/eesl/pdf/programmes/UJALA/UJALA_Case_Studies_1.pdf">
       <publishTime>02/25/2019 10:39:50</publishTime>
+    </File>
+    <File Include="content/font-awesome.css">
+      <publishTime>03/04/2023 17:18:15</publishTime>
+    </File>
+    <File Include="content/font-awesome.min.css">
+      <publishTime>03/04/2023 17:18:15</publishTime>
     </File>
     <File Include="css/baseStyle.css">
       <publishTime>10/22/2020 18:29:22</publishTime>
@@ -3683,11 +3692,32 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="EmbossingData/ServiceChargeChallan.aspx">
       <publishTime>08/14/2017 14:13:50</publishTime>
     </File>
+    <File Include="error.html">
+      <publishTime>03/04/2023 11:45:11</publishTime>
+    </File>
     <File Include="FirstLoginChangePassword.aspx">
       <publishTime>10/29/2022 16:27:18</publishTime>
     </File>
+    <File Include="fonts/fontawesome-webfont.eot">
+      <publishTime>03/04/2023 17:18:15</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.svg">
+      <publishTime>03/04/2023 17:18:15</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.ttf">
+      <publishTime>03/04/2023 17:18:15</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff">
+      <publishTime>03/04/2023 17:18:14</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff2">
+      <publishTime>03/04/2023 17:18:14</publishTime>
+    </File>
+    <File Include="fonts/FontAwesome.otf">
+      <publishTime>03/04/2023 17:18:14</publishTime>
+    </File>
     <File Include="ForgotPassword.aspx">
-      <publishTime>01/30/2021 16:11:22</publishTime>
+      <publishTime>01/24/2023 17:18:58</publishTime>
     </File>
     <File Include="GenerateCaptcha.aspx">
       <publishTime>02/15/2019 12:41:10</publishTime>
@@ -3745,6 +3775,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="images/bg1.jpg">
       <publishTime>06/20/2012 13:06:18</publishTime>
+    </File>
+    <File Include="images/bgimage.png">
+      <publishTime>02/01/2023 10:09:10</publishTime>
+    </File>
+    <File Include="images/bgplate.jpg">
+      <publishTime>01/31/2023 11:39:15</publishTime>
+    </File>
+    <File Include="images/bookorder.png">
+      <publishTime>01/30/2023 10:45:37</publishTime>
     </File>
     <File Include="images/bottombgfooter.jpg">
       <publishTime>07/31/2012 15:59:18</publishTime>
@@ -4430,6 +4469,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="images/NewYear.png">
       <publishTime>12/31/2022 17:11:40</publishTime>
     </File>
+    <File Include="images/orderbook.png">
+      <publishTime>01/28/2023 14:53:48</publishTime>
+    </File>
+    <File Include="images/orderbook1.png">
+      <publishTime>01/28/2023 14:55:41</publishTime>
+    </File>
+    <File Include="images/orderCart.svg">
+      <publishTime>01/30/2023 14:20:34</publishTime>
+    </File>
     <File Include="images/pager/first.gif">
       <publishTime>06/20/2012 13:06:18</publishTime>
     </File>
@@ -4469,11 +4517,20 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="images/reorder.gif">
       <publishTime>06/20/2012 13:06:20</publishTime>
     </File>
+    <File Include="images/report.png">
+      <publishTime>01/30/2023 10:45:36</publishTime>
+    </File>
+    <File Include="images/report.svg">
+      <publishTime>01/30/2023 14:20:34</publishTime>
+    </File>
     <File Include="images/SchoolBus.png">
       <publishTime>06/20/2012 13:06:20</publishTime>
     </File>
     <File Include="images/school_bus2.png">
       <publishTime>06/20/2012 13:06:20</publishTime>
+    </File>
+    <File Include="images/search.svg">
+      <publishTime>01/31/2023 11:55:16</publishTime>
     </File>
     <File Include="images/selector.gif">
       <publishTime>07/19/2012 16:54:20</publishTime>
@@ -4501,6 +4558,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="images/spinner.gif">
       <publishTime>06/20/2012 13:06:20</publishTime>
+    </File>
+    <File Include="images/status.svg">
+      <publishTime>01/30/2023 14:49:20</publishTime>
     </File>
     <File Include="images/tabs.gif">
       <publishTime>06/20/2012 13:06:20</publishTime>
@@ -4650,16 +4710,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/24/2021 17:45:50</publishTime>
     </File>
     <File Include="LiveReports/FirstLandingPage.aspx">
-      <publishTime>01/24/2021 17:45:50</publishTime>
+      <publishTime>01/23/2023 14:17:43</publishTime>
     </File>
     <File Include="LiveReports/Fitment entry with image_26032021.pdf">
       <publishTime>04/04/2021 18:52:00</publishTime>
     </File>
     <File Include="LiveReports/LiveTracking.aspx">
-      <publishTime>11/08/2022 16:11:40</publishTime>
+      <publishTime>03/09/2023 17:27:35</publishTime>
     </File>
     <File Include="LiveReports/MainEntry.aspx">
-      <publishTime>10/07/2022 15:39:50</publishTime>
+      <publishTime>01/23/2023 15:58:36</publishTime>
     </File>
     <File Include="LiveReports/OemDashboard.aspx">
       <publishTime>12/05/2022 14:14:10</publishTime>
@@ -4707,13 +4767,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/24/2021 17:45:54</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>01/11/2023 22:13:16</publishTime>
+      <publishTime>02/01/2023 10:11:37</publishTime>
+    </File>
+    <File Include="Login_OLD.aspx">
+      <publishTime>01/24/2023 18:21:07</publishTime>
     </File>
     <File Include="LogOut.aspx">
       <publishTime>02/15/2019 12:41:10</publishTime>
     </File>
     <File Include="Main.Master">
-      <publishTime>06/08/2022 12:08:10</publishTime>
+      <publishTime>02/25/2023 17:05:27</publishTime>
     </File>
     <File Include="MainNew.Master">
       <publishTime>12/05/2022 12:55:22</publishTime>
@@ -4937,6 +5000,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Transaction/AddMeToBMHSRP.aspx">
       <publishTime>10/28/2022 17:20:05</publishTime>
     </File>
+    <File Include="Transaction/AffixAddressUpdate.aspx">
+      <publishTime>02/27/2023 11:34:00</publishTime>
+    </File>
     <File Include="Transaction/AffixationReport.aspx">
       <publishTime>01/13/2021 12:08:04</publishTime>
     </File>
@@ -4953,7 +5019,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/09/2020 00:51:38</publishTime>
     </File>
     <File Include="Transaction/BMHSRPFittmentEntryImage.aspx">
-      <publishTime>03/25/2021 18:09:16</publishTime>
+      <publishTime>03/09/2023 16:10:28</publishTime>
     </File>
     <File Include="Transaction/BMHSRPFittmentSingleEntry.aspx">
       <publishTime>01/30/2021 16:11:56</publishTime>
@@ -5022,7 +5088,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/27/2019 15:25:50</publishTime>
     </File>
     <File Include="Transaction/DLViewDealerOrder.aspx">
-      <publishTime>12/01/2019 20:08:58</publishTime>
+      <publishTime>01/24/2023 12:26:09</publishTime>
     </File>
     <File Include="Transaction/FitterMobile.aspx">
       <publishTime>03/25/2021 17:45:48</publishTime>
@@ -5043,10 +5109,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/09/2022 17:22:10</publishTime>
     </File>
     <File Include="Transaction/LaserReceivedDealerwise.aspx">
-      <publishTime>08/20/2020 13:14:26</publishTime>
+      <publishTime>03/09/2023 18:00:53</publishTime>
     </File>
     <File Include="Transaction/MobileAppOTP.aspx">
       <publishTime>06/02/2022 15:42:10</publishTime>
+    </File>
+    <File Include="Transaction/NewCashReceiptDataEntry.aspx">
+      <publishTime>02/27/2023 12:10:18</publishTime>
+    </File>
+    <File Include="Transaction/NewCashReceiptDataEntryDFDRDB.aspx">
+      <publishTime>03/09/2023 10:42:02</publishTime>
     </File>
     <File Include="Transaction/OnlineBenefits.aspx">
       <publishTime>06/15/2020 10:08:10</publishTime>
@@ -5097,7 +5169,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/02/2020 15:00:20</publishTime>
     </File>
     <File Include="Transaction/StickerProcess.aspx">
-      <publishTime>10/22/2020 17:45:00</publishTime>
+      <publishTime>03/09/2023 12:33:14</publishTime>
+    </File>
+    <File Include="Transaction/StickerProcess_OLD.aspx">
+      <publishTime>02/28/2023 17:34:17</publishTime>
     </File>
     <File Include="Transaction/TrackOrder.aspx">
       <publishTime>01/12/2023 13:00:08</publishTime>
@@ -5123,6 +5198,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Transaction/VahanValidationShrink.aspx">
       <publishTime>09/22/2020 23:23:26</publishTime>
     </File>
+    <File Include="Transaction/VahanVerifiedDetails.aspx">
+      <publishTime>02/09/2023 17:26:22</publishTime>
+    </File>
     <File Include="Transaction/VehicleDealer.aspx">
       <publishTime>12/01/2022 15:22:31</publishTime>
     </File>
@@ -5139,7 +5217,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/08/2021 10:56:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/09/2023 14:06:24</publishTime>
+      <publishTime>03/07/2023 10:35:04</publishTime>
     </File>
     <File Include="windowfiles/bird.jpg">
       <publishTime>06/26/2012 17:21:50</publishTime>
