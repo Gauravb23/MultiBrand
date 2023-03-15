@@ -250,7 +250,7 @@
                                 <li><a href="../Report/ViewInvoices.aspx" style="color: white; font-weight: bold;">Invoices</a></li>
                                  <li><a href="../Transaction/LaserReceivedDealerwise.aspx" style="color: white; font-weight: bold;">HSRP Plate Receiving Entry</a></li>
                                 <li><a href="../Transaction/BMHSRPFittmentEntryImage.aspx" style="color: white; font-weight: bold;">Fitment Entry With Image</a></li>
-                               
+                                <li><a href="../Transaction/FitterMobile.aspx" style="color: white; font-weight: bold;">Add Fitter Mobile Number</a></li>                               
                                </ul>
                         </div>
                     </div>

@@ -1564,7 +1564,7 @@ namespace HSRP.Transaction
                         //if ((oemid != "1005") && (isBookMyHSRP == "0"))
                         //{
                         
-                        sqlQuery = "StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + savedate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + state_id + "', '" + USERID + "','" + VehicleStateType + "','" + address + "','" + navembid + "','" + pincode + "', '"+ ddlAffixationType.SelectedValue +"','"+ rtolocationid +"'";
+                        sqlQuery = "USP_StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + savedate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + state_id + "', '" + USERID + "','" + VehicleStateType + "','" + address + "','" + navembid + "','" + pincode + "', '"+ ddlAffixationType.SelectedValue +"','"+ rtolocationid +"'";
                         
                         // }
                         //if ((oemid != "1005") && (isBookMyHSRP == "1"))
