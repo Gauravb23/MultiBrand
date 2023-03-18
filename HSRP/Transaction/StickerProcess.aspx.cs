@@ -1556,30 +1556,8 @@ namespace HSRP.Transaction
 
                         string sqlQuery = string.Empty;
 
-                        //string isBookMyHSRP = string.Empty;
-                        //string queryfetchstatusofBookMyHSRP = "select Count(HSRPrecordId) as BookMyHSRPExist from HSRPRecords where  vehRegNo = '" + vehRegNo + "' and  IsBookMyHsrpRecord='Y'";
-                        //DataTable dtstatusofBookMyHSRP = Utils.GetDataTable(queryfetchstatusofBookMyHSRP, ConnectionString);
-
-                        //isBookMyHSRP = dtstatusofBookMyHSRP.Rows[0]["BookMyHSRPExist"].ToString();
-                        //if ((oemid != "1005") && (isBookMyHSRP == "0"))
-                        //{
-                        
                         sqlQuery = "USP_StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + savedate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + state_id + "', '" + USERID + "','" + VehicleStateType + "','" + address + "','" + navembid + "','" + pincode + "', '"+ ddlAffixationType.SelectedValue +"','"+ rtolocationid +"'";
-                        
-                        // }
-                        //if ((oemid != "1005") && (isBookMyHSRP == "1"))
-                        //{
-                        //    sqlQuery = "StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + regDate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + HSRPStateID + "', '" + USERID + "','" + VehicleStateType + "','Y' ";
-                        //}
-                        //if ((oemid != "1005") && (isBookMyHSRP == "0"))
-                        //{
-                        //    sqlQuery = "StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + regDate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + HSRPStateID + "', '" + USERID + "','" + VehicleStateType + "','N' ";
-                        //}
-                        //if ((oemid != "1005") && (isBookMyHSRP == "0"))
-                        //{
-                        //    sqlQuery = "StrickerOnlyEntry_FRLaserEmpty '" + ownerName + "', '" + mobileNo + "', '" + vehRegNo + "', '" + vehChassisNo + "', '" + vehEngineNo + "', '" + vehicleType + "', '" + vehicleClass + "', '" + vehModel + "', '" + regDate + "', '" + fuelType + "', '" + orderType + "', '" + manuDate + "', '" + vehFLaserCode + "', '" + vehRLaserCode + "', '" + rcFileName + "', '" + idFileName + "', '" + flFileName + "' , '" + rlFileName + "' , '" + docType + "','" + oemid + "', '" + dealerid + "', '" + HSRPStateID + "', '" + USERID + "','" + VehicleStateType + "','N' ";
-                        //}
-
+                                             
                         DataTable dt = Utils.GetDataTable(sqlQuery, ConnectionString);
 
                         if (dt.Rows.Count > 0)
