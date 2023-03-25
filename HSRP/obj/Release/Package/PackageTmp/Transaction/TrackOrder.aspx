@@ -92,10 +92,10 @@
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <asp:ImageButton ID="ImageButton1" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="left" ImageUrl="../images/button/back.png" Style="height: 27px; width: 27px; margin-top: -4px;" OnClientClick="JavaScript: window.history.back(1); return false;" />&nbsp;&nbsp;Track  Orders
-                             <a href="../LiveReports/LiveTracking.aspx" style="float: right">
-                                 <img class="" src="../images/button/home.png" alt="logo" style="height: 27px; width: 27px; margin-top: -4px;">
-                             </a>
+                             <div class="clearfix">
+                                <h4 style="float:left;"> Track Order </h4>
+                             <asp:Button ID="btnback" runat="server" Text="Home" style="float:right;" CssClass="btn btn-primary" OnClick="btnback_Click"  />     
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -125,28 +125,13 @@
                                     <img id="calendar_To_button" tabindex="3" alt="" onclick="HSRPAuthDate_OnClick()"
                                         onmouseup="HSRPAuthDate_OnMouseUp()" class="calendar_button" src="../images/btn_calendar.gif" />
                                 </div>
-                                <div class="col-md-3 col-lg-3 col-sm-3">
-                                    <%-- <asp:Button ID="btnGO" Width="58px" runat="server" Visible="true" Text="GO" ToolTip="Please Click for Report"
-                                        class="button" OnClick="btnGO_Click" />
-                                    &nbsp;&nbsp;&nbsp;<asp:Button ID="btnExportExcel" class="button" Visible="false" runat="server" ToolTip="Download for Grid Report" Text="Download" OnClick="btnExportExcel_Click" />--%>
-
-                                    <asp:ImageButton ID="btnExportExcel" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/ExcelDownload.jpg" Style="height: 24px; width: 69px;" OnClick="btnExportExcel_Click" OnClientClick="return validate()" />
-                                    &nbsp;&nbsp;&nbsp;
-                                   <%-- <asp:ImageButton ID="ImageButton2" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/PdfDownload.jpg" Style="height: 24px; width: 69px;" OnClick="btnExportExcel_Click" OnClientClick="return validate()" />
-                                    &nbsp;&nbsp;&nbsp;--%>
-                                    <asp:ImageButton ID="btnGO" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/btngo.jpg" Style="height: 24px; width: 69px;" OnClick="btnGO_Click" OnClientClick="return validate()" />
+                                <div class="col-md-3 col-lg-3 col-sm-3">                                
+                                    <asp:Button ID="btnGo2" runat="server" CssClass="btn btn-primary" Text="View" OnClick="btnGo2_Click" />
+                                     &nbsp;&nbsp;&nbsp; <asp:Button ID="btnExcel" runat="server" CssClass="btn btn-secondary" Text="Download" OnClick="btnExcel_Click" />
                                 </div>
                             </div>
                             <div class="row">
-                                <asp:Label ID="lblErrMsg" runat="server" Font-Names="Arial" Font-Size="10pt" ForeColor="#FF3300" />
-                                <asp:Label ID="lblSucMess" runat="server" Font-Names="Arial" Font-Size="10pt" ForeColor="#FF3300"></asp:Label>
-                                <asp:Label ID="llbMSGSuccess" runat="server" ForeColor="Blue" Font-Bold="true"></asp:Label>
-                                <asp:Label ID="llbMSGError" runat="server" ForeColor="Red"></asp:Label>
-                                <br />
-                                <asp:Label ID="llbMSGError0" runat="server" ForeColor="Red"></asp:Label>
-                                <br />
-                                <asp:Label ID="lblVehicleRegNo" runat="server" Font-Bold="True"
-                                    ForeColor="Blue" Text="VehicleRegNo=" Visible="False"></asp:Label>
+                                <asp:Label ID="llbMSGError" runat="server" ForeColor="Red"></asp:Label>                                
                             </div>
                             <div class="row" style="overflow-x: auto; font-size: 12px;">
                                 <asp:GridView ID="grdid" runat="server" align="center" CellPadding="4" ForeColor="#333333" GridLines="Both" BorderColor="#CCCCCC" BorderStyle="None"

@@ -52,7 +52,7 @@ namespace HSRP.Transaction
                     }
                     catch (Exception err)
                     {
-                        lblErrMsg.Text = "Error on Page Load" + err.Message.ToString();
+                        llbMSGError.Text = "Error on Page Load" + err.Message.ToString();
                     }
                 }
             }
@@ -75,7 +75,14 @@ namespace HSRP.Transaction
             CalendarOrderDate.VisibleDate = (DateTime.Parse(TodayDate)).AddDays(0.00);
         }
         
-        protected void btnGO_Click(object sender, ImageClickEventArgs e)
+        //protected void btnGO_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    llbMSGError.Text = "";
+        //    grdid.Visible = false;
+        //    ShowGrid();
+        //}
+
+        protected void btnGO2_Click(object sender, EventArgs e)
         {
             llbMSGError.Text = "";
             grdid.Visible = false;
@@ -95,7 +102,7 @@ namespace HSRP.Transaction
                 grdid.DataSource = dt;
                 grdid.DataBind();
                 grdid.Visible = true;
-                btnExportExcel.Visible = true;
+                btnExcel.Visible = true;
             }
             else
             {
@@ -105,7 +112,24 @@ namespace HSRP.Transaction
         }
 
 
-        protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
+        //protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    grdid.Visible = false;
+        //    SQLString = "TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
+        //    DataTable dt = Utils.GetDataTable(SQLString.ToString(), CnnString.ToString());
+        //    if (dt.Rows.Count > 0)
+        //    {
+        //        SaveAndDownloadFile(dt);
+        //    }
+        //    else
+        //    {
+        //        llbMSGError.Text = "";
+        //        llbMSGError.Text = "Record Not Found";
+
+        //    }
+        //}          
+       
+        protected void btnExcel_Click(object sender, EventArgs e)
         {
             grdid.Visible = false;
             SQLString = "TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
@@ -120,8 +144,7 @@ namespace HSRP.Transaction
                 llbMSGError.Text = "Record Not Found";
 
             }
-        }          
-        
+        }
 
         public string StateName()
         {
@@ -330,6 +353,10 @@ namespace HSRP.Transaction
                 sheet.Table.Columns.Add(new WorksheetColumn(iWidth));
         }
 
-    
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../LiveReports/LiveTracking.aspx");
+        }
+
     }
 }

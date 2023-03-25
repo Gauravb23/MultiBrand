@@ -61,7 +61,7 @@ namespace HSRP.Transaction
                         }
                         catch (Exception err)
                         {
-                            lblErrMsg.Text = "Error on Page Load" + err.Message.ToString();
+                            llbMSGError.Text = "Error on Page Load" + err.Message.ToString();
                         }
                     }
                 }
@@ -98,19 +98,6 @@ namespace HSRP.Transaction
 
             }
 
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        protected void btnGO_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                ShowGrid();
-
-            }
             catch (Exception ex)
             {
                 throw ex;
@@ -156,7 +143,7 @@ namespace HSRP.Transaction
                 {
                     llbMSGError.Text = "";
                     llbMSGError.Visible = false;
-                    btnExportExcel.Visible = true;
+                    btnExcel.Visible = true;
                     grdid.DataSource = dt;
                     grdid.DataBind();
                     grdid.Visible = true;
@@ -180,18 +167,6 @@ namespace HSRP.Transaction
             }
 
 
-        }
-
-        protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
-        {
-            try
-            {
-                Export();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
         private void SaveAndDownloadFile()
@@ -418,7 +393,7 @@ namespace HSRP.Transaction
                     llbMSGError.Text = "";
                     llbMSGError.Visible = true;
                     llbMSGError.Text = " Record Not Found.";
-                    btnExportExcel.Visible = false;
+                    btnExcel.Visible = false;
                     grdid.Visible = false;
                 }
             }
@@ -656,13 +631,11 @@ namespace HSRP.Transaction
                 }
                 else
                 {
-                    lblErrMsg.Visible = false;
-                    lblErrMsg.Text = "Record not Found";
+                    btnExcel.Visible = false;
+                    btnExcel.Text = "Record not Found";
                     return;
                 }
-
             }
-
             catch (Exception ex)
             {
                 throw ex;
@@ -696,12 +669,20 @@ namespace HSRP.Transaction
             return transactionstatus;
         }
 
-        protected void btnGO_Click1(object sender, EventArgs e)
+        protected void btnGo2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ShowGrid();
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        protected void btnExportExcel_Click(object sender, EventArgs e)
+        protected void btnExcel_Click(object sender, EventArgs e)
         {
             try
             {
@@ -711,6 +692,11 @@ namespace HSRP.Transaction
             {
                 throw ex;
             }
+        }
+
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../LiveReports/LiveTracking.aspx");
         }
     }
 }

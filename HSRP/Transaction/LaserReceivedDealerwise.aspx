@@ -32,7 +32,7 @@
                         }
                     }
                 }
-            }
+        }
             function checkreject(id, row) {
                 debugger;
                 var row = id.parentNode.parentNode.rowIndex;
@@ -64,9 +64,7 @@
                         <div class="panel-heading">                           
                             <div class="clearfix">
                                 <h4 style="float:left;"> HSRP Plate Received At Affixation Center </h4>
-                             <a href="../LiveReports/LiveTracking.aspx" style="float: right">
-                                 <img class="" src="../images/button/home.png" alt="logo" style="height: 27px; width: 27px; margin-top: -4px;">
-                             </a>
+                              <asp:Button ID="btnback" runat="server" Text="Home" style="float:right;" CssClass="btn btn-primary" OnClick="btnback_Click"  />     
                             </div>
                            
                         </div>

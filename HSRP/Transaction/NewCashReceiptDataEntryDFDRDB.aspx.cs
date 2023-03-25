@@ -1144,6 +1144,14 @@ namespace HSRP.Transaction
 
                 #endregion
 
+                Query = "select ApprovedStatus from hsrprecords_ApprovalMB where VehicleRegNo = '"+ VehicleRego + "' and ApprovedStatus = 'N'";
+                dt = Utils.GetDataTable(Query,ConnectionString);
+                if(dt.Rows.Count > 0)
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Your order is already pending for approval!";
+                    return;
+                }
 
                 string Chassisno1 = txtChassisno.Text.Trim().ToString();
                 string strChassisno1 = Chassisno1.Substring(Chassisno1.Length - 5, 5);
@@ -1157,7 +1165,7 @@ namespace HSRP.Transaction
                 }
 
 
-                Query = "select top 1 vehicleregno from hsrprecords where  (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or right(ChassisNo,5) ='" + strChassisno1 + "') and orderstatus in ('New Order' ,'Embossing Done') and isnull(challanno,'')='' and isnull(challandate,'')=''   ";
+                Query = "select top 1 vehicleregno from hsrprecords where  (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or right(ChassisNo,5) ='" + strChassisno1 + "') and orderstatus in ('New Order' ,'Embossing Done') and isnull(challanno,'')='' and isnull(challandate,'')=''  ";
                 string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or right(ChassisNo,5) ='" + strChassisno1 + "') and orderstatus in ('New Order' ,'Embossing Done') and isnull(challanno,'')='' and isnull(challandate,'')=''   ";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
@@ -1377,8 +1385,8 @@ namespace HSRP.Transaction
                 cmd.Parameters.AddWithValue("@CashReceiptNo", cashrc);
                 cmd.Parameters.AddWithValue("@ChassisNo", txtChassisno.Text.Trim());
                 cmd.Parameters.AddWithValue("@EngineNo", txtEngineNo.Text.Trim());
-                cmd.Parameters.AddWithValue("@frontplatesize", DBNull.Value);
-                cmd.Parameters.AddWithValue("@rearplatesize", DBNull.Value);
+                cmd.Parameters.AddWithValue("@frontplatesize", dtrates.Rows[0]["FrontPlateSize"].ToString());
+                cmd.Parameters.AddWithValue("@rearplatesize", dtrates.Rows[0]["RearPlateSize"].ToString());
                 cmd.Parameters.AddWithValue("@CreatedBy", USERID);
                 cmd.Parameters.AddWithValue("@vehicleref", "New");
                 cmd.Parameters.AddWithValue("@FrontplatePrize", 0);

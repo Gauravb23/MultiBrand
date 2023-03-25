@@ -53,7 +53,7 @@ namespace HSRP.Transaction
                     }
                     catch (Exception err)
                     {
-                        lblErrMsg.Text = "Error on Page Load" + err.Message.ToString();
+                        llbMSGError.Text = "Error on Page Load" + err.Message.ToString();
                     }
                 }
             }
@@ -74,8 +74,8 @@ namespace HSRP.Transaction
             CalendarOrderDate.SelectedDate = (DateTime.Parse(TodayDate)).AddDays(0.00);
             CalendarOrderDate.VisibleDate = (DateTime.Parse(TodayDate)).AddDays(0.00);
         }
-
-        protected void btnGO_Click(object sender, ImageClickEventArgs e)
+     
+        protected void btnGo2_Click(object sender, EventArgs e)
         {
             llbMSGError.Text = "";
             grdid.Visible = false;
@@ -95,7 +95,7 @@ namespace HSRP.Transaction
                 grdid.DataSource = dt;
                 grdid.DataBind();
                 grdid.Visible = true;
-                btnExportExcel.Visible = true;
+                btnExcel.Visible = true;
             }
             else
             {
@@ -104,8 +104,7 @@ namespace HSRP.Transaction
             }
         }
 
-
-        protected void btnExportExcel_Click(object sender, ImageClickEventArgs e)
+        protected void btnExcel_Click(object sender, EventArgs e)
         {
             grdid.Visible = false;
             SQLString = "USP_TrackOemDealerOrder '" + HSRPStateID + "','" + strUserID + "','" + OrderDate.SelectedDate + "','" + HSRPAuthDate.SelectedDate + "'";
@@ -365,6 +364,11 @@ namespace HSRP.Transaction
                 sb = new StringBuilder("No data found");
             }
             Page.ClientScript.RegisterStartupScript(GetType(), "msgbox", "alert('" + sb + "');", true);
+        }
+
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../LiveReports/LiveTracking.aspx");
         }
     }
 }

@@ -7,20 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HSRP.Report {
-    
-    
-    public partial class ViewInvoices {
-        
+namespace HSRP.Report
+{
+
+
+    public partial class ViewInvoices
+    {
+
         /// <summary>
-        /// ImageButton1 control.
+        /// btnback control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
-        
+        protected global::System.Web.UI.WebControls.Button btnback;
+
         /// <summary>
         /// labelDate control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelDate;
-        
+
         /// <summary>
         /// OrderDate control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ComponentArt.Web.UI.Calendar OrderDate;
-        
+
         /// <summary>
         /// label1 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label label1;
-        
+
         /// <summary>
         /// HSRPAuthDate control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ComponentArt.Web.UI.Calendar HSRPAuthDate;
-        
+
         /// <summary>
         /// lblErrMsg control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblErrMsg;
-        
+
         /// <summary>
         /// lblSucMess control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSucMess;
-        
+
         /// <summary>
         /// llbMSGSuccess control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label llbMSGSuccess;
-        
+
         /// <summary>
         /// llbMSGError control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label llbMSGError;
-        
+
         /// <summary>
         /// llbMSGError0 control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label llbMSGError0;
-        
+
         /// <summary>
         /// lblVehicleRegNo control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblVehicleRegNo;
-        
+
         /// <summary>
         /// grddealers control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grddealers;
-        
+
         /// <summary>
         /// CalendarOrderDate control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace HSRP.Report {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ComponentArt.Web.UI.Calendar CalendarOrderDate;
-        
+
         /// <summary>
         /// CalendarHSRPAuthDate control.
         /// </summary>

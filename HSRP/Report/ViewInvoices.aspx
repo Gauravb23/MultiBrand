@@ -82,10 +82,10 @@
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <asp:ImageButton ID="ImageButton1" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="left" ImageUrl="../images/button/back.png" Style="height: 27px; width: 27px; margin-top: -4px;" OnClientClick="JavaScript: window.history.back(1); return false;" />&nbsp;&nbsp;View Invoice
-                             <a href="../LiveReports/oemdashboard.aspx" style="float:right">
-                                <img class="" src="../images/button/home.png" alt="logo" Style="height: 27px; width: 27px; margin-top: -4px;">
-                            </a>
+                            <div class="clearfix">
+                                <h4 style="float:left;"> View Invoices </h4>
+                              <asp:Button ID="btnback" runat="server" Text="Home" style="float:right;" CssClass="btn btn-primary" OnClick="btnback_Click"  />     
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="row" style="display:none;">
