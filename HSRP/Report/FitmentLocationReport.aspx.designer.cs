@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HSRP.Transaction
+namespace HSRP.Report
 {
 
 
-    public partial class TrackOrder
+    public partial class FitmentLocationReport
     {
 
         /// <summary>
@@ -24,58 +24,49 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.Button btnback;
 
         /// <summary>
-        /// labelDate control.
+        /// lblState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelDate;
+        protected global::System.Web.UI.WebControls.Label lblState;
 
         /// <summary>
-        /// OrderDate control.
+        /// ddlstate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ComponentArt.Web.UI.Calendar OrderDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlstate;
 
         /// <summary>
-        /// label1 control.
+        /// lblec control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label1;
+        protected global::System.Web.UI.WebControls.Label lblec;
 
         /// <summary>
-        /// HSRPAuthDate control.
+        /// ddlec control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ComponentArt.Web.UI.Calendar HSRPAuthDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlec;
 
         /// <summary>
-        /// btnGo2 control.
+        /// btnView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGo2;
-
-        /// <summary>
-        /// btnExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExcel;
+        protected global::System.Web.UI.WebControls.Button btnView;
 
         /// <summary>
         /// llbMSGError control.
@@ -87,30 +78,12 @@ namespace HSRP.Transaction
         protected global::System.Web.UI.WebControls.Label llbMSGError;
 
         /// <summary>
-        /// grdid control.
+        /// grdview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grdid;
-
-        /// <summary>
-        /// CalendarOrderDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ComponentArt.Web.UI.Calendar CalendarOrderDate;
-
-        /// <summary>
-        /// CalendarHSRPAuthDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ComponentArt.Web.UI.Calendar CalendarHSRPAuthDate;
+        protected global::System.Web.UI.WebControls.GridView grdview;
     }
 }

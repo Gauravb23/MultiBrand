@@ -233,5 +233,10 @@ namespace HSRP.Transaction
             }
             return true;
         }
+
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../LiveReports/LiveTracking.aspx");
+        }
     }
 }

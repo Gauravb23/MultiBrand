@@ -156,11 +156,6 @@ namespace HSRP.Transaction
 
         }
 
-       
-
-
-        
-
         protected void dropdownDuplicateFIle_SelectedIndexChanged(object sender, EventArgs e)
         {
             LblMessage.Text = "";
@@ -259,8 +254,10 @@ namespace HSRP.Transaction
                 string rtolocationid = RTOLocationID;
                 LblMessage.Text = "";
                 lblErrMsg.Text = "";
+                int j = 0;
+                int i;               
 
-                for (int i = 0; i < GridView1.Rows.Count; i++)
+                for ( i = 0; i < GridView1.Rows.Count; i++)
                 {
                     CheckBox chknew = GridView1.Rows[i].Cells[0].FindControl("CHKSelect") as CheckBox;
                     CheckBox chkrej = GridView1.Rows[i].Cells[0].FindControl("CHKreject1") as CheckBox;
@@ -282,7 +279,7 @@ namespace HSRP.Transaction
                         {
                             sbupdate.Append("update hsrprecords_HR set ReceivedAtAffixationCenterID ='" + RTOLocationID + "',RecievedAtAffixationDateTime=getdate(),RecievedAffixationCenterByUserID='" + strUserID + "',RecievedAffixationStatus='Y' where  hsrprecordid ='" + strRecordId + "' ;");
                         }
-
+                        j++;
                     }
                     if (chkrej.Checked == true)
                     {
@@ -304,7 +301,12 @@ namespace HSRP.Transaction
                     
                 }
 
-                
+                if (j == 0)
+                {
+                    lblErrMsg.Visible = true;
+                    lblErrMsg.Text = "Please select atleast one item!";
+                    return;
+                }
 
                 if (!string.IsNullOrEmpty(sbupdate.ToString().Trim()))
                 {
@@ -324,8 +326,8 @@ namespace HSRP.Transaction
                     else
                     {
                         lblErrMsg.Visible = true;
-                        lblErrMsg.Text = "";
                         lblErrMsg.Text = "Record Not Saved.";
+                        return;
                     }
                 }
                 
@@ -363,6 +365,11 @@ namespace HSRP.Transaction
                     chk.Enabled = true;
                 }
             }
+        }
+
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../LiveReports/LiveTracking.aspx");
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
+
 namespace HSRP.Report
 {
     public partial class ViewInvoices : System.Web.UI.Page
@@ -248,5 +249,9 @@ namespace HSRP.Report
 
         }
 
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../LiveReports/LiveTracking.aspx");
+        }
     }
 }

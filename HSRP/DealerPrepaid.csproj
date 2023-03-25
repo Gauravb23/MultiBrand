@@ -440,6 +440,7 @@
     <Content Include="netdna-bootstrapcdn-com\font-awesome\3-2-1\css\font-awesome.css" />
     <Content Include="netdna-bootstrapcdn-com\font-awesome\3-2-1\css\img\fontawesome-webfont.svg" />
     <Content Include="Login.aspx" />
+    <Content Include="Report\FitmentLocationReport.aspx" />
     <Content Include="Report\ViewInvoices.aspx" />
     <Content Include="Scripts\Dashboard\allTransactionsCharts.js" />
     <Content Include="Scripts\Dashboard\herobanner.js" />
@@ -1083,6 +1084,13 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Report\FitmentLocationReport.aspx.cs">
+      <DependentUpon>FitmentLocationReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Report\FitmentLocationReport.aspx.designer.cs">
+      <DependentUpon>FitmentLocationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Report\ViewInvoices.aspx.cs">
       <DependentUpon>ViewInvoices.aspx</DependentUpon>

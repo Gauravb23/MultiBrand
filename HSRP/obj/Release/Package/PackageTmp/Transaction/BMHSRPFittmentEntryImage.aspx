@@ -80,7 +80,7 @@
                                 </div>
                                     </div>
                                 <div class="col-md-2">
-                                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-success" Text="Confirm Fitment" OnClick="Button1_Click" />
+                                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Confirm Fitment" OnClick="Button1_Click" />
                                         <%--<asp:ImageButton ID="buttonSave" runat="server" AlternateText="ImageButton 1" TabIndex="2" ImageAlign="Right" ImageUrl="../images/button/save.jpg" Style="height: 24px; width: 69px;" onClick="btnGO_Click" OnClientClick="return validate()" />--%>
 
                                 </div>
