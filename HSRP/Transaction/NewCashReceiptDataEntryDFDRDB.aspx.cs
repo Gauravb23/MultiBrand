@@ -1153,8 +1153,7 @@ namespace HSRP.Transaction
                     return;
                 }
 
-                string Chassisno1 = txtChassisno.Text.Trim().ToString();
-                string strChassisno1 = Chassisno1.Substring(Chassisno1.Length - 5, 5);
+                string Chassisno1 = txtChassisno.Text.Trim().ToString();                
                 string Engineno1 = txtEngineNo.Text.ToString().Trim();
                 string strEngineno1 = "";
                 DataTable dtregno = new DataTable();
@@ -1165,11 +1164,11 @@ namespace HSRP.Transaction
                 }
 
 
-                Query = "select top 1 vehicleregno from hsrprecords where  (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or right(ChassisNo,5) ='" + strChassisno1 + "') and orderstatus in ('New Order' ,'Embossing Done') and isnull(challanno,'')='' and isnull(challandate,'')=''  ";
-                string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or right(ChassisNo,5) ='" + strChassisno1 + "') and orderstatus in ('New Order' ,'Embossing Done') and isnull(challanno,'')='' and isnull(challandate,'')=''   ";
+                Query = "select top 1 vehicleregno from hsrprecords where  (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or ChassisNo ='" + Chassisno1 + "') and orderstatus <> 'Closed' and isnull(challanno,'')='' and isnull(challandate,'')=''  ";
+                string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or ChassisNo ='" + Chassisno1 + "') and orderstatus <> 'Closed' and isnull(challanno,'')='' and isnull(challandate,'')=''   ";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                if ((dtregno.Rows.Count > 0) && (dtregnoHR.Rows.Count > 0))
+                if ((dtregno.Rows.Count > 0) || (dtregnoHR.Rows.Count > 0))
                 {
                     lblErrMess.Visible = true;
                     lblErrMess.Text = "Check Vehicle No. All Ready book but Not Dispatch!";
@@ -1385,8 +1384,17 @@ namespace HSRP.Transaction
                 cmd.Parameters.AddWithValue("@CashReceiptNo", cashrc);
                 cmd.Parameters.AddWithValue("@ChassisNo", txtChassisno.Text.Trim());
                 cmd.Parameters.AddWithValue("@EngineNo", txtEngineNo.Text.Trim());
-                cmd.Parameters.AddWithValue("@frontplatesize", dtrates.Rows[0]["FrontPlateSize"].ToString());
-                cmd.Parameters.AddWithValue("@rearplatesize", dtrates.Rows[0]["RearPlateSize"].ToString());
+                if(newStateid == "4")
+                {
+                    cmd.Parameters.AddWithValue("@frontplatesize", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@rearplatesize", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@frontplatesize", dtrates.Rows[0]["FrontPlateSize"].ToString());
+                    cmd.Parameters.AddWithValue("@rearplatesize", dtrates.Rows[0]["RearPlateSize"].ToString());
+                }
+               
                 cmd.Parameters.AddWithValue("@CreatedBy", USERID);
                 cmd.Parameters.AddWithValue("@vehicleref", "New");
                 cmd.Parameters.AddWithValue("@FrontplatePrize", 0);
