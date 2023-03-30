@@ -82,18 +82,7 @@
 
             return true;
         }
-
-        function ischarKey(evt) {
-            //debugger;
-            var charCode = (evt.which) ? evt.which : event.keyCode
-            if (charCode > 31 && (charCode < 96 || charCode > 122) && (charCode < 65 || charCode > 90) && (charCode < 31 || charCode > 33))
-                return false;
-
-            return true;
-        }
-
-
-
+       
     </script>
     <script type="text/javascript">
         function UploadExcelfun() {

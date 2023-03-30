@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace HSRP.Report
 {
@@ -36,7 +37,7 @@ namespace HSRP.Report
                 else
                 {
                     HSRPStateID = Session["UserHSRPStateID"].ToString();
-                    UserType = Convert.ToInt32(Session["UserType"].ToString());                   
+                    UserType = Convert.ToInt32(Session["UserType"].ToString());
                     strUserID = Session["UID"].ToString();
                     oemid = Session["oemid"].ToString();
                     dealerid = Session["dealerid"].ToString();
@@ -69,7 +70,7 @@ namespace HSRP.Report
             dt = Utils.GetDataTable(Query, ConnectionString);
             ddlec.DataSource = dt;
             ddlec.DataBind();
-            ddlec.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select EC --", "0"));            
+            ddlec.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select EC --", "0"));
         }
 
         protected void ShowGrid()
@@ -84,7 +85,7 @@ namespace HSRP.Report
             }
             else
             {
-                grdview.Visible = true;
+                grdview.Visible = false;
                 llbMSGError.Visible = true;
                 llbMSGError.Text = "Record Not Found";
                 return;
@@ -100,6 +101,91 @@ namespace HSRP.Report
         protected void btnback_Click(object sender, EventArgs e)
         {
             Response.Redirect("../LiveReports/LiveTracking.aspx");
+        }
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            grdview.EditIndex = e.NewEditIndex;
+            ShowGrid();
+        }
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {           
+            Label id = grdview.Rows[e.RowIndex].FindControl("lblSno") as Label;
+            int subdealerid = Convert.ToInt32(id.Text);
+            TextBox name = grdview.Rows[e.RowIndex].FindControl("txtContactPerson") as TextBox;
+            string strname = name.Text;
+            TextBox number = grdview.Rows[e.RowIndex].FindControl("txtContactMobileNo") as TextBox;
+            string strnumber = number.Text;
+
+            if (strname == "")
+            {
+                llbMSGError.Visible = true;
+                llbMSGError.Text = "Please enter name!";
+                return;
+            }
+
+            string specialChar = @"'";
+            foreach (var item in specialChar)
+            {
+                if (strname.Contains(item))
+                {
+                    llbMSGError.Visible = true;
+                    llbMSGError.Text = "Special characters not allowed in name!";
+                    return;
+                }
+            }
+
+            if (strnumber == "")
+            {
+                llbMSGError.Visible = true;
+                llbMSGError.Text = "Please enter mobile number!";
+                return;
+            }
+
+            if (!isMobileNoValid(strnumber))
+            {
+                llbMSGError.Visible = true;
+                llbMSGError.Text = "Please enter valid mobile number!";
+                return;
+            }
+
+
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("[USP_FitmentLocationreport_Update]", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@id", subdealerid));
+                cmd.Parameters.Add(new SqlParameter("@name", strname));
+                cmd.Parameters.Add(new SqlParameter("@number", strnumber));
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(ds);
+                con.Close();                
+                grdview.EditIndex = -1;
+                llbMSGError.Visible = true;
+                llbMSGError.Text = "Updated Successfully";
+                ShowGrid();
+            }
+
+        }
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            grdview.EditIndex = -1;
+            ShowGrid();
+        }
+
+        protected Boolean isMobileNoValid(string mobileNo)
+        {
+            Regex panreg = new Regex(@"(^[1-9]{1}[0-9]{9}$)");
+            if (!(mobileNo.Length == 10))
+            {
+                return false;
+            }
+            if (!panreg.IsMatch(mobileNo))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -9,6 +9,18 @@
     <link href="../css/Bootstrap/fontawesome.css" rel="stylesheet" />
 
 
+     <script language="javascript" type="text/javascript">
+        function isNumberKey(evt) {
+            //debugger;
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+       
+     </script>
+
      <div class="container" style="width: 100%;margin-bottom:49px;">
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -50,7 +62,7 @@
                             </div>
                             <div class="row" style="overflow-x: auto; font-size: 14px;">
                                 <asp:GridView ID="grdview" Visible="true" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true"
-                                    AllowPaging="true" PageSize="50" align="center" CellPadding="2" ForeColor="#333333" GridLines="Both" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" Width="100%" >
+                                    AllowPaging="true" PageSize="50" align="center" CellPadding="2" ForeColor="#333333" GridLines="Both" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" Width="100%" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" >
                                     <AlternatingRowStyle BackColor="White" />
                                     <FooterStyle BackColor="White" ForeColor="#000066" />
                                     <PagerSettings Visible="False" Mode="NextPreviousFirstLast" PageButtonCount="20" />
@@ -107,6 +119,9 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblContactPerson" runat="server" Text='<%#Eval("ContactPerson") %>'></asp:Label>
                                             </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtContactPerson" runat="server" Text='<%#Eval("ContactPerson") %>'></asp:TextBox>
+                                            </EditItemTemplate>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField>
@@ -116,6 +131,9 @@
                                             <ItemTemplate>
                                                 <asp:Label ID="lblContactMobileNo" runat="server" Text='<%#Eval("ContactMobileNo") %>'></asp:Label>
                                             </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox ID="txtContactMobileNo" runat="server" MaxLength="10" onkeypress="return isNumberKey(event)" Text='<%#Eval("ContactMobileNo") %>'></asp:TextBox> 
+                                            </EditItemTemplate>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField>
@@ -131,18 +149,17 @@
                                             <HeaderTemplate>
                                                 Action
                                             </HeaderTemplate>
-                                           <ItemTemplate>
-                                                    <asp:ImageButton ID="ButtonEdit" CommandName="Edit" runat="server" AlternateText="ImageButton 1" ImageAlign="Middle" ImageUrl="../images/button/edit.png" Style="height: 30px; width: 30px;" />
-                                                </ItemTemplate>
-                                                <EditItemTemplate>
-                                                    <asp:ImageButton ID="ButtonUpdate" CommandName="Update" runat="server" AlternateText="ImageButton 1" ImageAlign="Middle" ImageUrl="../images/button/update.png" Style="height: 30px; width: 30px;" />
-                                                    <asp:Button ID="btnEdit" />
-                                                    <asp:ImageButton ID="ButtonCancel" CommandName="Cancel" runat="server" AlternateText="ImageButton 1" ImageAlign="Middle" ImageUrl="../images/button/cancel.png" Style="height: 30px; width: 30px;" />
-                                                </EditItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:Button ID="btnedit" runat="server" Text="Edit" CssClass="btn btn-primary" CommandName="Edit" />
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="btn btn-success" CommandName="Update" />
+                                                <asp:Button ID="btncancel" runat="server" Text="Cancel" CssClass="btn btn-warning" CommandName="Cancel" />
+                                            </EditItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
                                     <EmptyDataTemplate>
-                                        <div align="center">No records found.</div>
+                                        <div style="align-content:center" >No records found.</div>
                                     </EmptyDataTemplate>
                                 </asp:GridView>
                             </div>
