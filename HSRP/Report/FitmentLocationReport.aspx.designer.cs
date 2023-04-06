@@ -78,6 +78,15 @@ namespace HSRP.Report
         protected global::System.Web.UI.WebControls.Label llbMSGError;
 
         /// <summary>
+        /// llbMSGsucss control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label llbMSGsucss;
+
+        /// <summary>
         /// grdview control.
         /// </summary>
         /// <remarks>

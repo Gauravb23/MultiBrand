@@ -57,8 +57,9 @@
                                 </div>
                             </div>
                             
-                            <div class="row">                               
+                            <div class="row" style="margin-left:10px;">                               
                                 <asp:Label ID="llbMSGError" runat="server" ForeColor="Red" Visible="false"></asp:Label> 
+                                <asp:Label ID="llbMSGsucss" runat="server" ForeColor="Green" Visible="false"></asp:Label> 
                             </div>
                             <div class="row" style="overflow-x: auto; font-size: 14px;">
                                 <asp:GridView ID="grdview" Visible="true" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true"
@@ -81,7 +82,8 @@
                                                 S.No
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <asp:Label ID="lblSno" runat="server" Text='<%#Eval("SubDealerId") %>'></asp:Label>                                                                                            
+                                                 <%#Container.DataItemIndex+1 %>
+                                                <asp:Label ID="lblSno" Visible="false" runat="server" Text='<%#Eval("SubDealerId") %>'></asp:Label>                                                                                            
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

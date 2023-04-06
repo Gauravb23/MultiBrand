@@ -66,7 +66,7 @@ namespace HSRP.Report
 
         protected void ddlstate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
+            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and ActiveStatus = 'Y' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
             dt = Utils.GetDataTable(Query, ConnectionString);
             ddlec.DataSource = dt;
             ddlec.DataBind();
@@ -75,6 +75,22 @@ namespace HSRP.Report
 
         protected void ShowGrid()
         {
+            if(ddlstate.SelectedValue == "0")
+            {
+                grdview.Visible = false;
+                llbMSGError.Visible = true;
+                llbMSGError.Text = "Please select state!";
+                llbMSGsucss.Visible = false;
+                return;
+            }
+            if(ddlec.SelectedValue == "0")
+            {
+                grdview.Visible = false;
+                llbMSGError.Visible = true;
+                llbMSGError.Text = "Please select EC!";
+                llbMSGsucss.Visible = false;
+                return;
+            }
             Query = "USP_FitmentLocationReportData '" + ddlstate.SelectedValue + "','" + ddlec.SelectedValue + "'";
             dt = Utils.GetDataTable(Query, ConnectionString);
             if (dt.Rows.Count > 0)
@@ -120,6 +136,7 @@ namespace HSRP.Report
             {
                 llbMSGError.Visible = true;
                 llbMSGError.Text = "Please enter name!";
+                llbMSGsucss.Visible = false;
                 return;
             }
 
@@ -130,6 +147,7 @@ namespace HSRP.Report
                 {
                     llbMSGError.Visible = true;
                     llbMSGError.Text = "Special characters not allowed in name!";
+                    llbMSGsucss.Visible = false;
                     return;
                 }
             }
@@ -138,6 +156,7 @@ namespace HSRP.Report
             {
                 llbMSGError.Visible = true;
                 llbMSGError.Text = "Please enter mobile number!";
+                llbMSGsucss.Visible = false;
                 return;
             }
 
@@ -145,6 +164,7 @@ namespace HSRP.Report
             {
                 llbMSGError.Visible = true;
                 llbMSGError.Text = "Please enter valid mobile number!";
+                llbMSGsucss.Visible = false;
                 return;
             }
 
@@ -162,8 +182,9 @@ namespace HSRP.Report
                 da.Fill(ds);
                 con.Close();                
                 grdview.EditIndex = -1;
-                llbMSGError.Visible = true;
-                llbMSGError.Text = "Updated Successfully";
+                llbMSGError.Visible = false;
+                llbMSGsucss.Text = "Updated Successfully";
+                llbMSGsucss.Visible = true;
                 ShowGrid();
             }
 
