@@ -423,7 +423,7 @@ namespace HSRP.Transaction
 
         protected void ddlstate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Query = "select RTOLocationID, RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and NAVEMBID not like '%CODO%' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
+            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' and ActiveStatus = 'Y' order by RTOLocationName asc";
             dt = Utils.GetDataTable(Query, ConnectionString);
             ddldistrict.DataSource = dt;
             ddldistrict.DataBind();
@@ -598,6 +598,7 @@ namespace HSRP.Transaction
                 }
 
             }
+          
 
             #region Upload RC
             if (RcUploader.HasFile)
@@ -643,7 +644,6 @@ namespace HSRP.Transaction
                 lblErrMess.ForeColor = Color.Maroon;
                 lblErrMess.Text = "Please upload Vehicle Registration Certificate Image..";
                 return;
-
             }
             #endregion
 
@@ -1144,12 +1144,12 @@ namespace HSRP.Transaction
 
                 #endregion
 
-                Query = "select ApprovedStatus from hsrprecords_ApprovalMB where VehicleRegNo = '"+ VehicleRego + "' and ApprovedStatus = 'N'";
+                string Query = "select ApprovedStatus from hsrprecords_ApprovalMB where VehicleRegNo = '"+ VehicleRego + "' and ApprovedStatus = 'N'";
                 dt = Utils.GetDataTable(Query,ConnectionString);
                 if(dt.Rows.Count > 0)
                 {
                     lblErrMess.Visible = true;
-                    lblErrMess.Text = "Your order is already pending for approval!";
+                    lblErrMess.Text = "Your order is pending for approval!";
                     return;
                 }
 
@@ -1158,20 +1158,32 @@ namespace HSRP.Transaction
                 string strEngineno1 = "";
                 DataTable dtregno = new DataTable();
                 DataTable dtregnoHR = new DataTable();
+                string QueryHR = string.Empty;
                 if (Engineno1 != "NA")
                 {
                     strEngineno1 = Engineno1.Substring(Engineno1.Length - 5, 5);
+                }               
+
+                Query = "select vehicleregno from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "'";
+                dtregno = Utils.GetDataTable(Query, ConnectionString);
+                QueryHR = "select vehicleregno from hsrprecords_HR where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "'";
+                dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
+                if ((dtregnoHR.Rows.Count == 0) && (dtregno.Rows.Count == 0))
+                {
+                    lblErrMess.Visible = true;
+                    lblErrMess.Text = "Please book order through NB screen.";
+                    return;
                 }
 
 
-                Query = "select top 1 vehicleregno from hsrprecords where  (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or ChassisNo ='" + Chassisno1 + "') and orderstatus <> 'Closed' and isnull(challanno,'')='' and isnull(challandate,'')=''  ";
-                string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or ChassisNo ='" + Chassisno1 + "') and orderstatus <> 'Closed' and isnull(challanno,'')='' and isnull(challandate,'')=''   ";
+                Query = "select  vehicleregno, orderstatus,challandate from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and orderstatus <>'Closed' order by HSRPRecordId desc";
+                QueryHR = "select  vehicleregno, orderstatus,challandate from hsrprecords_HR where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and orderstatus <>'Closed' order by HSRPRecordId desc";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
                 if ((dtregno.Rows.Count > 0) || (dtregnoHR.Rows.Count > 0))
                 {
                     lblErrMess.Visible = true;
-                    lblErrMess.Text = "Check Vehicle No. All Ready book but Not Dispatch!";
+                    lblErrMess.Text = "Check Vehicle No. previous order not closed yet!";
                     return;
                 }
 
@@ -1216,45 +1228,19 @@ namespace HSRP.Transaction
                 decimal fitmentCharges = Convert.ToDecimal(dtCharges.Rows[0]["Charges"].ToString());
                 string newStateid = "";
                 DataTable dtrates = new DataTable();
+                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+               
                 try
                 {
                     Query = "select oemid from OEMVahanMapping where OemName = '" + _vd.maker + "' and Oemid != 1005";
                     dt = Utils.GetDataTable(Query, ConnectionString);
                     oemid = dt.Rows[0]["oemid"].ToString();
 
-                    Query = "select top 1 vehicleregno from hsrprecords where vehicleregno = '" + txtRegNumber.Text.ToString() + "'";
-                    dt = Utils.GetDataTable(Query,ConnectionString);
-                    QueryHR = "select top 1 vehicleregno from hsrprecords_HR where vehicleregno = '" + txtRegNumber.Text.ToString() + "'";
-                    dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-
-                    if (dt.Rows.Count > 0)
+                    if (Convert.ToDateTime(strFrmDateString) < Convert.ToDateTime(validDatetime))
                     {
-                        SqlConnection conn = new SqlConnection(ConnectionString);
-                        SqlCommand cmdd = new SqlCommand("OemRatesAndSize", conn);
-                        cmdd.CommandType = CommandType.StoredProcedure;
-                        cmdd.Parameters.AddWithValue("@Oemid", oemid);
-                        cmdd.Parameters.AddWithValue("@Hsrp_stateid", HSRPStateID);
-                        cmdd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue.ToString());
-                        cmdd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.Text.ToString());
-                        cmdd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
-
-
-                        SqlDataAdapter da = new SqlDataAdapter(cmdd);
-                        da.Fill(dtrates);
-                        if (dtrates.Rows.Count == 0)
-                        {
-                            lblErrMess.Visible = true;
-                            lblErrMess.Text = "error amount, ref:('" + oemid + "'/'" + ddlVehicleclass.SelectedItem.Text.ToString() + "'/'" + ddlVehicletype.SelectedItem.Text.ToString() + "')";
-                            return;
-                        }
-                    }
-
-                    if (dtregnoHR.Rows.Count > 0)
-                    {
-                        VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
                         if (VehicleRegoE == "HR")
                         {
-                            newStateid = "4";                            
+                            newStateid = "4";
                             SqlConnection conn = new SqlConnection(ConnectionString);
                             SqlCommand cmdd = new SqlCommand("usp_BMHSRPOemRatesAndSize", conn);
                             cmdd.CommandType = CommandType.StoredProcedure;
@@ -1280,7 +1266,7 @@ namespace HSRP.Transaction
 
                             if (dt.Rows.Count > 0)
                             {
-                                Query = "Select distinct FrontPlateSize,RearPlateSize,GstBasic_Amt,cgstper,cgstamt,sgstper,sgstamt,roundoff_netamount from OemRates where OemId = '" + oemid + "' and VehicleCLass = '" + ddlVehicleclass.SelectedItem.Text.ToString() + "' and VehicleType = '" + ddlVehicletype.SelectedItem.Text.ToString() + "' and Ordertype = '"+ ddlOrderType.SelectedValue +"' ";
+                                Query = "Select distinct FrontPlateSize,RearPlateSize,GstBasic_Amt,cgstper,cgstamt,sgstper,sgstamt,roundoff_netamount from OemRates where OemId = '" + oemid + "' and VehicleCLass = '" + ddlVehicleclass.SelectedItem.Text.ToString() + "' and VehicleType = '" + ddlVehicletype.SelectedItem.Text.ToString() + "' and Ordertype = '" + ddlOrderType.SelectedValue + "' ";
                                 dtrates = Utils.GetDataTable(Query, ConnStringBMHSRP);
 
                                 if (dtrates.Rows.Count == 0)
@@ -1297,7 +1283,29 @@ namespace HSRP.Transaction
                                 return;
                             }
                         }
+                    }
 
+                    else
+                    {
+
+                        SqlConnection conn = new SqlConnection(ConnectionString);
+                        SqlCommand cmdd = new SqlCommand("OemRatesAndSize", conn);
+                        cmdd.CommandType = CommandType.StoredProcedure;
+                        cmdd.Parameters.AddWithValue("@Oemid", oemid);
+                        cmdd.Parameters.AddWithValue("@Hsrp_stateid", HSRPStateID);
+                        cmdd.Parameters.AddWithValue("@OrderType", ddlOrderType.SelectedValue.ToString());
+                        cmdd.Parameters.AddWithValue("@VehicleClass", ddlVehicleclass.SelectedItem.Text.ToString());
+                        cmdd.Parameters.AddWithValue("@VehicleType", lblVehicleType.Text.ToString());
+
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmdd);
+                        da.Fill(dtrates);
+                        if (dtrates.Rows.Count == 0)
+                        {
+                            lblErrMess.Visible = true;
+                            lblErrMess.Text = "error amount, ref:('" + oemid + "'/'" + ddlVehicleclass.SelectedItem.Text.ToString() + "'/'" + ddlVehicletype.SelectedItem.Text.ToString() + "')";
+                            return;
+                        }
                     }
                 }
                 catch (Exception ex)

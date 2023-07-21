@@ -389,7 +389,7 @@ namespace HSRP.Transaction
 
         protected void ddlstate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue +"' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' order by RTOLocationName asc";
+            Query = "select RTOLocationID, (RTOLocationName +'  '+ '('+ NAVEMBID +')') as RTOLocationName from rtolocation where HSRP_StateID = '" + ddlstate.SelectedValue + "' and NAVEMBID not like 'CW%' and NAVEMBID not like '%Rej%' and ActiveStatus = 'Y' order by RTOLocationName asc";
             dt = Utils.GetDataTable(Query, ConnectionString);
             ddldistrict.DataSource = dt;
             ddldistrict.DataBind();
