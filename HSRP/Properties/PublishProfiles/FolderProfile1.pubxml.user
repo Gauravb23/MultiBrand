@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <History>True|2023-07-20T17:32:17.9287366Z;True|2023-07-20T17:40:45.8594657+05:30;True|2023-07-17T12:15:09.3234417+05:30;True|2023-07-15T16:13:23.9339494+05:30;False|2023-07-15T16:13:05.6507629+05:30;True|2023-07-15T10:14:27.7749752+05:30;True|2023-07-14T11:32:03.9287712+05:30;True|2023-07-12T15:58:02.5214916+05:30;True|2023-06-29T16:49:33.4069619+05:30;False|2023-06-29T16:49:07.4519265+05:30;True|2023-06-27T11:44:27.2707366+05:30;True|2023-04-06T09:56:35.5485745+05:30;False|2023-04-06T09:56:18.9328465+05:30;True|2023-03-30T15:49:57.7676422+05:30;False|2023-03-30T15:49:27.1401743+05:30;True|2023-03-30T14:34:39.6832686+05:30;True|2023-03-24T18:36:50.5618308+05:30;False|2023-02-14T10:25:28.7249535+05:30;False|2023-02-01T11:10:43.5594616+05:30;True|2023-01-31T10:45:27.8905014+05:30;True|2023-01-31T09:54:02.7197528+05:30;False|2023-01-31T09:53:50.7762513+05:30;False|2023-01-24T18:23:05.7177383+05:30;True|2023-01-23T12:04:46.0814806+05:30;False|2023-01-23T12:04:23.5115749+05:30;True|2023-01-21T22:55:06.4874493+05:30;False|2023-01-21T22:54:40.6061644+05:30;</History>
-    <_PublishTargetUrl>D:\PublishedCode\Dealer Published Code\18July23\MultiBrand_20July23</_PublishTargetUrl>
+    <History>False|2023-10-12T12:23:28.1430805Z;True|2023-10-11T10:43:06.3368327+05:30;False|2023-10-11T10:42:48.0305680+05:30;True|2023-09-14T10:32:50.6037657+05:30;False|2023-09-14T10:32:25.8117530+05:30;True|2023-09-06T10:54:02.2689533+05:30;False|2023-09-06T10:53:49.2430876+05:30;True|2023-08-22T15:41:40.3978203+05:30;True|2023-08-21T11:33:23.0342354+05:30;True|2023-07-20T23:02:17.9287366+05:30;True|2023-07-20T17:40:45.8594657+05:30;True|2023-07-17T12:15:09.3234417+05:30;True|2023-07-15T16:13:23.9339494+05:30;False|2023-07-15T16:13:05.6507629+05:30;True|2023-07-15T10:14:27.7749752+05:30;True|2023-07-14T11:32:03.9287712+05:30;True|2023-07-12T15:58:02.5214916+05:30;True|2023-06-29T16:49:33.4069619+05:30;False|2023-06-29T16:49:07.4519265+05:30;True|2023-06-27T11:44:27.2707366+05:30;True|2023-04-06T09:56:35.5485745+05:30;False|2023-04-06T09:56:18.9328465+05:30;True|2023-03-30T15:49:57.7676422+05:30;False|2023-03-30T15:49:27.1401743+05:30;True|2023-03-30T14:34:39.6832686+05:30;True|2023-03-24T18:36:50.5618308+05:30;False|2023-02-14T10:25:28.7249535+05:30;False|2023-02-01T11:10:43.5594616+05:30;True|2023-01-31T10:45:27.8905014+05:30;True|2023-01-31T09:54:02.7197528+05:30;False|2023-01-31T09:53:50.7762513+05:30;False|2023-01-24T18:23:05.7177383+05:30;True|2023-01-23T12:04:46.0814806+05:30;False|2023-01-23T12:04:23.5115749+05:30;True|2023-01-21T22:55:06.4874493+05:30;False|2023-01-21T22:54:40.6061644+05:30;</History>
+    <_PublishTargetUrl>D:\PublishedCode\Dealer Published Code\12Oct23\MultiBrand</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Themes/default/.DS_Store">
@@ -450,13 +450,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/28/2016 10:03:16</publishTime>
     </File>
     <File Include="bin/HSRP.dll">
-      <publishTime>07/20/2023 23:02:12</publishTime>
+      <publishTime>10/12/2023 17:56:01</publishTime>
     </File>
     <File Include="bin/HSRP.dll.config">
-      <publishTime>06/23/2023 14:26:58</publishTime>
+      <publishTime>10/05/2023 12:03:25</publishTime>
     </File>
     <File Include="bin/HSRP.pdb">
-      <publishTime>07/20/2023 23:02:12</publishTime>
+      <publishTime>10/12/2023 17:56:01</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>01/10/2013 16:59:48</publishTime>
@@ -4767,7 +4767,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/01/2023 10:11:37</publishTime>
     </File>
     <File Include="Login_OLD.aspx">
-      <publishTime>01/24/2023 18:21:07</publishTime>
+      <publishTime>10/10/2023 15:21:13</publishTime>
     </File>
     <File Include="LogOut.aspx">
       <publishTime>02/15/2019 12:41:10</publishTime>
@@ -4776,7 +4776,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/25/2023 17:05:27</publishTime>
     </File>
     <File Include="MainNew.Master">
-      <publishTime>12/05/2022 12:55:22</publishTime>
+      <publishTime>10/10/2023 15:21:39</publishTime>
     </File>
     <File Include="Master/ChangePassword.aspx">
       <publishTime>01/18/2017 16:48:00</publishTime>
@@ -5193,7 +5193,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/08/2021 10:56:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/27/2023 11:44:25</publishTime>
+      <publishTime>10/06/2023 10:33:44</publishTime>
     </File>
     <File Include="windowfiles/bird.jpg">
       <publishTime>06/26/2012 17:21:50</publishTime>

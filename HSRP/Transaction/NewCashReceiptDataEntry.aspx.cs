@@ -54,7 +54,6 @@ namespace HSRP.Transaction
         string GSTIN = string.Empty;
         int length;
         string delaerId = string.Empty;
-        string oemId = string.Empty;
         string specialChar = @"'€";
         string specialCharCE = @"'€";
         string checkQuery = string.Empty;
@@ -237,7 +236,7 @@ namespace HSRP.Transaction
             btnGO2.Visible = true;
             btnAdd2.Visible = false;
             btnSave2.Visible = false;
-            btnPrint.Visible = true;
+            btnPrint.Visible = false;
             lblpincode.Visible = false;
             txtpincode.Visible = false;
             InitialSetting();
@@ -399,6 +398,7 @@ namespace HSRP.Transaction
 
         protected void btnSave2_Click(object sender, EventArgs e)
         {
+            #region fields validation check
             if (txtRegNumber.Text.Trim() == "")
             {
                 lblErrMess.Visible = true;
@@ -565,6 +565,7 @@ namespace HSRP.Transaction
 
             }
 
+            #endregion
 
             url = HttpContext.Current.Request.Url.AbsoluteUri;
 
@@ -610,14 +611,11 @@ namespace HSRP.Transaction
             strToDateString = HSRPAuthDate.SelectedDate.ToShortDateString() + " 00:00:00";
 
             //string specialCharCE = @" \|{}%_!'#$%&'()+,‐./:;<=>?@<>@^£§€";
-
-            string validDatetime = "2019-04-01";
-            string WBvalidDatetime = "2020-02-01";
-
+            
             try
             {
-
-
+                #region Registration Date Validation Check
+                
                 DateTime CurrentDatetime = System.DateTime.Now;
                 if (Convert.ToDateTime(strFrmDateString) > CurrentDatetime)
                 {
@@ -632,43 +630,9 @@ namespace HSRP.Transaction
                     lblErrMess.Text = "Date of Manufacture can not be greater than current date!";
                     return;
                 }
-                oemId = Session["oemid"].ToString();
 
-
-                if (oemId == "7")
-                {
-                    string validChassisno = txtChassisno.Text.Trim().ToString();
-
-                    int lengthchassis = validChassisno.Length;
-
-                    if (lengthchassis < 17)
-                    {
-
-                        lblErrMess.Visible = true;
-                        lblErrMess.Text = "Chassisno length should be 17 digits!";
-                        return;
-                    }
-                    else
-                    {
-                        if (lengthchassis == 17)
-                        {
-                            string strchassislastdigit = validChassisno.Substring(16, 1);
-                            int n;
-                            bool isNumeric = int.TryParse(strchassislastdigit, out n);
-
-                            if (isNumeric == false)
-                            {
-                                lblErrMess.Visible = true;
-                                lblErrMess.Text = "Chassis no last digit should be numeric!";
-                                return;
-
-                            }
-                        }
-
-                    }
-
-                }
-
+                #endregion
+                
                 string VehicleRego = txtRegNumber.Text.ToString().Trim();
                 string Chassisno = txtChassisno.Text.Trim().ToString();
                 string strChassisno = Chassisno.Substring(Chassisno.Length - 5, 5);
@@ -678,10 +642,10 @@ namespace HSRP.Transaction
 
                 string responseJson = rosmerta_API_2(txtRegNumber.Text.ToString().Trim().ToUpper(), strChassisno, strEngineno, "5UwoklBqiW");
                 VehicleDetails _vd = JsonConvert.DeserializeObject<VehicleDetails>(responseJson);
-
                
                 QryFindOEMName = @"select OEMID,OemName from oemvahanmapping WHERE OemName='" + _vd.maker + "'";
                 DataTable dt = Utils.GetDataTable(QryFindOEMName, ConnectionString);
+
                 if(dt.Rows.Count > 0)
                 {
                     oemid = dt.Rows[0]["OEMID"].ToString();
@@ -693,7 +657,7 @@ namespace HSRP.Transaction
                     return;
                 }
 
-
+                #region Rosmerta API Commented
                 if ((txtChassisno.Text.Trim().ToString() != "") && (txtRegNumber.ToString().Trim() != "") && (txtEngineNo.Text.Trim() != ""))
                 {
                     string response = string.Empty;
@@ -710,8 +674,8 @@ namespace HSRP.Transaction
 
                     delaerId = Session["dealerid"].ToString();
 
+                   
                     //response = Utils.ValidationVehicleCHassisEngineno(VehicleRego, strChassisno, strEngineno, oemId, delaerId);
-
                     //if (response != "")
                     //{
                     //    if (response != "Vehicle Present and you are authorized vendor for this vehicle")
@@ -721,9 +685,11 @@ namespace HSRP.Transaction
                     //        return;
                     //    }
                     //}
+                    
                 }
+                #endregion
 
-
+                #region SMISUZU API
                 if ((txtChassisno.Text.Trim().ToString() != "") && (txtRegNumber.ToString().Trim() != "") && (txtEngineNo.Text.Trim() != "") && ((oemid == "23") || (oemid == "1241")))
                 {
 
@@ -737,9 +703,8 @@ namespace HSRP.Transaction
                         strEngineno = "NA";
                     }
 
-
                     delaerId = Session["dealerid"].ToString();
-
+                    
                     string responseJsonSML = SMLISUZU_API_2(Chassisno, Engineno);
 
                     if (responseJsonSML != "")
@@ -759,19 +724,16 @@ namespace HSRP.Transaction
                             lblErrMess.Text = "Invalid Chassis & Engine no!";
                             return;
                         }
-
-
-                    }
+                    }                    
                 }
+
+                #endregion
 
                 #region Vahan Validation checking (code edit by Ashok:22-01-2022)
 
                 string strIsvahan = @"select isVahan from Dealermaster where dealerid = '" + dealerid + "'";
-
                 DataTable dtchkIsvahan = Utils.GetDataTable(strIsvahan, ConnectionString);
-
-                //if((HSRPStateID != "10" && HSRPStateID != "5" && HSRPStateID != "9") &&(dtchkIsvahan.Rows[0]["IsVahan"].ToString()=="Y"))
-                string VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+                string VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim().ToUpper();
 
                 if ((HSRPStateID != "10") && (VehicleRegoE != "TS") && (dtchkIsvahan.Rows[0]["IsVahan"].ToString() == "Y"))
                 {
@@ -781,12 +743,12 @@ namespace HSRP.Transaction
                         {
                             strEngineno = Engineno.Substring(Engineno.Length - 5, 5);
                         }
-                        string SkipOemName = SkipOemName = @"select VEHICLETYPE from OEMMaster where OEMID = '" + oemId + "'";
+                        
+                        string SkipOemName = SkipOemName = @"select VEHICLETYPE from OEMMaster where OEMID = '" + oemid + "'";
 
                         DataTable dtchk = Utils.GetDataTable(SkipOemName, ConnectionString);
                         if (dtchk.Rows[0]["VEHICLETYPE"].ToString().Trim() != "Trailer & Trolley Supplement")
                         {
-
                             string maker = _vd.maker;
                             string fueltype = _vd.fuel;
                             string vahanstatus = _vd.message;
@@ -794,20 +756,14 @@ namespace HSRP.Transaction
                             string vehicletype = _vd.vchType;
                             string vehiclecatg = _vd.vchCatg;
                             string regdate = _vd.regnDate;
-
                             string strquery = string.Empty;
+                            string vehcatg = _vd.vchCatg;
 
                             strquery = "insert into VahanLog values('" + dealerid + "','" + oemid + "','" + vahanstatus + "','" + fueltype + "','" + maker + "','" + vehicletype + "','" + norms + "','" + vehiclecatg + "','" + regdate + "','" + USERID + "', getdate(),'" + txtRegNumber.Text + "','" + txtChassisno.Text + "','" + txtEngineNo.Text + "')";
                             Utils.ExecNonQuery(strquery, ConnectionString);
 
                             string InPutRegdate = Convert.ToDateTime(strFrmDateString).ToString("yyyy-MM-dd");
-
-                            string vehcatg = _vd.vchCatg;
-
-
-
-                            // maker1 = dt.Rows[0]["OemName"].ToString();
-
+                           
                             if (dt.Rows.Count > 0)
                             {
                                 for (int i = 0; i <= dt.Rows.Count - 1; i++)
@@ -818,14 +774,11 @@ namespace HSRP.Transaction
                                     {
                                         IS_OEM_Name_Match = "Y";
                                         break;
-
                                     }
                                     else
                                     {
                                         IS_OEM_Name_Match = "N";
-
                                     }
-
                                 }
                             }
 
@@ -838,7 +791,6 @@ namespace HSRP.Transaction
                                 lblErrMess.Text = "Vehicle details not available in Vahan";
                                 return;
                             }
-
 
                             else
                             {
@@ -902,35 +854,24 @@ namespace HSRP.Transaction
 
                 #endregion
 
+                #region Combination of vehicle no, chassis no & engine no Validation Check
 
                 string Chassisno1 = txtChassisno.Text.Trim().ToString();
                 string strChassisno1 = Chassisno1.Substring(Chassisno1.Length - 5, 5);
                 string Engineno1 = txtEngineNo.Text.ToString().Trim();
-                string strEngineno1 = "";
+                string strEngineno1 = Engineno1.Substring(Engineno1.Length - 5, 5);
                 DataTable dtregno = new DataTable();
                 DataTable dtregnoHR = new DataTable();
-                if (Engineno1 != "NA")
-                {
-                    strEngineno1 = Engineno1.Substring(Engineno1.Length - 5, 5);
-                }
+                DataTable dtregnoHRDemo = new DataTable();
+               
+                Query = "select top 1 vehicleregno from hsrprecords where vehicleregno = '" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) = '" + strChassisno1 + "' and right(engineno,5) = '" + strEngineno1 + "'";
+                string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where vehicleregno = '" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) = '" + strChassisno1 + "' and right(engineno,5) = '" + strEngineno1 + "'";
+                string QueryHRDemo = "select top 1 vehicleregno from HSRPRecords where vehicleregno = '" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) = '" + strChassisno1 + "' and right(engineno,5) = '" + strEngineno1 + "'";
+                dtregno = Utils.GetDataTable(Query, ConnectionString);
+                dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
+                dtregnoHRDemo = Utils.GetDataTable(QueryHRDemo, ConnectionStringHR);
 
-                if (Engineno1 == "NA")
-                {
-                    Query = "select top 1 vehicleregno from hsrprecords where  vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) ='" + strChassisno1 + "'   ";
-                    string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where  vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) ='" + strChassisno1 + "'   ";
-                    dtregno = Utils.GetDataTable(Query, ConnectionString);
-                    dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                }
-
-                if (Engineno1 != "NA")
-                {
-                    Query = "select top 1 vehicleregno from hsrprecords where  vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) ='" + strChassisno1 + "' and right(engineno,5) ='" + strEngineno1 + "'  ";
-                    string QueryHR = "select top 1 vehicleregno from HSRPRecords_HR where  vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and right(ChassisNo,5) ='" + strChassisno1 + "' and right(engineno,5) ='" + strEngineno1 + "'  ";
-                    dtregno = Utils.GetDataTable(Query, ConnectionString);
-                    dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                }
-
-                if ((dtregno.Rows.Count > 0) || (dtregnoHR.Rows.Count > 0))
+                if ((dtregno.Rows.Count > 0) || (dtregnoHR.Rows.Count > 0) || (dtregnoHRDemo.Rows.Count > 0))
                 {
                     lblSucMess.Visible = false;
                     lblErrMess.Visible = true;
@@ -938,6 +879,9 @@ namespace HSRP.Transaction
                     return;
                 }
 
+                #endregion
+
+                #region Amount Vaidation Check
 
                 string fixcharge = "0.00";
                 string SQLfixcharge = " select top 1 Dealerid  from dealermaster where dealerid='" + dealerid.ToString() + "'";
@@ -1061,6 +1005,8 @@ namespace HSRP.Transaction
 
                 decimal newRates = Convert.ToDecimal(dtrates.Rows[0]["roundoff_netamount"].ToString()) + fitmentCharges;
 
+                #endregion
+
                 //int availableamount = Convert.ToInt32(availableBlanace());
                 //if (availableamount < Convert.ToInt32(Math.Round(decimal.Parse(dtrates.Rows[0]["roundoff_netamount"].ToString()), 0) + fitmentCharges))
                 //{ 
@@ -1090,6 +1036,9 @@ namespace HSRP.Transaction
                 {
                     hsrprecord_authorizationno = "0";
                 }
+
+
+                #region Database Insertion
 
                 DataTable dt1 = new DataTable();
                 string query1 = string.Empty;
@@ -1332,16 +1281,17 @@ namespace HSRP.Transaction
                     lblErrMess.Visible = false;
                     lblSucMess.Text = "Order Saved Successfully, Rate Charged : " + newRates;
                     //lblavailbal.Text = availableBlanace();                                                          
-                    GenerateInvoice(txtRegNumber.Text.ToString(), newStateid);
+                    //GenerateInvoice(txtRegNumber.Text.ToString(), newStateid);
                     Cleardatasave();
                 }
                 else
                 {
                     lblErrMess.Visible = true;
-                    lblErrMess.Text = "Something went wrong, Please contact administrator.";
+                    lblErrMess.Text = "Something went wrong, please contact administrator.";
                     return;
                 }
 
+                #endregion
             }
             catch (Exception ex)
             {
@@ -1366,8 +1316,6 @@ namespace HSRP.Transaction
         public string rosmerta_API_2(string vehRegNo, string chasiNo, string EngineNo, string Key)
         {
             string html = string.Empty;
-
-
             string decryptedString = string.Empty;
 
             try
@@ -1385,13 +1333,11 @@ namespace HSRP.Transaction
                     html = reader.ReadToEnd();
 
                 }
-
             }
             catch (Exception ev)
             {
                 html = "Error While Calling Vahan Service - " + ev.Message;
             }
-
 
             return html;
         }
@@ -1405,10 +1351,7 @@ namespace HSRP.Transaction
             string serverPassword = "kjhuiu567@";
             string html = string.Empty;
             //string responseJson = "";
-
-
             string decryptedString = string.Empty;
-
 
             SMLService.RssplService mService = new SMLService.RssplService();
             mService.Url = SOAP_Prefix;
@@ -1646,15 +1589,14 @@ namespace HSRP.Transaction
 
         protected void txtRegNumber_TextChanged(object sender, EventArgs e)
         {
-
             string VehicleRegoE = "";
+            
             string strIsvahan = @"select isVahan from Dealermaster where dealerid = '" + dealerid + "'";
-
             DataTable dtchkIsvahan = Utils.GetDataTable(strIsvahan, ConnectionString);
-
+            
             string SkipVehicleType = @"select VEHICLETYPE from OEMMaster where OEMID = '" + oemid + "'";
-
             DataTable dtchkVehicleType = Utils.GetDataTable(SkipVehicleType, ConnectionString);
+            
             if (txtRegNumber.Text.Trim() != "")
             {
                 string strVehicleNo = txtRegNumber.Text.Trim();
@@ -1668,7 +1610,7 @@ namespace HSRP.Transaction
 
             if (txtRegNumber.Text != "")
             {
-                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim().ToUpper();
             }
 
             if ((txtRegNumber.Text != "") && (VehicleRegoE == "TS") || (dtchkVehicleType.Rows[0]["VEHICLETYPE"].ToString().Trim() == "Trailer & Trolley Supplement") || (dtchkIsvahan.Rows[0]["IsVahan"].ToString() == "N"))
@@ -1797,7 +1739,7 @@ namespace HSRP.Transaction
                         sbTable.Append("<td rowspan=2><img src='" + ReceiptPathQRCode + "' id='img_qrcode'></td>");
                         sbTable.Append("</tr>");
 
-                        sbTable.Append("<tr><td><p>HSRP Online Appointment Transaction Reciept <br> Rosmerta Safety Systems Pvt. Ltd.</p></td></tr>");
+                        sbTable.Append("<tr><td><p>HSRP Online Appointment Transaction Reciept <br> Rosmerta Safety Systems Ltd.</p></td></tr>");
                         sbTable.Append("</table>");
 
                         sbTable.Append("<table>");

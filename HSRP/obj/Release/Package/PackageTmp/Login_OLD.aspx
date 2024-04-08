@@ -153,7 +153,7 @@
             <div class="wrap-login100">
                 <asp:Label runat="server" ID="Label1" Text="Dealer Support Numbers: 9205180518<span> | </span>9205580558" ForeColor="Green" Style="color: Green; font-size: 14px; font-weight: bold; float: right; position: relative; right: 11px;" Visible="true"></asp:Label>
                 <marquee behavior="alternate" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-                    <%--<asp:Label runat="server" ID="msg" Text="Name of the company has changed from Utsav Safety Systems Pvt. Ltd. to Rosmerta Safety Systems Pvt. Ltd." ForeColor="Green" style="color: Green;font-size: 18px;font-weight: bold;" Visible="true" ></asp:Label>--%>
+                    <%--<asp:Label runat="server" ID="msg" Text="Name of the company has changed from Utsav Safety Systems Ltd. to Rosmerta Safety Systems Ltd." ForeColor="Green" style="color: Green;font-size: 18px;font-weight: bold;" Visible="true" ></asp:Label>--%>
                 </marquee>
                 <div class="login100-form validate-form">
                     <%-- <a href="http://utsavhsrp.com/oemlist.html" style="height: 31px; width: 201px; margin-left: 65%; margin-top: -25%; color: #e45225;" target="_blank">Register as Dealer</a>--%>

@@ -567,7 +567,7 @@ namespace HSRP.Transaction
 
 
                     row.Cells.Add(new WorksheetCell("", "HeaderStyle3"));
-                    WorksheetCell cell = row.Cells.Add("ROSMERTA SAFETY SYSTEMS PRIVATE LIMITED");
+                    WorksheetCell cell = row.Cells.Add("ROSMERTA SAFETY SYSTEMS LIMITED");
                     cell.MergeAcross = 4; // Merge two cells together
                     cell.StyleID = "HeaderStyle3";
                     row = sheet.Table.Rows.Add();

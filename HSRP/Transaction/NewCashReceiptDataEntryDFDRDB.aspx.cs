@@ -56,7 +56,6 @@ namespace HSRP.Transaction
         string GSTIN = string.Empty;
         int length;
         string delaerId = string.Empty;
-        string oemId = string.Empty;
         string specialChar = @"'€";
         string specialCharCE = @"'€";
         string checkQuery = string.Empty;
@@ -248,6 +247,10 @@ namespace HSRP.Transaction
             lblpincode.Visible = false;
             txtpincode.Visible = false;
             InitialSetting();
+            HiddenFIR.Value = null;
+            HiddenRCPath.Value = null;
+            HiddenFlaser.Value = null;
+            HiddenRearLaser.Value = null;
 
             VehicleDetails _vd = new VehicleDetails();
             _vd.message = "";
@@ -391,12 +394,12 @@ namespace HSRP.Transaction
         {
             if (ddlOrderType.SelectedValue == "DB")
             {
-                divflaser.Visible = true;
-                divflaser2.Visible = true;
-                divrlaser.Visible = true;
-                divrlaser2.Visible = true;
+                divflaser.Visible = false;
+                divflaser2.Visible = false;
+                divrlaser.Visible = false;
+                divrlaser2.Visible = false;
             }
-            if(ddlOrderType.SelectedValue == "DF")
+            if (ddlOrderType.SelectedValue == "DF")
             {
                 divflaser.Visible = false;
                 divflaser2.Visible = false;
@@ -433,6 +436,8 @@ namespace HSRP.Transaction
 
         protected void btnSave2_Click(object sender, EventArgs e)
         {
+            #region Feilds Validation
+
             if (txtRegNumber.Text.Trim() == "")
             {
                 lblErrMess.Visible = true;
@@ -598,7 +603,9 @@ namespace HSRP.Transaction
                 }
 
             }
-          
+
+            #endregion
+
 
             #region Upload RC
             if (RcUploader.HasFile)
@@ -646,6 +653,7 @@ namespace HSRP.Transaction
                 return;
             }
             #endregion
+
 
             #region Upload FIR
             if (FIRUploader.HasFile)
@@ -699,7 +707,8 @@ namespace HSRP.Transaction
 
 
             #region Upload Front Laser
-            if((ddlOrderType.SelectedValue == "DB") || (ddlOrderType.SelectedValue == "DR"))
+            //if((ddlOrderType.SelectedValue == "DB") || (ddlOrderType.SelectedValue == "DR"))
+            if(ddlOrderType.SelectedValue == "DR")
             {
                 if (FileFrontlaser.HasFile)
                 {
@@ -753,7 +762,8 @@ namespace HSRP.Transaction
 
             #region Upload Rear Laser
 
-            if((ddlOrderType.SelectedValue == "DB") || (ddlOrderType.SelectedValue == "DF")) 
+            //if((ddlOrderType.SelectedValue == "DB") || (ddlOrderType.SelectedValue == "DF")) 
+            if(ddlOrderType.SelectedValue == "DF")
             {
                 if (FileRearLaser.HasFile)
                 {
@@ -852,13 +862,11 @@ namespace HSRP.Transaction
             strToDateString = HSRPAuthDate.SelectedDate.ToShortDateString() + " 00:00:00";
 
             //string specialCharCE = @" \|{}%_!'#$%&'()+,‐./:;<=>?@<>@^£§€";
-
             string validDatetime = "2019-04-01";
-            string WBvalidDatetime = "2020-02-01";
 
             try
             {
-
+                #region Registration Date Validation Check
 
                 DateTime CurrentDatetime = System.DateTime.Now;
                 if (Convert.ToDateTime(strFrmDateString) > CurrentDatetime)
@@ -874,43 +882,10 @@ namespace HSRP.Transaction
                     lblErrMess.Text = "Date of Manufacture can not be greater than current date!";
                     return;
                 }
-                oemId = Session["oemid"].ToString();
 
+                #endregion
 
-                if (oemId == "7")
-                {
-                    string validChassisno = txtChassisno.Text.Trim().ToString();
-
-                    int lengthchassis = validChassisno.Length;
-
-                    if (lengthchassis < 17)
-                    {
-
-                        lblErrMess.Visible = true;
-                        lblErrMess.Text = "Chassisno length should be 17 digits!";
-                        return;
-                    }
-                    else
-                    {
-                        if (lengthchassis == 17)
-                        {
-                            string strchassislastdigit = validChassisno.Substring(16, 1);
-                            int n;
-                            bool isNumeric = int.TryParse(strchassislastdigit, out n);
-
-                            if (isNumeric == false)
-                            {
-                                lblErrMess.Visible = true;
-                                lblErrMess.Text = "Chassis no last digit should be numeric!";
-                                return;
-
-                            }
-                        }
-
-                    }
-
-                }
-
+               
                 string VehicleRego = txtRegNumber.Text.ToString().Trim();
                 string Chassisno = txtChassisno.Text.Trim().ToString();
                 string strChassisno = Chassisno.Substring(Chassisno.Length - 5, 5);
@@ -935,7 +910,7 @@ namespace HSRP.Transaction
                     return;
                 }
 
-
+                #region Rosmerta API commented
                 if ((txtChassisno.Text.Trim().ToString() != "") && (txtRegNumber.ToString().Trim() != "") && (txtEngineNo.Text.Trim() != ""))
                 {
                     string response = string.Empty;
@@ -964,7 +939,9 @@ namespace HSRP.Transaction
                     //    }
                     //}
                 }
+                #endregion
 
+                #region SMLISUZU API
 
                 if ((txtChassisno.Text.Trim().ToString() != "") && (txtRegNumber.ToString().Trim() != "") && (txtEngineNo.Text.Trim() != "") && ((oemid == "23") || (oemid == "1241")))
                 {
@@ -1006,13 +983,14 @@ namespace HSRP.Transaction
                     }
                 }
 
+                #endregion
+
                 #region Vahan Validation checking (code edit by Ashok:22-01-2022)
 
                 string strIsvahan = @"select isVahan from Dealermaster where dealerid = '" + dealerid + "'";
 
                 DataTable dtchkIsvahan = Utils.GetDataTable(strIsvahan, ConnectionString);
 
-                //if((HSRPStateID != "10" && HSRPStateID != "5" && HSRPStateID != "9") &&(dtchkIsvahan.Rows[0]["IsVahan"].ToString()=="Y"))
                 string VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
 
                 if ((HSRPStateID != "10") && (VehicleRegoE != "TS") && (dtchkIsvahan.Rows[0]["IsVahan"].ToString() == "Y"))
@@ -1023,7 +1001,7 @@ namespace HSRP.Transaction
                         {
                             strEngineno = Engineno.Substring(Engineno.Length - 5, 5);
                         }
-                        string SkipOemName = SkipOemName = @"select VEHICLETYPE from OEMMaster where OEMID = '" + oemId + "'";
+                        string SkipOemName = SkipOemName = @"select VEHICLETYPE from OEMMaster where OEMID = '" + oemid + "'";
 
                         DataTable dtchk = Utils.GetDataTable(SkipOemName, ConnectionString);
                         if (dtchk.Rows[0]["VEHICLETYPE"].ToString().Trim() != "Trailer & Trolley Supplement")
@@ -1144,6 +1122,8 @@ namespace HSRP.Transaction
 
                 #endregion
 
+                #region Check Vehicle No. previous order not closed yet
+
                 string Query = "select ApprovedStatus from hsrprecords_ApprovalMB where VehicleRegNo = '"+ VehicleRego + "' and ApprovedStatus = 'N'";
                 dt = Utils.GetDataTable(Query,ConnectionString);
                 if(dt.Rows.Count > 0)
@@ -1155,31 +1135,32 @@ namespace HSRP.Transaction
 
                 string Chassisno1 = txtChassisno.Text.Trim().ToString();                
                 string Engineno1 = txtEngineNo.Text.ToString().Trim();
-                string strEngineno1 = "";
+                string strEngineno1 = Engineno1.Substring(Engineno1.Length - 5, 5);
                 DataTable dtregno = new DataTable();
                 DataTable dtregnoHR = new DataTable();
+                DataTable dtregnoHRDemo = new DataTable();
                 string QueryHR = string.Empty;
-                if (Engineno1 != "NA")
-                {
-                    strEngineno1 = Engineno1.Substring(Engineno1.Length - 5, 5);
-                }               
-
+                string QueryHRDemo = string.Empty;
+                
                 Query = "select vehicleregno from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "'";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 QueryHR = "select vehicleregno from hsrprecords_HR where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "'";
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                if ((dtregnoHR.Rows.Count == 0) && (dtregno.Rows.Count == 0))
+                QueryHRDemo = "select vehicleregno from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "'";
+                dtregnoHRDemo = Utils.GetDataTable(QueryHRDemo, ConnectionStringHR);
+
+                if ((dtregno.Rows.Count == 0) && (dtregnoHR.Rows.Count == 0) && (dtregnoHRDemo.Rows.Count == 0))
                 {
                     lblErrMess.Visible = true;
                     lblErrMess.Text = "Please book order through NB screen.";
                     return;
                 }
 
-
-                Query = "select  vehicleregno, orderstatus,challandate from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and orderstatus <>'Closed' order by HSRPRecordId desc";
-                QueryHR = "select  vehicleregno, orderstatus,challandate from hsrprecords_HR where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and orderstatus <>'Closed' order by HSRPRecordId desc";
+                Query = "select vehicleregno, orderstatus, challandate from hsrprecords where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and orderstatus <>'Closed' order by HSRPRecordId desc";
+                QueryHR = "select vehicleregno, orderstatus, challandate from hsrprecords_HR where vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' and orderstatus <>'Closed' order by HSRPRecordId desc";
                 dtregno = Utils.GetDataTable(Query, ConnectionString);
                 dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
+                
                 if ((dtregno.Rows.Count > 0) || (dtregnoHR.Rows.Count > 0))
                 {
                     lblErrMess.Visible = true;
@@ -1187,18 +1168,20 @@ namespace HSRP.Transaction
                     return;
                 }
 
-                Query = "select top 1 vehicleregno from hsrprecords h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' )  ";
-                QueryHR = "select top 1 vehicleregno from hsrprecords_HR h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' ) ";
-                dtregno = Utils.GetDataTable(Query, ConnectionString);
-                dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
-                if ((dtregno.Rows.Count == 0) && (dtregnoHR.Rows.Count == 0))
-                {
-                    lblErrMess.Visible = true;
-                    lblErrMess.Text = "New Order is  not available  for this Dealer!";
-                    return;
-                }
+                //Query = "select top 1 vehicleregno from hsrprecords h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' )  ";
+                //QueryHR = "select top 1 vehicleregno from hsrprecords_HR h join Dealermaster d on  h.dealerid=d.dealerid  where (vehicleregno ='" + txtRegNumber.Text.Trim().ToString() + "' or chassisno='" + txtChassisno.Text.Trim().ToString() + "' ) ";
+                //dtregno = Utils.GetDataTable(Query, ConnectionString);
+                //dtregnoHR = Utils.GetDataTable(QueryHR, ConnectionString);
+                //if ((dtregno.Rows.Count == 0) && (dtregnoHR.Rows.Count == 0))
+                //{
+                //    lblErrMess.Visible = true;
+                //    lblErrMess.Text = "New Order is  not available  for this Dealer!";
+                //    return;
+                //}
 
+                #endregion
 
+                #region Amount Validation Check
                 string fixcharge = "0.00";
                 string SQLfixcharge = " select top 1 Dealerid  from dealermaster where dealerid='" + dealerid.ToString() + "'";
                 DataTable dt11 = Utils.GetDataTable(SQLfixcharge, ConnectionString);
@@ -1228,7 +1211,7 @@ namespace HSRP.Transaction
                 decimal fitmentCharges = Convert.ToDecimal(dtCharges.Rows[0]["Charges"].ToString());
                 string newStateid = "";
                 DataTable dtrates = new DataTable();
-                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim().ToUpper();
                
                 try
                 {
@@ -1316,6 +1299,7 @@ namespace HSRP.Transaction
                 }
 
                 decimal newRates = Convert.ToDecimal(dtrates.Rows[0]["roundoff_netamount"].ToString()) + fitmentCharges;
+                #endregion
 
                 //int availableamount = Convert.ToInt32(availableBlanace());
                 //if (availableamount < Convert.ToInt32(Math.Round(decimal.Parse(dtrates.Rows[0]["roundoff_netamount"].ToString()), 0) + fitmentCharges))
@@ -1347,6 +1331,7 @@ namespace HSRP.Transaction
                     hsrprecord_authorizationno = "0";
                 }
 
+                #region Database Insertion
 
                 string rcFileName = HiddenRCPath.Value;
                 string firFileName = HiddenFIR.Value;
@@ -1495,6 +1480,8 @@ namespace HSRP.Transaction
                     lblErrMess.Text = "Something went wrong, Please contact administrator.";
                     return;
                 }
+
+                #endregion
 
             }
             catch (Exception ex)
@@ -1832,7 +1819,7 @@ namespace HSRP.Transaction
 
             if (txtRegNumber.Text != "")
             {
-                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim();
+                VehicleRegoE = txtRegNumber.Text.ToString().Substring(0, 2).Trim().ToUpper();
             }
 
             if ((txtRegNumber.Text != "") && (VehicleRegoE == "TS") || (dtchkVehicleType.Rows[0]["VEHICLETYPE"].ToString().Trim() == "Trailer & Trolley Supplement") || (dtchkIsvahan.Rows[0]["IsVahan"].ToString() == "N"))
@@ -1960,7 +1947,7 @@ namespace HSRP.Transaction
                         sbTable.Append("<td rowspan=2><img src='" + ReceiptPathQRCode + "' id='img_qrcode'></td>");
                         sbTable.Append("</tr>");
 
-                        sbTable.Append("<tr><td><p>HSRP Online Appointment Transaction Reciept <br> Rosmerta Safety Systems Pvt. Ltd.</p></td></tr>");
+                        sbTable.Append("<tr><td><p>HSRP Online Appointment Transaction Reciept <br> Rosmerta Safety Systems Ltd.</p></td></tr>");
                         sbTable.Append("</table>");
 
                         sbTable.Append("<table>");

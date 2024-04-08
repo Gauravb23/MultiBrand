@@ -1598,3 +1598,9 @@ D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Deb
 D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Debug\DataProvider.csproj.CoreCompileInputs.cache
 D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Debug\DataProvider.dll
 D:\All Latest Dealer Portals\Latest Code 28May22\MultiBrand\DataProvider\obj\Debug\DataProvider.pdb
+D:\GitHub-2022\MultiBrand\DataProvider\bin\Debug\DataProvider.dll
+D:\GitHub-2022\MultiBrand\DataProvider\bin\Debug\DataProvider.pdb
+D:\GitHub-2022\MultiBrand\DataProvider\obj\Debug\DataProvider.csproj.AssemblyReference.cache
+D:\GitHub-2022\MultiBrand\DataProvider\obj\Debug\DataProvider.csproj.CoreCompileInputs.cache
+D:\GitHub-2022\MultiBrand\DataProvider\obj\Debug\DataProvider.dll
+D:\GitHub-2022\MultiBrand\DataProvider\obj\Debug\DataProvider.pdb

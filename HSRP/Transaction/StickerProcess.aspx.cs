@@ -563,7 +563,7 @@ namespace HSRP.Transaction
                 catch (Exception ex)
                 {
                     lblErrMess.Visible = true;
-                    lblErrMess.Text = "Soemthing went wrong while validating with vahan!";
+                    lblErrMess.Text = "Something went wrong while validating with vahan!";
                     return;
                 }
             }

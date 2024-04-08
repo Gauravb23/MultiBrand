@@ -59,7 +59,7 @@
 
                                                      <asp:Label runat="server" ID="Label1" Text="Dealer Support Numbers: 9205180518<span> | </span>9205580558" ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;  float:right;position:relative;right:11px;"  Visible="true"  ></asp:Label> 
                                              
-                                                     <asp:Label runat="server" ID="msg" Text="Name of the company has changed from Utsav Safety Systems Pvt. Ltd. to Rosmerta Safety Systems Pvt. Ltd." ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
+                                                     <asp:Label runat="server" ID="msg" Text="Name of the company has changed from Utsav Safety Systems Pvt. Ltd. to Rosmerta Safety Systems Ltd." ForeColor="White" style="color: White;font-size: 14px;font-weight: bold;" Visible="true" ></asp:Label>
                                  <a style="color:White" href="../Data/ROC_ NAME_ CHANE_CERTIFCATE.pdf" >Download</a> 
 
                                              
@@ -200,7 +200,7 @@
                                                 <ul>
                                                     <li>
                                                         <div class="baseRichText">
-                                                            <p>ROSMERTA SAFETY SYSTEMS PVT. LTD.</p>
+                                                            <p>ROSMERTA SAFETY SYSTEMS LTD.</p>
                                                         </div>
                                                     </li>
 
